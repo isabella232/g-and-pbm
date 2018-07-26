@@ -49,6 +49,8 @@ view: mapping_type_click_performance_rtb {
     type: time
     sql: ${TABLE}.event_date ;;
     timeframes: [date,day_of_week,week,month]
+    convert_tz: no
+    datatype: date
   }
 
   dimension: bidder_id {
@@ -100,6 +102,38 @@ view: mapping_type_click_performance_rtb {
     group_label: "IDaaS"
   }
 
+  dimension: is_deterministic_algorithm {
+    type: yesno
+    sql: ${algorithm_name} LIKE 'd/%' AND ${algorithm_name} <> 'd/sourced' ;;
+    description: "Algorithm generates pairings from deterministic methods using first party data"
+    hidden: yes
+  }
+
+  dimension: is_third_party_algorithm {
+    type: yesno
+    sql: ${algorithm_name} IN ('d/sourced','lrxd') ;;
+    description: "Algorithm sources pairings from third party providers"
+    hidden: yes
+
+  }
+
+  dimension: is_probability_algorithm {
+    type: yesno
+    sql: NOT(${is_deterministic_algorithm} OR ${is_third_party_algorithm}) ;;
+    description: "Algorithm generates pairings from probabilistic methods using first party data"
+    hidden: yes
+  }
+
+  dimension: algorithm_classification_type {
+    type: string
+    sql: CASE WHEN ${is_third_party_algorithm} THEN 'Third Party Type'
+              WHEN ${is_deterministic_algorithm} THEN 'First Party Deterministic Type'
+              WHEN ${is_probability_algorithm} THEN 'Probabilistic Type'
+              ELSE 'No Type'
+              END ;;
+    description: "General algorithm groupings based on how pairings are generated"
+  }
+
   measure: impressions {
     type: sum
     sql: ${TABLE}.impressions ;;
@@ -125,6 +159,13 @@ view: mapping_type_click_performance_rtb {
     type: number
     sql: ${clicks}/CAST(NULLIF(${impressions},0) AS FLOAT64) ;;
     value_format_name: percent_2
+  }
+
+  measure: gross_ecpm {
+    type: number
+    sql: ${gross_revenue}/CAST(NULLIF(${impressions},0) AS FLOAT64) * 1000;;
+    value_format_name: usd
+    label: "Gross eCPM"
   }
 
   set: detail {
