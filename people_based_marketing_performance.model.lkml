@@ -25,3 +25,7 @@ explore: mapping_type_performance_pbm {
 explore: order_id_and_skus {
 
 }
+
+explore: kohls_test {
+label: "Kohl's SKU"
+}
