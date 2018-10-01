@@ -30,3 +30,7 @@ explore: app_ids_with_multiple_domains {
 }
 
 explore: alert_app_id_new_secondary_domains {}
+
+explore: active_hash_volume {
+
+}

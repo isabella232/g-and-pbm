@@ -11,6 +11,7 @@ view: mapping_type_click_performance_rtb {
       a.root.idaas_group,
       COUNT(*) impressions,
       SUM(a.root.advertiser_spent) advertiser_spend,
+      SUM(a.root.publisher_revenue) publisher_revenue,
       SUM(b.clicks) clicks
       FROM `userver_logs_ssp.imp_*` a
       LEFT JOIN (
@@ -166,6 +167,17 @@ view: mapping_type_click_performance_rtb {
     sql: ${gross_revenue}/CAST(NULLIF(${impressions},0) AS FLOAT64) * 1000;;
     value_format_name: usd
     label: "Gross eCPM"
+  }
+
+  measure: net_revenue {
+    type: sum
+    sql: ${TABLE}.publisher_revenue ;;
+    value_format_name: usd
+  }
+
+  measure: margin_per_impression {
+    type: number
+    sql: (${gross_revenue} - ${net_revenue})/CAST(NULLIF(${impressions},0) AS FLOAT64) ;;
   }
 
   set: detail {
