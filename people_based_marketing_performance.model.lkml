@@ -29,3 +29,5 @@ explore: order_id_and_skus {
 explore: kohls_test {
 label: "Kohl's SKU"
 }
+
+explore: copenhagen_revenue {}
