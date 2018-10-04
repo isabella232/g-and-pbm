@@ -180,6 +180,11 @@ view: mapping_type_click_performance_rtb {
     sql: (${gross_revenue} - ${net_revenue})/CAST(NULLIF(${impressions},0) AS FLOAT64) ;;
   }
 
+  measure: count_classes {
+    type: count_distinct
+    sql: ${algorithm_name} ;;
+  }
+
   set: detail {
     fields: [
       event_date,

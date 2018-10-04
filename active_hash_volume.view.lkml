@@ -43,4 +43,8 @@ view: active_hash_volume {
     sql: ${TABLE}.pairs ;;
   }
 
+  measure: count_classes {
+    type: count_distinct
+    sql: ${mapping_type} ;;
+  }
 }
