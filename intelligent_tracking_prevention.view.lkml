@@ -112,7 +112,7 @@ view: intelligent_tracking_prevention {
 
   measure: conversion_to_pixel_ratio {
     type: number
-    sql: ${conversion_impressions}/CAST(NULLIF(${pixel_impressions},0) AS FLOAT64) ;;
+    sql: ${conversion_impressions}/CAST(NULLIF(${pixel_impressions}+${conversion_impressions},0) AS FLOAT64) ;;
     value_format_name: percent_2
     description: "Conversion Impressions ÷ Pixel Impressions"
   }

@@ -110,4 +110,10 @@ view: mapping_type_performance_pbm {
     sql: ${TABLE}.conversions ;;
     group_label: "Summations"
   }
+
+  measure: count_algorithm {
+    type: count_distinct
+    sql: ${algorithm} ;;
+    group_label: "Counts"
+  }
 }
