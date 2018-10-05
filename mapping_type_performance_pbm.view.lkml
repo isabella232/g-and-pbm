@@ -38,7 +38,7 @@ view: mapping_type_performance_pbm {
               WHEN ${mapping_type_score} = 0.8 THEN 'Acc'
               WHEN ${mapping_type_score} = 0.7 THEN 'Accx'
               WHEN ${mapping_type_score} = 0.6 THEN '3m'
-              WHEN ${mapping_type_score} = 0.5 THEN 'Lrxd'
+              WHEN ${mapping_type_score} = 0.5 THEN 'LRXD'
               WHEN ${mapping_type_score} = 0.3 THEN 'Max'
               WHEN ${mapping_type_score} = 0.1 THEN 'Home'
               WHEN ${mapping_type_score} = 0 THEN 'No algorithm used'
@@ -49,6 +49,12 @@ view: mapping_type_performance_pbm {
   dimension: segment_id {
     type: number
     sql: ${TABLE}.segment_id ;;
+  }
+
+  dimension: impressions_dimension {
+    type: number
+    sql: ${TABLE}.impressions ;;
+    hidden: yes
   }
 
   measure: impressions {
@@ -111,9 +117,25 @@ view: mapping_type_performance_pbm {
     group_label: "Summations"
   }
 
+  measure: click_through_rate {
+    type: number
+    sql: ${clicks}/CAST(NULLIF(${impressions},0) AS REAL) ;;
+    value_format_name: percent_1
+  }
+
   measure: count_algorithm {
     type: count_distinct
     sql: ${algorithm} ;;
     group_label: "Counts"
+  }
+
+  measure: count_segments {
+    type: count_distinct
+    sql: ${segment_id} ;;
+    group_label: "Counts"
+    filters: {
+      field: impressions_dimension
+      value: "> 0"
+    }
   }
 }

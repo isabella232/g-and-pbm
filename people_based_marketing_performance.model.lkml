@@ -19,15 +19,15 @@ include: "*.view.lkml"         # include all views in this project
 # }
 
 explore: mapping_type_performance_pbm {
-
 }
 
 explore: order_id_and_skus {
-
 }
 
 explore: kohls_test {
 label: "Kohl's SKU"
 }
+
+explore: segmentation_events {}
 
 explore: copenhagen_revenue {}
