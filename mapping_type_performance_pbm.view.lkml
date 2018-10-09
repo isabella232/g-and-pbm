@@ -57,6 +57,11 @@ view: mapping_type_performance_pbm {
     hidden: yes
   }
 
+  dimension: is_active_segment {
+    type: yesno
+    sql: ${impressions_dimension} > 0 ;;
+  }
+
   measure: impressions {
     type: sum
     sql: ${TABLE}.impressions ;;
@@ -64,8 +69,9 @@ view: mapping_type_performance_pbm {
   }
 
   measure: segment_hashes {
-    type: sum
+    type: sum_distinct
     sql: ${TABLE}.segment_hashes ;;
+    sql_distinct_key: ${segment_id} ;;
     group_label: "Summations"
   }
 
@@ -120,7 +126,34 @@ view: mapping_type_performance_pbm {
   measure: click_through_rate {
     type: number
     sql: ${clicks}/CAST(NULLIF(${impressions},0) AS REAL) ;;
-    value_format_name: percent_1
+    value_format_name: percent_2
+    description: "Clicks ÷ Impressions"
+  }
+
+  measure: click_to_conversion_rate {
+    type: number
+    sql: ${conversions}/CAST(NULLIF(${clicks},0) AS REAL) ;;
+    description: "Conversions ÷ Clicks"
+    value_format_name: percent_2
+  }
+
+  measure: impression_to_conversion_rate {
+    type: number
+    sql: ${conversions}/CAST(NULLIF(${clicks},0) AS REAL) ;;
+    description: "Conversions ÷ Impressions"
+    value_format_name: percent_4
+  }
+
+  measure: return_on_ad_spend {
+    type: number
+    sql: ${user_purchase_amount} / CAST(NULLIF(${conversions},0) AS REAL) ;;
+    value_format_name: usd
+    description: "User Purchase Amount ÷ Conversions"
+  }
+
+  measure: cost_per_acquisition {
+    type: number
+    sql: ${gross_revenue} / CAST(NULLIF(${conversions},0) AS REAL) ;;
   }
 
   measure: count_algorithm {
