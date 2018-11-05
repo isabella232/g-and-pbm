@@ -33,3 +33,7 @@ datagroup: berlin_revenue_aggregates_updated {
 explore: berlin_revenue {
 
 }
+
+explore: idaas_segment_transactions {
+
+}

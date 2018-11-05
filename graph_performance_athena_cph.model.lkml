@@ -1,4 +1,4 @@
-connection: "ny_athena"
+connection: "athena_copenhagen"
 
 include: "*.view.lkml"                       # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
@@ -18,6 +18,10 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
-explore: watermarking {}
+explore: graph_cluster_run_times {
 
-explore: pv_owned_v_prospect {}
+}
+
+explore: most_recent_graph_run {
+
+}
