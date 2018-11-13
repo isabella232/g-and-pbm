@@ -25,3 +25,7 @@ explore: graph_cluster_run_times {
 explore: most_recent_graph_run {
 
 }
+
+explore: graph_cost_by_job {
+
+}

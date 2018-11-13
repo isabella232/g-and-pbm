@@ -21,3 +21,5 @@ include: "*.view.lkml"                       # include all views in this project
 explore: watermarking {}
 
 explore: pv_owned_v_prospect {}
+
+explore: mapping_type_cost_coefficient {}
