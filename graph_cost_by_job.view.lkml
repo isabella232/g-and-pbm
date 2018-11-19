@@ -100,7 +100,15 @@ view: graph_cost_by_job {
   measure: job_cost_run_time {
     type: sum
     sql: ${TABLE}.cost_run_time ;;
+    label: "Cost (Sum)"
     value_format_name: usd
+  }
+
+  measure: job_cost_run_time_avg {
+    type: number
+    sql: ${job_cost_run_time}/CAST(COUNT(DISTINCT ${TABLE}.event_date) AS REAL) ;;
+    label: "Cost (Daily Average)"
+    value_format_name: usd_0
   }
 
   measure: job_cost_data_processed {
