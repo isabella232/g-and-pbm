@@ -29,3 +29,11 @@ explore: most_recent_graph_run {
 explore: graph_cost_by_job {
 
 }
+
+explore: accuracy_pair_stats {
+
+}
+
+explore: accuracy_pair_overlap {}
+
+explore: people_verified_counts {}
