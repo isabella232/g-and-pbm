@@ -31,9 +31,30 @@ explore: graph_cost_by_job {
 }
 
 explore: accuracy_pair_stats {
+  view_label: "Mapping Type Stats"
+  label: "Accuracy Stats"
+
+join: accuracy_cookie_stats_modified {
+  relationship: one_to_one
+  sql_on: ${accuracy_pair_stats.event_date_date} = ${accuracy_cookie_stats_modified.event_date_date}
+          AND ${accuracy_pair_stats.mapping_type} = ${accuracy_cookie_stats_modified.mapping_type};;
+  type: full_outer
+  view_label: "Mapping Type Stats"
+}
+}
+
+explore: graph_daily_hash_activity_distribution {
 
 }
 
-explore: accuracy_pair_overlap {}
+explore: graph_daily_cookie_activity_distribution {
 
-explore: people_verified_counts {}
+}
+
+explore: accuracy_pair_overlap {
+
+}
+
+explore: people_verified_counts {
+
+}

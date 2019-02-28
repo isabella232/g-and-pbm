@@ -8,21 +8,17 @@ view: accuracy_pair_stats {
 
   suggestions: no
 
-  measure: count {
-    type: count
-  }
-
   dimension_group: event_date {
     type: time
     sql: ${TABLE}.event_date ;;
   }
 
-  dimension: mappingtype {
+  dimension: mapping_type {
     type: string
     sql: ${TABLE}.mappingtype ;;
   }
 
-  measure: pairs {
+  measure: cnt_pairs {
     type: sum
     sql: ${TABLE}.pairs ;;
   }
@@ -30,14 +26,14 @@ view: accuracy_pair_stats {
   measure: accuracy_newsletter_sendout {
     type: average
     sql: ${TABLE}.accuracy_newsletter_sendout ;;
-    group_label: "General"
+    group_label: "Pair Stats"
     value_format_name: percent_1
   }
 
   measure: accuracy_session_overlap {
     type: average
     sql: ${TABLE}.accuracy_session_overlap ;;
-    group_label: "General"
+    group_label: "Pair Stats"
     value_format_name: percent_1
   }
 
@@ -67,35 +63,35 @@ view: accuracy_pair_stats {
 
   measure: pairs_denominator {
     type: number
-    sql: CAST(NULLIF(${pairs},0) AS REAL) ;;
+    sql: CAST(NULLIF(${cnt_pairs},0) AS REAL) ;;
     hidden: yes
   }
 
   measure: positive_accuracy_newsletter_sendout {
     type: number
     sql: ${cnt_positives_newsletter_sendout}/${pairs_denominator};;
-    group_label: "Newsletter Sendout"
+    group_label: "Pair Stats: Newsletter Sendout"
     value_format_name: percent_1
   }
 
   measure: positive_accuracy_session_overlap {
     type: number
     sql: ${cnt_positives_session_overlap}/${pairs_denominator};;
-    group_label: "Session Overlap"
+    group_label: "Pair Stats: Session Overlap"
     value_format_name: percent_1
   }
 
   measure: negative_accuracy_newsletter_sendout {
     type: number
     sql: ABS(${cnt_negatives_newsletter_sendout}/${pairs_denominator} - 1) ;;
-    group_label: "Newsletter Sendout"
+    group_label: "Pair Stats: Newsletter Sendout"
     value_format_name: percent_1
   }
 
   measure: negative_accuracy_session_overlap {
     type: number
     sql: ABS(${cnt_negatives_session_overlap}/${pairs_denominator} - 1) ;;
-    group_label: "Session Overlap"
+    group_label: "Pair Stats: Session Overlap"
     value_format_name: percent_1
   }
 
