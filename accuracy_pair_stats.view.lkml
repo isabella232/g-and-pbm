@@ -13,6 +13,15 @@ view: accuracy_pair_stats {
     sql: ${TABLE}.event_date ;;
   }
 
+  dimension: mapping_type_classification {
+    type: string
+    sql: CASE WHEN ${mapping_type} LIKE 'sourced/%' THEN 'sourced'
+     WHEN REGEXP_LIKE(${mapping_type},'^(d\/|dr\/|esp)') THEN 'deterministic'
+     WHEN REGEXP_LIKE(${mapping_type},'^(3m|acc)') THEN 'high accuracy probabilistic'
+     ELSE 'low accuracy probabilistic'
+     END ;;
+  }
+
   dimension: mapping_type {
     type: string
     sql: ${TABLE}.mappingtype ;;
