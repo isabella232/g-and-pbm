@@ -24,8 +24,8 @@ view: accuracy_cookie_rank {
     sql: ${TABLE}.attached_hashes ;;
   }
 
-  measure: cnt_hashes {
-    type: sum
+  measure: avg_cnt_hashes {
+    type: average
     sql: ${TABLE}.cnt_hashes ;;
   }
 
