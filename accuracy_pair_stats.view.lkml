@@ -81,6 +81,7 @@ view: accuracy_pair_stats {
     sql: ${cnt_positives_newsletter_sendout}/${pairs_denominator};;
     group_label: "Pair Stats: Newsletter Sendout"
     value_format_name: percent_1
+    hidden: yes
   }
 
   measure: positive_accuracy_session_overlap {
@@ -88,6 +89,7 @@ view: accuracy_pair_stats {
     sql: ${cnt_positives_session_overlap}/${pairs_denominator};;
     group_label: "Pair Stats: Session Overlap"
     value_format_name: percent_1
+    hidden: yes
   }
 
   measure: negative_accuracy_newsletter_sendout {
@@ -95,6 +97,7 @@ view: accuracy_pair_stats {
     sql: ABS(${cnt_negatives_newsletter_sendout}/${pairs_denominator} - 1) ;;
     group_label: "Pair Stats: Newsletter Sendout"
     value_format_name: percent_1
+    hidden: yes
   }
 
   measure: negative_accuracy_session_overlap {
@@ -102,6 +105,21 @@ view: accuracy_pair_stats {
     sql: ABS(${cnt_negatives_session_overlap}/${pairs_denominator} - 1) ;;
     group_label: "Pair Stats: Session Overlap"
     value_format_name: percent_1
+    hidden: yes
+  }
+
+  measure: confidence_newsletter_sendout {
+    type: number
+    sql: (${cnt_negatives_newsletter_sendout} + ${cnt_positives_newsletter_sendout})/${pairs_denominator} ;;
+    value_format_name: percent_1
+    group_label: "Pair Stats"
+  }
+
+  measure: confidence_session_overlap {
+    type: number
+    sql: (${cnt_negatives_session_overlap} + ${cnt_positives_session_overlap})/${pairs_denominator} ;;
+    value_format_name: percent_1
+    group_label: "Pair Stats"
   }
 
 
