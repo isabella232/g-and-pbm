@@ -1,4 +1,5 @@
 connection: "ny_athena"
+label: "Identity Graph"
 
 include: "*.view.lkml"                       # include all views in this project
 # include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
@@ -18,8 +19,17 @@ include: "*.view.lkml"                       # include all views in this project
 #   }
 # }
 
-explore: watermarking {}
+explore: watermarking {
+group_label: "Graph Quality"
+description: "Performance Results of Mapping Selectors Groups"
+}
 
-explore: pv_owned_v_prospect {}
+explore: pv_owned_v_prospect {
+# Hidden because it appears to be defunct
 
-explore: mapping_type_cost_coefficient {}
+  hidden: yes
+}
+
+explore: mapping_type_cost_coefficient {
+  hidden: yes
+}
