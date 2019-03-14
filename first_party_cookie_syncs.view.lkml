@@ -3,7 +3,7 @@ view: first_party_cookie_syncs {
     sql: SELECT DATE_PARSE(date,'%Y%m%d') event_date, publisherorappid, identifiertype, requesttype, source, COUNT(*) first_party_cookie_syncs
       FROM auto_logs.idaas_track_log
       WHERE lidid = '' AND bidderuuid <> ''
-      AND DATE_PARSE(CONCAT(year_p,month_p,day_p),'%Y%m%d') BETWEEN CURRENT_DATE - INTERVAL '14' DAY and CURRENT_DATE - INTERVAL '1' DAY
+      AND DATE_PARSE(CONCAT(year_p,month_p,day_p),'%Y%m%d') BETWEEN CURRENT_DATE - INTERVAL '15' DAY and CURRENT_DATE - INTERVAL '2' DAY
       GROUP BY 1,2,3,4,5
        ;;
   }
