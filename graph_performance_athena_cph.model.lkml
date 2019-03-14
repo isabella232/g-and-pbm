@@ -66,3 +66,14 @@ explore: accuracy_cookie_overlap {
   label: "Mapping Type Overlaps: Cookies"
   description: "Number of Shared Cookies Between Mapping Types"
 }
+
+explore: data_selling_sellable_pairs_by_cookie_domain {
+  group_label: "Data Selling"
+  label: "Sellable Pairs by Cookie Domain"
+  description: "Historical Counts of Sellable Pairs by Cookie Domain"
+}
+
+explore: first_party_cookie_syncs {
+  group_label: "Data Selling"
+  description: "First Party Cookie Syncs with IDaaS (Last Two Weeks)"
+}
