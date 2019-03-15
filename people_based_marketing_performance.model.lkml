@@ -19,6 +19,9 @@ include: "*.view.lkml"         # include all views in this project
 # }
 
 explore: mapping_type_performance_pbm {
+  label: "Mapping Type Performance (PBM)"
+  description: "Performance of Hashes in Remarketing Campaigns based on the Mapping Type Used to Add Hash to Segment"
+  group_label: "Graph Quality"
 }
 
 explore: order_id_and_skus {
