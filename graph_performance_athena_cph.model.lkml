@@ -72,11 +72,11 @@ explore: data_selling_sellable_pairs_by_cookie_domain {
   label: "Sellable Pairs by Cookie Domain"
   description: "Historical Counts of Sellable Pairs by Cookie Domain"
 
-  join: pub_or_app_id_names {
+  join: bidder_sync_names {
     relationship: many_to_one
-    sql_on: ${data_selling_sellable_pairs_by_cookie_domain.cookie_domain} = ${pub_or_app_id_names.pub_or_app_id} ;;
+    sql_on: ${data_selling_sellable_pairs_by_cookie_domain.cookie_domain} = ${bidder_sync_names.pub_or_app_id} ;;
     type: left_outer
-    fields: [pub_or_app_id_names.name]
+    fields: [bidder_sync_names.name]
     view_label: "Data Selling Sellable Pairs By Cookie Domain"
   }
 }
@@ -85,11 +85,11 @@ explore: first_party_cookie_syncs {
   group_label: "Data Selling"
   description: "First Party Cookie Syncs with IDaaS (Last Two Weeks)"
 
-  join: pub_or_app_id_names {
+  join: bidder_sync_names {
     relationship: many_to_one
-    sql_on: ${first_party_cookie_syncs.identifier_type} = ${pub_or_app_id_names.pub_or_app_id} ;;
+    sql_on: ${first_party_cookie_syncs.identifier_type} = ${bidder_sync_names.pub_or_app_id} ;;
     type: left_outer
-    fields: [pub_or_app_id_names.name]
+    fields: [bidder_sync_names.name]
     view_label: "First Party Cookie Syncs"
   }
 }

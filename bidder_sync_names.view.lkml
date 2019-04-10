@@ -1,4 +1,4 @@
-view: pub_or_app_id_names {
+view: bidder_sync_names {
   derived_table: {
     sql:
       SELECT r.pub_or_app_id, bidder_array[r.pub_or_app_id] name
@@ -23,6 +23,7 @@ view: pub_or_app_id_names {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    label: "Bidder Sync Name"
   }
 
 }

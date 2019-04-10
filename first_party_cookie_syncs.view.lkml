@@ -18,11 +18,13 @@ view: first_party_cookie_syncs {
   dimension: publisher_or_app_id {
     type: string
     sql: ${TABLE}.publisherorappid ;;
+    label: "Publisher or App ID"
   }
 
   dimension: identifier_type {
     type: string
     sql: ${TABLE}.identifiertype ;;
+    label: "Bidder Sync ID"
   }
 
   dimension: request_type {
