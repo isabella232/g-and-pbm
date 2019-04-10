@@ -39,10 +39,10 @@ view: third_party_cookie_syncs {
 
   measure: third_party_cookie_syncs {
     type: sum
-    sql: ${TABLE}.first_party_cookie_syncs ;;
+    sql: ${TABLE}.third_party_cookie_syncs ;;
   }
 
-  measure: first_party_cookie_syncs_per_day {
+  measure: third_party_cookie_syncs_per_day {
     type: number
     sql: ${third_party_cookie_syncs}/CAST(COUNT(DISTINCT ${event_date_date}) AS REAL) ;;
     value_format_name: decimal_0

@@ -1,6 +1,7 @@
 connection: "athena_copenhagen"
 
 include: "*.view.lkml"
+include: "third_party_cookie_syncs.dashboard.lookml"
 label: "Identity Graph"
 
 explore: graph_cluster_run_times {
