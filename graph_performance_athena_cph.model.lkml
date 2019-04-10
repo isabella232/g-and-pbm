@@ -87,7 +87,7 @@ explore: first_party_cookie_syncs {
 
   join: pub_or_app_id_names {
     relationship: many_to_one
-    sql_on: ${first_party_cookie_syncs.publisher_or_app_id} = ${pub_or_app_id_names.pub_or_app_id} ;;
+    sql_on: ${first_party_cookie_syncs.identifier_type} = ${pub_or_app_id_names.pub_or_app_id} ;;
     type: left_outer
     fields: [pub_or_app_id_names.name]
     view_label: "First Party Cookie Syncs"
