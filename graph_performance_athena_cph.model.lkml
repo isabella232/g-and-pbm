@@ -93,3 +93,16 @@ explore: first_party_cookie_syncs {
     view_label: "First Party Cookie Syncs"
   }
 }
+
+explore: third_party_cookie_syncs {
+  group_label: "Data Selling"
+  description: "Third Party Cookie Syncs with IDaaS (Last Two Weeks)"
+
+  join: bidder_sync_names {
+    relationship: many_to_one
+    sql_on: ${third_party_cookie_syncs.identifier_type} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+    fields: [bidder_sync_names.name]
+    view_label: "Third Party Cookie Syncs"
+  }
+}
