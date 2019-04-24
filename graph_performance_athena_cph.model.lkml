@@ -1,6 +1,7 @@
 connection: "athena_copenhagen"
 
 include: "*.view.lkml"
+include: "third_party_cookie_syncs.dashboard.lookml"
 label: "Identity Graph"
 
 explore: graph_cluster_run_times {
@@ -71,9 +72,38 @@ explore: data_selling_sellable_pairs_by_cookie_domain {
   group_label: "Data Selling"
   label: "Sellable Pairs by Cookie Domain"
   description: "Historical Counts of Sellable Pairs by Cookie Domain"
+
+  join: bidder_sync_names {
+    relationship: many_to_one
+    sql_on: ${data_selling_sellable_pairs_by_cookie_domain.cookie_domain} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+    fields: [bidder_sync_names.name]
+    view_label: "Data Selling Sellable Pairs By Cookie Domain"
+  }
 }
 
 explore: first_party_cookie_syncs {
   group_label: "Data Selling"
   description: "First Party Cookie Syncs with IDaaS (Last Two Weeks)"
+
+  join: bidder_sync_names {
+    relationship: many_to_one
+    sql_on: ${first_party_cookie_syncs.identifier_type} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+    fields: [bidder_sync_names.name]
+    view_label: "First Party Cookie Syncs"
+  }
+}
+
+explore: third_party_cookie_syncs {
+  group_label: "Data Selling"
+  description: "Third Party Cookie Syncs with IDaaS (Last Two Weeks)"
+
+  join: bidder_sync_names {
+    relationship: many_to_one
+    sql_on: ${third_party_cookie_syncs.identifier_type} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+    fields: [bidder_sync_names.name]
+    view_label: "Third Party Cookie Syncs"
+  }
 }
