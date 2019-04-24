@@ -3,6 +3,7 @@ view: pvc_view {
     sql:SELECT
 conversion_time,
 impression_time,
+click_time,
 advertiser_id,
 campaign_id,
 line_item_id,
@@ -14,6 +15,7 @@ FROM (
 SELECT
 conversion_time,
 impression_time,
+click_time,
 advertiser_id,
 campaign_id,
 line_item_id,
@@ -23,23 +25,26 @@ conversion_window,
 conversion_type
 FROM (
 SELECT
-PARSE_DATETIME('%F %T', root.request.datetime) conversion_time,
-PARSE_DATETIME('%F %T', root.impression_dt) impression_time,
-root.demand.advertiser_id advertiser_id,
-root.demand.campaign_id campaign_id,
-root.demand.line_item_id line_item_id,
-root.order_id order_id,
-root.upa upa,
+PARSE_DATETIME('%F %T', a.root.request.datetime) conversion_time,
+PARSE_DATETIME('%F %T', a.root.impression_dt) impression_time,
+PARSE_DATETIME('%F %T', b.root.request.datetime) click_time,
+a.root.demand.advertiser_id advertiser_id,
+a.root.demand.campaign_id campaign_id,
+a.root.demand.line_item_id line_item_id,
+a.root.order_id order_id,
+a.root.upa upa,
 "PCC" conversion_window,
 "PCC" conversion_type
-FROM
-`elite-contact-671.userver_logs_dsp.conversion_*`
-GROUP BY 1,2,3,4,5,6,7,8)
+FROM `elite-contact-671.userver_logs_dsp.conversion_*` a
+LEFT JOIN `elite-contact-671.userver_logs_dsp.click_*` b ON a.root.bid.id = b.root.bid.id
 GROUP BY 1,2,3,4,5,6,7,8,9
+)
+GROUP BY 1,2,3,4,5,6,7,8,9,10
 UNION ALL
 SELECT
 conversion_time,
 impression_time,
+click_time,
 advertiser_id,
 campaign_id,
 line_item_id,
@@ -47,20 +52,23 @@ order_id,
 upa,
 conversion_window,
 conversion_type
-FROM (
+FROM
+(
 SELECT
-PARSE_DATETIME('%F %T', root.request.datetime) conversion_time,
-PARSE_DATETIME('%F %T', root.impression_time)  impression_time,
-root.demand.advertiser_id advertiser_id,
-root.demand.campaign_id campaign_id,
-root.demand.line_item_id line_item_id,
-root.order_id order_id,
-root.upa upa,
-case when root.pvc_1h = 1 then "PVC within 1h" when root.pvc_24h = 1 then "PVC within 24h"
-when root.pvc_72h = 1 then "PVC within 72h" when root.pvc_over_72h = 1 then "PVC over 72h" else "error" end as conversion_window,
+PARSE_DATETIME('%F %T', pvc.root.request.datetime) conversion_time,
+PARSE_DATETIME('%F %T', pvc.root.impression_time)  impression_time,
+PARSE_DATETIME('%F %T', bpcv.root.request.datetime) click_time,
+pvc.root.demand.advertiser_id advertiser_id,
+pvc.root.demand.campaign_id campaign_id,
+pvc.root.demand.line_item_id line_item_id,
+pvc.root.order_id order_id,
+pvc.root.upa upa,
+case when pvc.root.pvc_1h = 1 then "PVC within 1h" when pvc.root.pvc_24h = 1 then "PVC within 24h"
+when pvc.root.pvc_72h = 1 then "PVC within 72h" when pvc.root.pvc_over_72h = 1 then "PVC over 72h" else "error" end as conversion_window,
 "PVC" conversion_type
 FROM
   `elite-contact-671.userver_logs_dsp.pv_conversion_*` pvc
+LEFT JOIN `elite-contact-671.userver_logs_dsp.click_*` bpcv ON pvc.root.bid.id = bpcv.root.bid.id
 INNER JOIN (
 SELECT
 root.bid.id bid_id,
@@ -70,8 +78,10 @@ FROM
   GROUP BY 1,2) dt
 ON pvc.root.bid.id = dt.bid_id
 AND pvc.root.request.datetime = dt.max_time)
-GROUP BY 1,2,3,4,5,6,7,8,9)
+GROUP BY 1,2,3,4,5,6,7,8,9,10
+)
 ORDER BY 1 ASC
+
              ;;
   }
 
@@ -116,6 +126,25 @@ ORDER BY 1 ASC
     label: "Impression"
     group_label: "Order Metadata"
   }
+
+  dimension: click_date {
+    type: date
+    sql:CAST(${TABLE}.click_time AS TIMESTAMP);;
+    #sql: TIMESTAMP(${TABLE}.impression_time) ;;
+    view_label: "Post View Conversions"
+    label: "Click Date"
+    group_label: "Order Metadata"
+  }
+
+  dimension_group: click {
+    type: time
+    timeframes: [time]
+    sql:CAST(${TABLE}.click_time AS TIMESTAMP);;
+    view_label: "Post View Conversions"
+    label: "Click"
+    group_label: "Order Metadata"
+  }
+
 
   dimension: advertiser_id {
     type: number
