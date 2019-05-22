@@ -45,7 +45,7 @@ view: graph_cost_by_job {
             GROUP BY 1
           )
 
-        SELECT jobs.event_date, jobs.job_name, jobs.job_type/*, assignments.related_store*/ 'store_split_unavailable' as related_store, cluster_cost.cost,
+        SELECT jobs.event_date, jobs.job_name, jobs.job_type,/* assignments.related_store*/ 'store_split_unavailable' as related_store, cluster_cost.cost,
         jobs.data_mb /** assignments.weight*/ data_mb,
         jobs.run_time_sec /** assignments.weight*/ run_time_sec,
         SUM(jobs.run_time_sec) OVER (PARTITION BY jobs.event_date) total_run_time_sec,
