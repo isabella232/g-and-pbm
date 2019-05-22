@@ -9,8 +9,10 @@ view: accuracy_pair_overlap {
 
 pair_overlap AS (
 SELECT DATE_PARSE(a.date_p,'%Y%m%d') event_date,
-ARRAY_SORT(ARRAY [a.mappingtype, r.mkeys])[1] map_type_1,
-ARRAY_SORT(ARRAY [a.mappingtype, r.mkeys])[2] map_type_2,
+/*ARRAY_SORT(ARRAY [a.mappingtype, r.mkeys])[1] map_type_1,
+ARRAY_SORT(ARRAY [a.mappingtype, r.mkeys])[2] map_type_2,*/
+a.mappingtype map_type_1,
+r.mkeys map_type_2,
 overlaps[r.mkeys] pair_overlap
 FROM auto_mappings.pair_overlaps a
 CROSS JOIN UNNEST(MAP_KEYS(MAP_FILTER(a.overlaps, (k,v) -> k NOT LIKE '%¤%'))) as r (mkeys)
