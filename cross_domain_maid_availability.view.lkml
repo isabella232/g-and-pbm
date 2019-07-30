@@ -50,6 +50,11 @@ view: cross_domain_maid_availability {
           END;;
   }
 
+  dimension: has_maid {
+    type: yesno
+    sql: ${available_maids} <> 'none' ;;
+  }
+
   dimension: us_based {
     type: yesno
     sql: ${TABLE}.us_based ;;
