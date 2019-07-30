@@ -56,6 +56,13 @@ view: sellable_cookie_domain_cluster_size {
     value_format_name: decimal_0
   }
 
+  dimension: cluster_size_tier {
+    type: tier
+    tiers: [1,2,3,4,5,6,7,8,9,10,25,50,100,500]
+    style: integer
+    sql: ${cluster_size} ;;
+  }
+
   dimension: is_maid {
     type: yesno
     sql: ${cookie_domain} IN ('aaid','idfa') ;;
