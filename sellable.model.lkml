@@ -22,3 +22,7 @@ explore: sellable_pairs_by_cookie_domain {
 explore: cross_domain_maid_availability {
 
 }
+
+explore: sellable_cookie_domain_cluster_size {
+
+}
