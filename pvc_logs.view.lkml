@@ -26,7 +26,8 @@ conversion_type
 FROM (
 SELECT
 PARSE_DATETIME('%F %T', a.root.request.datetime) conversion_time,
-PARSE_DATETIME('%F %T', a.root.impression_dt) impression_time,
+--PARSE_DATETIME('%F %T', a.root.impression_dt) impression_time,
+cast('1900-01-01 00:00:00.000' as datetime) impression_time, -- intermediate solution 8/1/19 impression time not available in table
 PARSE_DATETIME('%F %T', b.root.request.datetime) click_time,
 a.root.demand.advertiser_id advertiser_id,
 a.root.demand.campaign_id campaign_id,
@@ -116,6 +117,7 @@ ORDER BY 1 ASC
     view_label: "Post View Conversions"
     label: "Impression Date"
     group_label: "Order Metadata"
+    hidden: yes
   }
 
   dimension_group: impression {
@@ -125,6 +127,7 @@ ORDER BY 1 ASC
     view_label: "Post View Conversions"
     label: "Impression"
     group_label: "Order Metadata"
+    hidden: yes
   }
 
   dimension: click_date {
