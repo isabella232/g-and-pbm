@@ -107,3 +107,90 @@ explore: third_party_cookie_syncs {
     view_label: "Third Party Cookie Syncs"
   }
 }
+
+explore: region_counts {
+  group_label: "Auto Sellable"
+  label: "Region Distribution"
+}
+
+explore: cookie_hash_ranks {
+  group_label: "Auto Sellable"
+  label: "Cluster size of Hash Ranks"
+}
+
+explore: deterministic_cookies {
+  group_label: "Auto Sellable"
+  label: "Deterministic values by Cookie Domain"
+}
+
+explore: total_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Total values by Cookie Domain"
+}
+
+explore: hiaccprobabilistic_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "HiAccProbabilistic values by Cookie Domain"
+}
+
+explore: deterministicandhiaccprobabilistic_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Deterministic and HiAccProbabilistic values by Cookie Domain"
+}
+
+explore: feature_1_by_cookie_domain {
+  group_label: "Auto Sellable"
+}
+
+explore: feature_2_by_cookie_domain {
+  group_label: "Auto Sellable"
+}
+
+explore: feature_3_by_cookie_domain {
+  group_label: "Auto Sellable"
+}
+
+explore: adobe_by_classification_type {
+  group_label: "Auto Deliverable"
+  label: "Adobe - Algorithmic Classification"
+}
+
+explore: narrative_by_classification_type {
+  group_label: "Auto Deliverable"
+  label: "Narrative - Algorithmic Classification"
+}
+
+explore: oracle_by_classification_type {
+  group_label: "Auto Deliverable"
+  label: "Oracle - Algorithmic Classification"
+}
+
+explore: walmart_by_classification_type {
+  group_label: "Auto Deliverable"
+  label: "Walmart - Algorithmic Classification"
+}
+
+explore: narrative_by_cookie_domain {
+  group_label: "Auto Deliverable"
+  label: "Narrative - Weight Distribution by Cookie Domain"
+}
+
+explore: weight_by_partner {
+  group_label: "Auto Deliverable"
+  label: "Weight Distribution by Partner"
+}
+
+explore: bothhighacc_by_partner {
+  group_label: "Auto Deliverable"
+  label: "BothHighAcc - Weight Distribution by Partner"
+}
+
+explore: deterministic_by_partner {
+  group_label: "Auto Deliverable"
+  label: "Deterministic - Weight Distribution by Partner"
+}
+
+explore: hiaccprobabilistic_by_partner {
+  group_label: "Auto Deliverable"
+  label: "HiAccProbabilistic - Weight Distribution by Partner"
+}
