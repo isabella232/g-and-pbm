@@ -113,6 +113,36 @@ explore: region_counts {
   label: "Region Distribution"
 }
 
+explore: sellable_unique_pairs {
+  group_label: "Auto Sellable"
+  label: "Unique Pairs Count"
+  }
+
+explore: sellable_unique_piiidentifier {
+  group_label: "Auto Sellable"
+  label: "Unique 3rd Party IDs Count"
+}
+
+explore: unique_hems_sellable {
+  group_label: "Auto Sellable"
+  label: "Unique Hems Count"
+}
+
+explore: unique_pairs_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Unique Pairs Count by Cookie Domain"
+}
+
+explore: unique_piiidentifier_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Unique 3rd Party IDs Count by Cookie Domain"
+}
+
+explore: unique_hems_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Unique Hems Count by Cookie Domain"
+}
+
 explore: cookie_hash_ranks {
   group_label: "Auto Sellable"
   label: "Cluster size of Hash Ranks"
@@ -150,6 +180,10 @@ explore: feature_3_by_cookie_domain {
   group_label: "Auto Sellable"
 }
 
+explore: algorithm_classification_sellable {
+  group_label: "Auto Sellable"
+}
+
 explore: adobe_by_classification_type {
   group_label: "Auto Deliverable"
   label: "Adobe - Algorithmic Classification"
@@ -168,6 +202,18 @@ explore: oracle_by_classification_type {
 explore: walmart_by_classification_type {
   group_label: "Auto Deliverable"
   label: "Walmart - Algorithmic Classification"
+}
+
+explore: feature_1_by_partner {
+  group_label: "Auto Deliverable"
+}
+
+explore: feature_2_by_partner {
+  group_label: "Auto Deliverable"
+}
+
+explore: feature_3_by_partner {
+  group_label: "Auto Deliverable"
 }
 
 explore: narrative_by_cookie_domain {
@@ -193,4 +239,29 @@ explore: deterministic_by_partner {
 explore: hiaccprobabilistic_by_partner {
   group_label: "Auto Deliverable"
   label: "HiAccProbabilistic - Weight Distribution by Partner"
+}
+
+explore: narrative_thirdpartyids_hems {
+  group_label: "Auto Deliverable"
+  label: "Narrative - Unique 3rd Party IDs and Hems"
+}
+
+explore: narrative_unique_pairs {
+  group_label: "Auto Deliverable"
+  label: "Narrative - Unique Pairs Count"
+}
+
+explore: narrative_pairs_count_by_cookie_domain {
+  group_label: "Auto Deliverable"
+  label: "Narrative - Unique Pairs Count by Cookie Domain"
+}
+
+explore: narrative_unique_hems_by_cookie_domain {
+  group_label: "Auto Deliverable"
+  label: "Narrative - Unique Hems Count by Cookie Domain"
+}
+
+explore: narrative_no_unique_thirdpartyids_by_cookie_domain {
+  group_label: "Auto Deliverable"
+  label: "Narrative -  Unique 3rd Party IDs count by Cookie Domain "
 }
