@@ -153,6 +153,26 @@ explore: deterministic_cookies {
   label: "Deterministic values by Cookie Domain"
 }
 
+explore: total_by_cookiedomain_full {
+  group_label: "Auto Sellable"
+  label: "Total values by Cookie Domain Full"
+}
+
+explore: deterministic_by_cookie_domain_total {
+  group_label: "Auto Sellable"
+  label: "Deterministic values by Cookie Domain Full"
+}
+
+explore: hiaccprobabilistic_by_cookiedomain_full{
+  group_label: "Auto Sellable"
+  label: "HiAccProbabilistic values by Cookie Domain Full"
+}
+
+explore: deterministicandhiaccprobabilistic_by_cookiedomain_full {
+  group_label: "Auto Sellable"
+  label: "Deterministic and HiAccProbabilistic values by Cookie Domain Full"
+}
+
 explore: total_by_cookie_domain {
   group_label: "Auto Sellable"
   label: "Total values by Cookie Domain"
