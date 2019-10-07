@@ -1,20 +1,11 @@
 view: cookie_hash_ranks {
   derived_table: {
-    sql: SELECT CAST(cookiehashrank AS VARCHAR) cookiehashrank, COUNT(*) total
-      FROM auto_sellable.sellable_pair
-      WHERE date_p = '20190910'
-      AND cookiehashrank IN (1,2,3,4)
-      GROUP BY 1
-      UNION
-      SELECT '5 to 9' cookiehashrank, COUNT(*) total
-      FROM auto_sellable.sellable_pair
-      WHERE date_p = '20190910'
-      AND cookiehashrank IN (5,6,7,8,9)
-      UNION
-      SELECT '10 or more' cookiehashrank, COUNT(*) total
-      FROM auto_sellable.sellable_pair
-      WHERE date_p = '20190910'
-      AND cookiehashrank NOT IN (1,2,3,4,5,6,7,8,9)
+    sql: SELECT CASE WHEN cookiehashrank < 5 THEN CONCAT('0',CAST(cookiehashrank AS VARCHAR))
+            WHEN cookiehashrank >=5 AND cookiehashrank <10 THEN '05 to 09'
+            WHEN cookiehashrank >= 10 THEN '10+' END cluster_size, COUNT(*) clusters
+FROM auto_sellable.sellable_pair
+WHERE date_p = '20190910'
+GROUP BY 1
        ;;
   }
 
@@ -27,12 +18,14 @@ view: cookie_hash_ranks {
 
   dimension: cookiehashrank {
     type: string
-    sql: ${TABLE}.cookiehashrank ;;
+    sql: ${TABLE}.cluster_size ;;
+    label: "Hash Cluster Size"
   }
 
   measure: total {
     type: sum
-    sql: ${TABLE}.total ;;
+    sql: ${TABLE}.clusters ;;
+    label: "Clusters"
   }
 
   set: detail {
