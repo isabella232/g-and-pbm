@@ -3,7 +3,7 @@ view: algorithm_classification_sellable {
     sql: SELECT CASE WHEN MOD(algorithmclassification,2) = 1 THEN 'Deterministic'
 WHEN MOD(algorithmclassification,8) >=4 THEN 'High Accuracy Probabilistic'
 WHEN MOD(algorithmclassification,16) >= 8 THEN 'Low Accuracy Probabilistic'
-WHEN MOD(algorithmclassification,30) >= 16 THEN 'Sourced'
+WHEN algorithmclassification >= 16 THEN 'Sourced'
 END AS Algorithm,
 COUNT(*) total
 FROM auto_sellable.sellable_pair
