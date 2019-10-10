@@ -143,6 +143,11 @@ explore: third_party_ids_count_by_cookie_domain {
   label: "Third Party IDs by Cookie Domain"
 }
 
+explore: algorithm_class_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Algorithm Classification by Cookie Domain"
+}
+
 explore: unique_hems_by_cookie_domain {
   group_label: "Auto Sellable"
   label: "Unique Hems Count by Cookie Domain"
