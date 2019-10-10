@@ -1,8 +1,10 @@
 view: unique_hems_sellable {
   derived_table: {
-    sql: SELECT approx_distinct(cookie) total
+    sql: /*SELECT approx_distinct(cookie) total
       FROM auto_sellable.sellable_pair
-      WHERE date_p = '20190910'
+      WHERE date_p = '20190910'*/
+
+      SELECT * FROM tmp_looker.unique_hems_sellable
        ;;
   }
 
