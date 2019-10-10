@@ -45,7 +45,7 @@ view: total_by_cookie_domain {
         AND region_p = 'US'
         GROUP BY 1
         ORDER BY 1*/
-    SELECT * FROM tmp_liveintent.total_by_cookie_domain;;
+    SELECT * FROM tmp_looker.total_by_cookie_domain;;
   }
 
   suggestions: no
