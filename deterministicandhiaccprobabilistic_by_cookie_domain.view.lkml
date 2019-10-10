@@ -1,6 +1,6 @@
 view: deterministicandhiaccprobabilistic_by_cookie_domain {
   derived_table: {
-    sql: SELECT cookiedomain,
+    sql: /*SELECT cookiedomain,
         SUM(CASE WHEN deterministicandhiaccprobabilistic >0 AND deterministicandhiaccprobabilistic <0.025 THEN 1 ELSE 0 END) bucket_1,
         SUM(CASE WHEN deterministicandhiaccprobabilistic >=0.025 AND deterministicandhiaccprobabilistic <0.05 THEN 1 ELSE 0 END) bucket_2,
         SUM(CASE WHEN deterministicandhiaccprobabilistic >=0.05 AND deterministicandhiaccprobabilistic <0.075 THEN 1 ELSE 0 END) bucket_3,
@@ -44,7 +44,9 @@ view: deterministicandhiaccprobabilistic_by_cookie_domain {
         WHERE date_p='20190910'
         AND region_p = 'US'
         GROUP BY 1
-        ORDER BY 1
+        */
+
+ SELECT * FROM tmp_looker.deterministicandhiaccuracyprobabilistic_by_cookie_domain
  ;;
   }
 

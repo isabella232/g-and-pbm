@@ -5,7 +5,7 @@ view: unique_piiidentifier_by_cookie_domain {
       WHERE date_p = '20190910'
       GROUP BY 1*/
 
-      SELECT * FROM tmp_looker.unique_piiidentifier_by_cookie_domain
+      SELECT * FROM tmp_looker.uniqe_piiidentifier_by_cookie_domain
        ;;
   }
 

@@ -1,6 +1,6 @@
 view: total_by_cookie_domain {
   derived_table: {
-    sql:SELECT cookiedomain,
+    sql:/*SELECT cookiedomain,
         SUM(CASE WHEN total >0 AND total <0.025 THEN 1 ELSE 0 END) bucket_1,
         SUM(CASE WHEN total >=0.025 AND total <0.05 THEN 1 ELSE 0 END) bucket_2,
         SUM(CASE WHEN total >=0.05 AND total <0.075 THEN 1 ELSE 0 END) bucket_3,
@@ -44,7 +44,8 @@ view: total_by_cookie_domain {
         WHERE date_p='20190910'
         AND region_p = 'US'
         GROUP BY 1
-        ORDER BY 1;;
+        ORDER BY 1*/
+    SELECT * FROM tmp_liveintent.total_by_cookie_domain;;
   }
 
   suggestions: no
