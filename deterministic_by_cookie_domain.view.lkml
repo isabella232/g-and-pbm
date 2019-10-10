@@ -1,6 +1,6 @@
 view: deterministic_cookies {
   derived_table: {
-    sql:SELECT cookiedomain,
+    sql:/*SELECT cookiedomain,
         SUM(CASE WHEN deterministic >0 AND deterministic <0.025 THEN 1 ELSE 0 END) bucket_1,
         SUM(CASE WHEN deterministic >=0.025 AND deterministic <0.05 THEN 1 ELSE 0 END) bucket_2,
         SUM(CASE WHEN deterministic >=0.05 AND deterministic <0.075 THEN 1 ELSE 0 END) bucket_3,
@@ -43,8 +43,9 @@ view: deterministic_cookies {
         FROM auto_sellable.sellable_pair
         WHERE date_p='20190910'
         AND region_p = 'US'
-        GROUP BY 1
-        ORDER BY 1;;
+        GROUP BY 1*/
+
+        SELECT * FROM tmp_looker.deterministic_cookies;;
   }
 
   suggestions: no

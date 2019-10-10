@@ -5,7 +5,7 @@ view: region_by_cookie_domain {
        ;;
   }
 
-  suggestions: no
+  suggestions: yes
 
   measure: count {
     type: count
