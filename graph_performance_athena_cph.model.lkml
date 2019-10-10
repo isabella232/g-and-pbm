@@ -138,6 +138,11 @@ explore: unique_piiidentifier_by_cookie_domain {
   label: "Unique 3rd Party IDs Count by Cookie Domain"
 }
 
+explore: third_party_ids_count_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Third Party IDs by Cookie Domain"
+}
+
 explore: unique_hems_by_cookie_domain {
   group_label: "Auto Sellable"
   label: "Unique Hems Count by Cookie Domain"
@@ -146,6 +151,21 @@ explore: unique_hems_by_cookie_domain {
 explore: cookie_hash_ranks {
   group_label: "Auto Sellable"
   label: "Cluster size of Hash Ranks"
+}
+
+explore: cookie_hash_ranks_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Cluster size of Hash Ranks by Cookie Domain"
+}
+
+explore: unique_pairs_sellable_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Unique Pairs by Cookie Domain - Sellable"
+}
+
+explore: hems_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Hems by Cookie Domain"
 }
 
 explore: deterministic_cookies {
@@ -198,6 +218,11 @@ explore: feature_2_by_cookie_domain {
 
 explore: feature_3_by_cookie_domain {
   group_label: "Auto Sellable"
+}
+
+explore: region_by_cookie_domain {
+  group_label: "Auto Sellable"
+  label: "Region by Cookie Domain"
 }
 
 explore: algorithm_classification_sellable {
