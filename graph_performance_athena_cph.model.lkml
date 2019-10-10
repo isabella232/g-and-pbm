@@ -131,16 +131,34 @@ explore: unique_hems_sellable {
 explore: unique_pairs_by_cookie_domain {
   group_label: "Auto Sellable"
   label: "Unique Pairs Count by Cookie Domain"
+
+  join: bidder_sync_names {
+    relationship: one_to_one
+    sql_on: ${unique_pairs_by_cookie_domain.cookiedomain} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+  }
 }
 
 explore: unique_piiidentifier_by_cookie_domain {
   group_label: "Auto Sellable"
   label: "Unique 3rd Party IDs Count by Cookie Domain"
+
+  join: bidder_sync_names {
+    relationship: one_to_one
+    sql_on: ${unique_piiidentifier_by_cookie_domain.cookiedomain} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+  }
 }
 
 explore: third_party_ids_count_by_cookie_domain {
   group_label: "Auto Sellable"
   label: "Third Party IDs by Cookie Domain"
+
+  join: bidder_sync_names {
+    relationship: one_to_one
+    sql_on: ${third_party_ids_count_by_cookie_domain.cookiedomain} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+  }
 }
 
 explore: algorithm_class_by_cookie_domain {
@@ -151,6 +169,12 @@ explore: algorithm_class_by_cookie_domain {
 explore: unique_hems_by_cookie_domain {
   group_label: "Auto Sellable"
   label: "Unique Hems Count by Cookie Domain"
+
+  join: bidder_sync_names {
+    relationship: one_to_one
+    sql_on: ${unique_hems_by_cookie_domain.cookiedomain} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+  }
 }
 
 explore: cookie_hash_ranks {
