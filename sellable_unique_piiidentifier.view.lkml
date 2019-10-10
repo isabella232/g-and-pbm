@@ -1,8 +1,10 @@
 view: sellable_unique_piiidentifier {
   derived_table: {
-    sql: SELECT COUNT(DISTINCT(piiidentifier)) total
+    sql: /*SELECT COUNT(DISTINCT(piiidentifier)) total
       FROM auto_sellable.sellable_pair
-      WHERE date_p = '20190910'
+      WHERE date_p = '20190910'*/
+
+      SELECT * FROM tmp_looker.sellable_unique_piiidentifier
        ;;
   }
 
