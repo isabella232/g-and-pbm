@@ -4,6 +4,9 @@ include: "*.view.lkml"
 include: "third_party_cookie_syncs.dashboard.lookml"
 label: "Identity Graph"
 
+explore: index_tracking {
+}
+
 explore: graph_cluster_run_times {
   group_label: "Graph Pipeline"
   label: "Graph Job Run Time Performance"
