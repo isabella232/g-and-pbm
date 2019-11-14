@@ -50,4 +50,28 @@ view: index_tracking {
     type: sum
     sql: ${TABLE}.requests ;;
   }
+
+  measure: requests_with_lidid {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} THEN ${TABLE}.requests END;;
+    hidden: yes
+  }
+
+  measure: requests_with_unifiedid {
+    type: sum
+    sql: CASE WHEN ${contains_unifiedid} THEN ${TABLE}.requests END ;;
+    hidden: yes
+  }
+
+  measure: pct_requests_with_lidid {
+    type: number
+    sql: ${requests_with_lidid}/CAST(${sum_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: pct_requests_with_unifiedid {
+    type: number
+    sql: ${requests_with_unifiedid}/CAST(${sum_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
 }
