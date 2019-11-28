@@ -1,9 +1,9 @@
-view: sellable_aggs_region_cookiedom {
+view: sellable_aggs_region_by_date {
   derived_table: {
-    sql: SELECT event_date, cookiedomain, region, SUM(region_count) region_count
+    sql: SELECT event_date, region, SUM(region_count) region_count
       FROM no_id_logs.sellable_pairs_aggregates
-      GROUP BY 1,2,3
-      ORDER BY 1,2,3
+      GROUP BY 1,2
+      ORDER BY 1,2
        ;;
   }
 
@@ -19,11 +19,6 @@ view: sellable_aggs_region_cookiedom {
     sql: ${TABLE}.event_date ;;
   }
 
-  dimension: cookiedomain {
-    type: string
-    sql: ${TABLE}.cookiedomain ;;
-  }
-
   dimension: region {
     type: string
     sql: ${TABLE}.region ;;
@@ -35,6 +30,6 @@ view: sellable_aggs_region_cookiedom {
   }
 
   set: detail {
-    fields: [event_date, cookiedomain, region, region_count]
+    fields: [event_date, region, region_count]
   }
 }
