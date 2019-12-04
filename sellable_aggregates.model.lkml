@@ -107,6 +107,10 @@ explore: sellable_aggs_lastdate_partner {
 label: "Latest Date Partner"
 }
 
+explore: sellable_aggs_liids_by_partner {
+label: "LIID Count by Partner"
+}
+
 explore: sellable_aggs_latest_date {}
 
 explore: sellable_aggs_third_partyids_total {}
