@@ -13,8 +13,8 @@ view: sellable_aggs_latest_date {
   }
 
   dimension: last_date {
-    type: string
-    sql: ${TABLE}.last_date ;;
+    type: date
+    sql: DATE_PARSE(${TABLE}.last_date,'%Y%m%d') ;;
   }
 
   set: detail {

@@ -9,7 +9,6 @@ view: sellable_aggs_hems {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
   }
 
   measure: distinctpii_count {
@@ -17,12 +16,8 @@ view: sellable_aggs_hems {
     sql: ${TABLE}.distinctpii_count ;;
   }
 
-  dimension: event_date {
-    type: string
-    sql: ${TABLE}.event_date ;;
-  }
-
-  set: detail {
-    fields: [distinctpii_count, event_date]
+  dimension_group: event_date {
+    type: time
+    sql: DATE_PARSE(${TABLE}.event_date,'%Y%m%d') ;;
   }
 }

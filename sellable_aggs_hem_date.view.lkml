@@ -13,8 +13,8 @@ view: sellable_aggs_hem_date {
   }
 
   dimension: max_date {
-    type: string
-    sql: ${TABLE}.max_date ;;
+    type: date
+    sql: DATE_PARSE(${TABLE}.max_date,'%Y%m%d') ;;
   }
 
   set: detail {

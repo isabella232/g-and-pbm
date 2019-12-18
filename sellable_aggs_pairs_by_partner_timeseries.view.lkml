@@ -33,9 +33,9 @@ view: sellable_aggs_pairs_by_partner_timeseries {
     sql: ${TABLE}."bidder_sync_names.name" ;;
   }
 
-  dimension: unique_pairs_by_cookie_domain_date {
-    type: string
-    sql: ${TABLE}."unique_pairs_by_cookie_domain.date" ;;
+  dimension_group: event {
+    type: time
+    sql: DATE_PARSE(${TABLE}."unique_pairs_by_cookie_domain.date",'%Y%m%d') ;;
   }
 
   measure: unique_pairs_by_cookie_domain_total {
@@ -44,6 +44,6 @@ view: sellable_aggs_pairs_by_partner_timeseries {
   }
 
   set: detail {
-    fields: [bidder_sync_names_name, unique_pairs_by_cookie_domain_date, unique_pairs_by_cookie_domain_total]
+    fields: [bidder_sync_names_name, event_date, unique_pairs_by_cookie_domain_total]
   }
 }

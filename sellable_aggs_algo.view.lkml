@@ -14,9 +14,9 @@ view: sellable_aggs_algo {
     drill_fields: [detail*]
   }
 
-  dimension: event_date {
-    type: string
-    sql: ${TABLE}.event_date ;;
+  dimension_group: event {
+    type: time
+    sql: DATE_PARSE(${TABLE}.event_date,'%Y%m%d') ;;
   }
 
   dimension: algorithmclassification {
