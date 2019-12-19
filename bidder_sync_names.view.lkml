@@ -27,3 +27,13 @@ view: bidder_sync_names {
   }
 
 }
+view: bidder_names_with_sellable_partner_link {
+  extends: [bidder_sync_names]
+
+  dimension: name {
+    link: {
+      label: "Identity Partner Overview"
+      url: "/dashboards-next/597?Partner+Domain+Name={{ value | url_encode }} "
+    }
+  }
+}
