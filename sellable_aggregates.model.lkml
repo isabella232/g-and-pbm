@@ -20,6 +20,17 @@ explore: sellable_pairs_cookie {
   }
 }
 
+explore: sellable_pairs_pii_cookie_domain {
+  label: "Total Sellable HEMs (By Domain)"
+
+  join: bidder_sync_names {
+    fields: [bidder_sync_names.name]
+    sql_on: ${sellable_pairs_pii_cookie_domain.cookiedomain} = ${bidder_sync_names.pub_or_app_id} ;;
+    type: left_outer
+    relationship: many_to_one
+  }
+}
+
 explore: sellable_pairs_aggregates {
   label: "Sellable Pairs Aggregate"
 
