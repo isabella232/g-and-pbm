@@ -8,7 +8,7 @@ datagroup: new_features_mapping_pair {
 }
 
 datagroup: new_sellable_pair {
-  sql_trigger: SELECT MAX(_TABLE_SUFFIX) FROM `auto_sellable.sellable_pair__*` ;;
+  sql_trigger: SELECT MAX(_TABLE_SUFFIX) FROM `auto_sellable.sellable_pair_with_attributes__*` ;;
 }
 
 explore: total_liids_and_pairs_by_sellable_geo {

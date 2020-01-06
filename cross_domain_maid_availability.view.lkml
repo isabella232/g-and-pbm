@@ -2,8 +2,8 @@ view: cross_domain_maid_availability {
   derived_table: {
     sql: with base_agg as (
           SELECT REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$") event_date, region, piiidentifier, ARRAY_AGG(DISTINCT cookieDomain) cookieDomain_array
-          FROM `auto_sellable.sellable_pair__*`
-          WHERE REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$") = (SELECT MAX(REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$")) FROM `auto_sellable.sellable_pair__*`)
+          FROM `auto_sellable.sellable_pair_with_attributes__*`
+          WHERE REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$") = (SELECT MAX(REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$")) FROM `auto_sellable.sellable_pair_with_attributes__*`)
           AND cookieHashRank <= 2
           GROUP BY  1,2,3
           )
