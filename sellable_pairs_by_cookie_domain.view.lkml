@@ -2,8 +2,8 @@ view: sellable_pairs_by_cookie_domain {
   derived_table: {
     sql: SELECT REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$") event_date, region = 'nonus' nonUS,
     cookieDomain, COUNT(DISTINCT piiidentifier) hashes, COUNT(DISTINCT cookie) partner_id, COUNT(*) pairs
-    FROM `auto_sellable.sellable_pair__*`
-    WHERE REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$") = (SELECT MAX(REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$")) FROM `auto_sellable.sellable_pair__*`)
+    FROM `auto_sellable.sellable_pair_with_attributes__*`
+    WHERE REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$") = (SELECT MAX(REGEXP_EXTRACT(_TABLE_SUFFIX,r"\d{8}$")) FROM `auto_sellable.sellable_pair_with_attributes__*`)
     GROUP BY 1,2,3;;
 
     datagroup_trigger: new_sellable_pair
