@@ -1,4 +1,4 @@
-view: sellable_pairs_cookie {
+view: c_identity_agg_partner_ids_total {
   sql_table_name: no_id_logs.sellable_pairs_cookie ;;
   suggestions: no
 
@@ -17,4 +17,6 @@ view: sellable_pairs_cookie {
     type: sum
     sql: ${TABLE}.cookie_count ;;
   }
+
+  # sellable_pairs_cookie
 }

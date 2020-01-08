@@ -1,4 +1,4 @@
-view: sellable_pairs_pii_cookie_domain {
+view: c_identity_agg_partner_ids_domain {
   sql_table_name: no_id_logs.sellable_pairs_pii_cookie_domain ;;
   suggestions: no
 
@@ -16,4 +16,6 @@ view: sellable_pairs_pii_cookie_domain {
     type: average
     sql: ${TABLE}.pii_count ;;
   }
+
+# sellable_pairs_pii_cookie_domain
 }
