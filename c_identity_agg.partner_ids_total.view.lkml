@@ -5,9 +5,10 @@ view: c_identity_agg_partner_ids_total {
   dimension: cookiedomain {
     type: string
     sql: ${TABLE}.cookiedomain ;;
+    label: "Cookie Domain ID"
   }
 
-  dimension_group: event {
+  dimension_group: generation {
     type: time
     sql: DATE_PARSE(${TABLE}.event_date,'%Y%m%d') ;;
     timeframes: [date,month,quarter,year]
@@ -16,6 +17,7 @@ view: c_identity_agg_partner_ids_total {
   measure: count_partner_id {
     type: sum
     sql: ${TABLE}.cookie_count ;;
+    label: "Count Partner IDs"
   }
 
   # sellable_pairs_cookie

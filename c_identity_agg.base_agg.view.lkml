@@ -17,6 +17,7 @@ view: c_identity_base_agg {
   dimension: cookiedomain {
     type: string
     sql: ${TABLE}.cookiedomain ;;
+    label: "Cookie Domain ID"
   }
 
   dimension: region {

@@ -5,11 +5,12 @@ view: c_identity_agg_hems_total {
   dimension: event_date {
     type: date
     sql: DATE_PARSE(${TABLE}.event_date,'%Y%m%d') ;;
+    label: "Generation Date"
   }
 
   measure: hems {
     type: average
-    label: "HEMs"
+    label: "Count HEMs"
     sql: ${TABLE}.distinctpii_count ;;
   }
 }
