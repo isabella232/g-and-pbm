@@ -1,4 +1,4 @@
-view: sellable_pairs_aggregates {
+view: c_identity_base_agg {
   sql_table_name: no_id_logs.sellable_pairs_aggregates ;;
   suggestions: no
 

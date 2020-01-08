@@ -31,12 +31,12 @@ explore: c_identity_agg_partner_ids_domain {
   }
 }
 
-explore: sellable_pairs_aggregates {
+explore: c_identity_base_agg {
   label: "Sellable Pairs Aggregate"
 
   join: bidder_names_with_sellable_partner_link {
     fields: [bidder_names_with_sellable_partner_link.name]
-    sql_on: ${sellable_pairs_aggregates.cookiedomain} = ${bidder_names_with_sellable_partner_link.pub_or_app_id} ;;
+    sql_on: ${c_identity_base_agg.cookiedomain} = ${bidder_names_with_sellable_partner_link.pub_or_app_id} ;;
     type: left_outer
     relationship: many_to_one
   }
