@@ -1,5 +1,7 @@
 connection: "bigquery_log_data"
 
+# THIS IS PROBABLY DEFUNCT -- WE HAVE STOPPED SENDING LR PAIRS
+
 include: "*.view.lkml"         # include all views in this project
 #include: "*.dashboard.lookml"  # include all dashboards in this project
 
@@ -13,8 +15,10 @@ datagroup: new_imp_day {
 
 explore: liveramp_pairs_submitted_overall {
   label: "LiveRamp Pairing Submissions (Overall)"
+  hidden: yes
 }
 
 explore: liveramp_pairs_submitted_publisher {
   label: "LiveRamp Pairing Submissions (Per Publisher)"
+  hidden: yes
 }
