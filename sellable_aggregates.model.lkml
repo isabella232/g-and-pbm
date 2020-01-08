@@ -5,7 +5,7 @@ include: "*.view.lkml"                       # include all views in this project
 
 # NEW REVISED LOOKS #
 
-explore: sellable_pairs_pii {
+explore: c_identity_agg_hems_total {
   label: "Total Sellable HEMs"
 }
 

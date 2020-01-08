@@ -1,4 +1,4 @@
-view: sellable_pairs_pii {
+view: c_identity_agg_hems_total {
   sql_table_name: no_id_logs.sellable_pairs_pii ;;
   suggestions: no
 
