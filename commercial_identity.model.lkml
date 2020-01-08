@@ -6,11 +6,12 @@ include: "*.view.lkml"                       # include all views in this project
 # NEW REVISED LOOKS #
 
 explore: c_identity_agg_hems_total {
-  label: "Total Sellable HEMs"
+  label: "Connected LI HEMs (Overall)"
+  description: "Uniques across the entire dataset"
 }
 
 explore: c_identity_agg_partner_ids_total {
-  label: "Total Sellable Partner IDs"
+  label: "Connected Partner IDs"
 
   join: bidder_names_with_sellable_partner_link {
     fields: [bidder_names_with_sellable_partner_link.name]
@@ -21,7 +22,8 @@ explore: c_identity_agg_partner_ids_total {
 }
 
 explore: c_identity_agg_partner_ids_domain {
-  label: "Total Sellable HEMs (By Domain)"
+  label: "Connected LI HEMs (Domain)"
+  description: "Uniques with cookie domain granularity"
 
   join: bidder_names_with_sellable_partner_link {
     fields: [bidder_names_with_sellable_partner_link.name]
@@ -32,7 +34,8 @@ explore: c_identity_agg_partner_ids_domain {
 }
 
 explore: c_identity_base_agg {
-  label: "Sellable Pairs Aggregate"
+  label: "Core Aggregate"
+  description: "Pairs with additional dimensions"
 
   join: bidder_names_with_sellable_partner_link {
     fields: [bidder_names_with_sellable_partner_link.name]
