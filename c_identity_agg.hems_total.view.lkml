@@ -11,6 +11,6 @@ view: c_identity_agg_hems_total {
   measure: hems {
     type: average
     label: "Count HEMs"
-    sql: ${TABLE}.distinctpii_count ;;
+    sql: NULLIF(${TABLE}.distinctpii_count,0) ;;
   }
 }
