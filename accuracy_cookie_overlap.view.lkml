@@ -1,7 +1,7 @@
 view: accuracy_cookie_overlap {
   derived_table: {
     sql: WITH cookie_ttl AS (
-  SELECT DATE_PARSE(date_p,'%Y%m%d') event_date, mappingtype, cookies
+  SELECT DATE_PARSE(date_p,'%Y%m%d') event_date, mappingtype, identifiers
   FROM auto_mappings.cookie_stats
   WHERE mappingtype NOT LIKE '%¤%'
   GROUP BY 1,2,3

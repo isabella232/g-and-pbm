@@ -1,8 +1,8 @@
 view: graph_daily_cookie_activity_distribution {
   derived_table: {
-    sql: SELECT DATE_PARSE(date_p, '%Y%m%d') event_date, mappingtype,  r.days_seen_last_31, mappedcookieactivitylast31days[r.days_seen_last_31] cnt_cookies
+    sql: SELECT DATE_PARSE(date_p, '%Y%m%d') event_date, mappingtype,  r.days_seen_last_31, mappedidentifieractivitylast31days[r.days_seen_last_31] cnt_cookies
       FROM "auto_mappings"."cookie_stats"
-      CROSS JOIN UNNEST(MAP_KEYS(mappedcookieactivitylast31days)) as r (days_seen_last_31)
+      CROSS JOIN UNNEST(MAP_KEYS(mappedidentifieractivitylast31days)) as r (days_seen_last_31)
       WHERE mappingtype NOT LIKE '%¤%'
        ;;
   }
