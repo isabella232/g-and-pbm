@@ -1,8 +1,8 @@
 view: accuracy_cookie_stats {
   derived_table: {
-    sql: SELECT DATE_PARSE(date_p,'%Y%m%d') event_date, mappingtype, cookies,
-      mappedcookieestimatedtobecommercial._2 pct_estimated_to_be_commercial, mappedcookieisverified._2 pct_is_verified, mappedcookieisthirdparty._2 pct_is_third_party, mappedcookieseenafter._2 pct_is_seen_after,
-      mappedcookiehashighbids._2 pct_high_bids, mappedcookiehasextremebids._2 pct_extreme_bids
+    sql: SELECT DATE_PARSE(date_p,'%Y%m%d') event_date, mappingtype, identifiers,
+      mappedidentifierestimatedtobecommercial._2 pct_estimated_to_be_commercial, mappedidentifierisverified._2 pct_is_verified, mappedidentifieristhirdparty._2 pct_is_third_party, mappedidentifierseenafter._2 pct_is_seen_after,
+      mappedidentifierhashighbids._2 pct_high_bids, mappedidentifierhasextremebids._2 pct_extreme_bids
       FROM "auto_mappings"."cookie_stats"
       WHERE mappingtype NOT LIKE '%¤%'
        ;;
