@@ -1,6 +1,6 @@
 view: c_identity_domain_relations_latest {
   derived_table: {
-    sql: SELECT * FROM no_id_logs.sellable_pairs_hem_maid WHERE event_date = (SELECT MAX(event_date) FROM no_id_logs.sellable_pairs_hem_maid) ;;
+    sql: SELECT * FROM no_id_logs.sellable_pairs_hem_maid WHERE event_date IN (SELECT MAX(event_date) FROM no_id_logs.sellable_pairs_hem_maid);;
   }
 
   suggestions: no
@@ -39,6 +39,18 @@ view: c_identity_domain_relations_latest {
 
   measure: count_pairs {
     type: sum
+    sql: ${TABLE}.second_dom_pairs;;
+    value_format_name: decimal_0
+  }
+
+  measure: avg_hems {
+    type: average
+    sql: ${TABLE}.connected_hems;;
+    value_format_name: decimal_0
+  }
+
+  measure: avg_pairs {
+    type: average
     sql: ${TABLE}.second_dom_pairs;;
     value_format_name: decimal_0
   }
