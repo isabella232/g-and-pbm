@@ -35,6 +35,43 @@ explore: c_identity_agg_partner_ids_domain {
   }
 }
 
+explore: c_identity_domain_relations {
+  label: "Connections Between Partner IDs"
+  join: primary {
+    from: bidder_names_with_sellable_partner_link
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${c_identity_domain_relations.primary_cdomain} = ${primary.pub_or_app_id} ;;
+    view_label: "Primary Cookie Domain"
+  }
+  join: secondary {
+    from: bidder_names_with_sellable_partner_link
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${c_identity_domain_relations.secondary_cdomain} = ${secondary.pub_or_app_id} ;;
+    view_label: "Secondary Cookie Domain"
+  }
+}
+
+explore: c_identity_domain_relations_latest {
+  label: "Latest Connections Between Partner IDs"
+  join: primary {
+    from: bidder_names_with_sellable_partner_link
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${c_identity_domain_relations_latest.primary_cdomain} = ${primary.pub_or_app_id} ;;
+    view_label: "Primary Cookie Domain"
+  }
+  join: secondary {
+    from: bidder_names_with_sellable_partner_link
+    type: left_outer
+    relationship: many_to_one
+    sql_on: ${c_identity_domain_relations_latest.secondary_cdomain} = ${secondary.pub_or_app_id} ;;
+    view_label: "Secondary Cookie Domain"
+  }
+}
+
+
 explore: c_identity_base_agg {
   label: "Core Aggregate"
   description: "Pairs with additional dimensions"
