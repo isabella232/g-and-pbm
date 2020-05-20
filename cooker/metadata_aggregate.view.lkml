@@ -76,6 +76,9 @@ view: metadata_aggregate {
   dimension: ix_idmodules {
     type: string
     sql: ${TABLE}.ixidmodules ;;
+    group_label: "IX ID Module Types"
+    hidden: yes
+    # Hidden because all values are currently handled through booleans
   }
 
   dimension: has_liveintent_idmodule_enabled_in_ix {
