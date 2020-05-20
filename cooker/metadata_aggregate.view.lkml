@@ -2,9 +2,16 @@ view: metadata_aggregate {
   sql_table_name: cooker.cooker_metadata_agg ;;
   suggestions: no
 
-  dimension: error {
+  dimension: error_message {
     type: string
-    sql: ${TABLE}.error ;;
+    sql: NULLIF(${TABLE}.error,'') ;;
+    group_label: "Errors"
+  }
+
+  dimension: had_parsing_error {
+    type: yesno
+    sql: ${error_message} IS NOT NULL ;;
+    group_label: "Errors"
   }
 
   dimension_group: exact_time {
@@ -31,29 +38,20 @@ view: metadata_aggregate {
     sql: ${TABLE}.headersspadapters ;;
   }
 
-  dimension: has_liveintent_idmodule_enabled_in_prebid {
-    type: yesno
-    sql: ${TABLE}.isliveintentidmoduleenabledinprebid ;;
-  }
-
   dimension: has_prebid {
     type: yesno
     sql: ${TABLE}.isprebid ;;
   }
 
-  dimension: ix_library {
+  dimension: ix_library_type {
     type: string
-    sql: ${TABLE}.ixlibrary ;;
+    sql: NULLIF(${TABLE}.ixlibrary,'') ;;
+    label: "IX Library Type"
   }
 
   dimension: has_liveconnect_tag {
     type: yesno
     sql: ${TABLE}.liveconnecttag = 'true' ;;
-  }
-
-  dimension: prebid_idmodules {
-    type: string
-    sql: ${TABLE}.prebididmodules ;;
   }
 
   dimension: prebid_version {
@@ -110,6 +108,59 @@ view: metadata_aggregate {
     type: yesno
     sql: CONTAINS(${ix_idmodules},'AdserverOrgIp') ;;
     group_label: "IX ID Module Types"
+  }
+
+  # Prebid ID Module Dimensions
+
+  dimension: prebid_idmodules {
+    type: string
+    sql: ${TABLE}.prebididmodules ;;
+    group_label: "Prebid ID Module Types"
+    hidden: yes
+    # hidden because all values are currently handled through booleans
+  }
+
+  dimension: contains_unifiedid {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'unifiedId') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: contains_criteo {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'criteo') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: contains_digitrust {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'digitrust') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: contains_id5ID {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'id5Id') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: contains_identitylink {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'identityLink') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: contains_pubcommonid {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'pubCommonId') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: has_liveintent_idmodule_enabled_in_prebid {
+    type: yesno
+    sql: ${TABLE}.isliveintentidmoduleenabledinprebid ;;
+    group_label: "Prebid ID Module Types"
+    label: "Contains Liveintent"
   }
 
   measure: count {
