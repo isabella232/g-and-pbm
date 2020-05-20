@@ -31,24 +31,14 @@ view: metadata_aggregate {
     sql: ${TABLE}.headersspadapters ;;
   }
 
-  dimension: is_liveintent_idmodule_enabled_in_ix {
-    type: yesno
-    sql: ${TABLE}.isliveintentidmoduleenabledinix ;;
-  }
-
-  dimension: is_liveintent_idmodule_enabled_in_prebid {
+  dimension: has_liveintent_idmodule_enabled_in_prebid {
     type: yesno
     sql: ${TABLE}.isliveintentidmoduleenabledinprebid ;;
   }
 
-  dimension: is_prebid {
+  dimension: has_prebid {
     type: yesno
     sql: ${TABLE}.isprebid ;;
-  }
-
-  dimension: ix_idmodules {
-    type: string
-    sql: ${TABLE}.ixidmodules ;;
   }
 
   dimension: ix_library {
@@ -56,9 +46,9 @@ view: metadata_aggregate {
     sql: ${TABLE}.ixlibrary ;;
   }
 
-  dimension: liveconnect_tag {
-    type: string
-    sql: ${TABLE}.liveconnecttag ;;
+  dimension: has_liveconnect_tag {
+    type: yesno
+    sql: ${TABLE}.liveconnecttag = 'true' ;;
   }
 
   dimension: prebid_idmodules {
@@ -79,6 +69,44 @@ view: metadata_aggregate {
   dimension: url {
     type: string
     sql: ${TABLE}.url ;;
+  }
+
+  # IX ID MODULE DIMENSIONS
+
+  dimension: ix_idmodules {
+    type: string
+    sql: ${TABLE}.ixidmodules ;;
+  }
+
+  dimension: has_liveintent_idmodule_enabled_in_ix {
+    type: yesno
+    sql: ${TABLE}.isliveintentidmoduleenabledinix ;;
+    hidden: yes
+    # Hidden because I handle it through the array like all other modules
+  }
+
+  dimension: contains_liveintent {
+    type: yesno
+    sql: CONTAINS(${ix_idmodules},'LiveIntentIp') ;;
+    group_label: "IX ID Module Types"
+  }
+
+  dimension: contains_merkle {
+    type: yesno
+    sql: CONTAINS(${ix_idmodules},'MerkleIp') ;;
+    group_label: "IX ID Module Types"
+  }
+
+  dimension: contains_liveramp {
+    type: yesno
+    sql: CONTAINS(${ix_idmodules},'LiveRampIp') ;;
+    group_label: "IX ID Module Types"
+  }
+
+  dimension: contains_ad_server_org {
+    type: yesno
+    sql: CONTAINS(${ix_idmodules},'AdserverOrgIp') ;;
+    group_label: "IX ID Module Types"
   }
 
   measure: count {
