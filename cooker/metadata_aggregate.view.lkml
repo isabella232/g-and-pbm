@@ -86,6 +86,12 @@ view: metadata_aggregate {
     # Hidden because I handle it through the array like all other modules
   }
 
+  dimension: number_installed_ix_modules {
+    type: number
+    sql: CARDINALITY(${ix_idmodules}) ;;
+    group_label: "IX ID Module Types"
+  }
+
   dimension: contains_liveintent {
     type: yesno
     sql: CONTAINS(${ix_idmodules},'LiveIntentIp') ;;
@@ -118,6 +124,12 @@ view: metadata_aggregate {
     group_label: "Prebid ID Module Types"
     hidden: yes
     # hidden because all values are currently handled through booleans
+  }
+
+  dimension: number_installed_prebid_modules {
+    type: number
+    sql: CARDINALITY(${prebid_idmodules}) ;;
+    group_label: "Prebid ID Module Types"
   }
 
   dimension: contains_unifiedid {
