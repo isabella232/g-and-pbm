@@ -21,5 +21,4 @@ explore: pvc_view {
   }
   label: "PVC & PCC"
   hidden: yes
-
 }

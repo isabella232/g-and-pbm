@@ -1,7 +1,8 @@
 connection: "athena_copenhagen"
 
-include: "*.view.lkml"
-include: "third_party_cookie_syncs.dashboard.lookml"
+include: "**/athena_cph/*.view.lkml"
+include: "**/dashboards/third_party_cookie_syncs.dashboard.lookml"
+include: "/**/metadata/bidder_sync_names.view.lkml"   # including bidder sync names view
 label: "Identity Graph"
 
 explore: index_tracking {

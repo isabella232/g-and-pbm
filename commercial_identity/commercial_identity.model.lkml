@@ -1,7 +1,7 @@
 connection: "ny_athena"
 
 include: "*.view.lkml"                       # include all views in this project
-# include: "my_dashboard.dashboard.lookml"   # include a LookML dashboard called my_dashboard
+include: "/**/metadata/bidder_sync_names.view.lkml"   # including bidder sync names view
 
 # NEW REVISED LOOKS #
 
