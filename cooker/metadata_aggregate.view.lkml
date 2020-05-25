@@ -88,7 +88,7 @@ view: metadata_aggregate {
 
   dimension: number_installed_ix_modules {
     type: number
-    sql: CARDINALITY(${ix_idmodules}) ;;
+    sql: COALESCE(CARDINALITY(${ix_idmodules}),0) ;;
     group_label: "IX ID Module Types"
   }
 
@@ -128,7 +128,7 @@ view: metadata_aggregate {
 
   dimension: number_installed_prebid_modules {
     type: number
-    sql: CARDINALITY(${prebid_idmodules}) ;;
+    sql: COALESCE(CARDINALITY(${prebid_idmodules}),0) ;;
     group_label: "Prebid ID Module Types"
   }
 
@@ -177,5 +177,19 @@ view: metadata_aggregate {
 
   measure: count {
     type: count
+  }
+
+  measure: avg_ix_modules {
+    type: average
+    sql: ${number_installed_ix_modules} ;;
+    hidden: yes
+    # hidden because only has a specific use
+  }
+
+  measure: avg_prebid_modules {
+    type: average
+    sql: ${number_installed_prebid_modules} ;;
+    hidden: yes
+    # hidden because only has a specific use
   }
 }
