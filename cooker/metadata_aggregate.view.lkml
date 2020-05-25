@@ -177,6 +177,7 @@ view: metadata_aggregate {
 
   measure: count {
     type: count
+    drill_fields: [url, has_prebid, has_bouncex, ix_library_type, has_liveconnect_tag, has_bouncex]
   }
 
   measure: avg_ix_modules {
@@ -192,4 +193,5 @@ view: metadata_aggregate {
     hidden: yes
     # hidden because only has a specific use
   }
+
 }
