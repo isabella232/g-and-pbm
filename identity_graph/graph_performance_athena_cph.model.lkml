@@ -341,5 +341,5 @@ explore: narrative_unique_hems_by_cookie_domain {
 
 explore: narrative_no_unique_thirdpartyids_by_cookie_domain {
   group_label: "Auto Deliverable"
-  label: "Narrative -  Unique 3rd Party IDs count by Cookie Domain "
+  label: "Narrative -  Unique 3rd Party IDs count by Cookie Domain"
 }
