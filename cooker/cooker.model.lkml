@@ -1,6 +1,7 @@
 connection: "athena_berlin"
 
-include: "/cooker/*.view.lkml"
+include: "*.view.lkml"
 
 explore: metadata_aggregate {
+  label: "Header Metadata"
 }
