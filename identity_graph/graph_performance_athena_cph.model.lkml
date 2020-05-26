@@ -5,9 +5,6 @@ include: "**/dashboards/third_party_cookie_syncs.dashboard.lookml"
 include: "/**/metadata/bidder_sync_names.view.lkml"   # including bidder sync names view
 label: "Identity Graph"
 
-explore: index_tracking {
-}
-
 explore: graph_cluster_run_times {
   group_label: "Graph Pipeline"
   label: "Graph Job Run Time Performance"

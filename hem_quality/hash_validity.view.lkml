@@ -65,3 +65,14 @@ view: hash_validity {
   }
 
 }
+
+#explore: hash_validity {
+#
+#  join: lfx_zf_pubvertisers {
+#    relationship: many_to_one
+#    sql_on: ${hash_validity.publisher_id} = ${lfx_zf_pubvertisers.userver_id} ;;
+#    type: left_outer
+#    view_label: "Hash Validity"
+#    fields: [lfx_zf_pubvertisers.name]
+#  }
+#}
