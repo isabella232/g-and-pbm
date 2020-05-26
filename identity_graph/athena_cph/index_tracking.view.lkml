@@ -6,7 +6,7 @@ view: index_tracking {
       clientname,
       countrylookup country,
       lidid <> '' contains_lidid,
-      unifiedid <> '' contains_unifiedid,
+      mostlikelyemailhash <> '' contains_unifiedid,
       COUNT(*) requests
       FROM auto_logs.idaas_idx_track_log
       WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '7' DAY
@@ -37,7 +37,7 @@ view: index_tracking {
   }
 
   dimension: contains_lidid {
-    type: string
+    type: yesno
     sql: ${TABLE}.contains_lidid ;;
   }
 
