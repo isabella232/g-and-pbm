@@ -44,30 +44,35 @@ view: c_identity_base_agg {
     type: number
     sql: ${TABLE}.deterministic ;;
     group_label: "Experimental Dimensions"
+    hidden: yes
   }
 
   dimension: recency_deterministicandhiaccprobabilistic {
     type: number
     sql: ${TABLE}.deterministicandhiaccprobabilistic ;;
     group_label: "Experimental Dimensions"
+    hidden: yes
   }
 
   dimension: recency_hiaccprobabilistic {
     type: number
     sql: ${TABLE}.hiaccprobabilistic ;;
     group_label: "Experimental Dimensions"
+    hidden: yes
   }
 
   dimension: recency_probabilistic {
     type: number
     sql: ${TABLE}.probabilistic ;;
     group_label: "Experimental Dimensions"
+    hidden: yes
   }
 
   dimension: recency_total {
     type: number
     sql: ${TABLE}.total ;;
     group_label: "Experimental Dimensions"
+    hidden: yes
   }
 
 # Measures #

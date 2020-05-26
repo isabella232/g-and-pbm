@@ -1,9 +1,9 @@
 connection: "liveintent_main_redshift"
 label: "Identity Graph"
 
-include: "**/redshift/*.view.lkml"         # include all views in this project
-include: "**/archived_identity_graph/rs.rtb_mapping_type_performance_cohorts.view.lkml"
-include: "**/archived_identity_graph/rs.active_hash_volume.view.lkml"
+include: "redshift/*.view.lkml"         # include all views in this project
+include: "archived_identity_graph/rs.rtb_mapping_type_performance_cohorts.view.lkml"
+include: "archived_identity_graph/rs.active_hash_volume.view.lkml"
 
 explore: d_esp_pairing_volume {
 # Hidden because it had a singular purporse (for the d/esp dashboard)

@@ -1,8 +1,8 @@
 connection: "ny_athena"
 label: "Identity Graph"
 
-include: "/**/archived_identity_graph/*.view.lkml"
-include: "/**/athena_ny/*.view.lkml"
+include: "archived_identity_graph/*.view.lkml"
+include: "athena_ny/*.view.lkml"
 
 explore: watermarking {
 group_label: "Graph Quality"

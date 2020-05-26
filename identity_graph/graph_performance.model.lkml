@@ -1,7 +1,7 @@
 connection: "bigquery_log_data"
 label: "Identity Graph"
 
-include: "**/bigquery/*.view.lkml"
+include: "bigquery/*.view.lkml"
 
 datagroup: new_imp_day_data {
   sql_trigger: SELECT MAX(PARSE_DATE('%Y%m%d',REGEXP_EXTRACT(_TABLE_SUFFIX,r"(\d{8})$"))) FROM `userver_logs_ssp.imp_*` WHERE REGEXP_CONTAINS(_TABLE_SUFFIX, r"^[A-z0-9]{5}_[\d]{8}") ;;

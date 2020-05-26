@@ -18,6 +18,7 @@ view: c_identity_agg_partner_ids_total {
     type: sum
     sql: ${TABLE}.cookie_count ;;
     label: "Count Partner IDs"
+    value_format_name: decimal_0
   }
 
   # sellable_pairs_cookie

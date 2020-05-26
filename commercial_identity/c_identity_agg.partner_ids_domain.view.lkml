@@ -18,7 +18,6 @@ view: c_identity_agg_partner_ids_domain {
     type: average
     sql: ${TABLE}.pii_count ;;
     label: "Count HEMs"
+    value_format_name: decimal_0
   }
-
-# sellable_pairs_pii_cookie_domain
 }

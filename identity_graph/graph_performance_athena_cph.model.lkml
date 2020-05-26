@@ -1,8 +1,9 @@
 connection: "athena_copenhagen"
 
-include: "**/athena_cph/*.view.lkml"
-include: "**/dashboards/third_party_cookie_syncs.dashboard.lookml"
-include: "/**/metadata/bidder_sync_names.view.lkml"   # including bidder sync names view
+include: "athena_cph/*.view.lkml"
+include: "dashboards/third_party_cookie_syncs.dashboard.lookml"
+include: "/metadata/bidder_sync_names.view.lkml"   # including bidder sync names view
+include: "archived_identity_graph/*.view.lkml"
 label: "Identity Graph"
 
 explore: graph_cluster_run_times {
@@ -42,6 +43,7 @@ explore: graph_daily_hash_activity_distribution {
   group_label: "Graph Quality"
   label: "Hash Activity Distribution"
   description: "Distribution of the # of Days a Hash Appeared in the Prior 30 Days"
+  # Unused Last 180 as of 2020-05-26
 }
 
 explore: graph_daily_cookie_activity_distribution {
@@ -55,6 +57,7 @@ explore: accuracy_pair_overlap {
   group_label: "Graph Quality"
   label: "Mapping Type Overlaps: Pairs"
   description: "Number of Shared Pairs Between Mapping Types"
+  # Unused Last 180 as of 2020-05-26
 }
 
 explore: people_verified_counts {
@@ -112,21 +115,25 @@ explore: third_party_cookie_syncs {
 explore: region_counts {
   group_label: "Auto Sellable"
   label: "Region Distribution"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: sellable_unique_pairs {
   group_label: "Auto Sellable"
   label: "Unique Pairs Count"
+    # Unused Last 180 as of 2020-05-26
   }
 
 explore: sellable_unique_piiidentifier {
   group_label: "Auto Sellable"
   label: "Unique 3rd Party IDs Count"
+
 }
 
 explore: unique_hems_sellable {
   group_label: "Auto Sellable"
   label: "Unique Hems Count"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: unique_pairs_by_cookie_domain {
@@ -181,6 +188,7 @@ explore: unique_hems_by_cookie_domain {
 explore: cookie_hash_ranks {
   group_label: "Auto Sellable"
   label: "Cluster size of Hash Ranks"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: cookie_hash_ranks_by_cookie_domain {
@@ -257,86 +265,104 @@ explore: region_by_cookie_domain {
 
 explore: algorithm_classification_sellable {
   group_label: "Auto Sellable"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: adobe_by_classification_type {
   group_label: "Auto Deliverable"
   label: "Adobe - Algorithmic Classification"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: narrative_by_classification_type {
   group_label: "Auto Deliverable"
   label: "Narrative - Algorithmic Classification"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: oracle_by_classification_type {
   group_label: "Auto Deliverable"
   label: "Oracle - Algorithmic Classification"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: walmart_by_classification_type {
   group_label: "Auto Deliverable"
   label: "Walmart - Algorithmic Classification"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: feature_1_by_partner {
   group_label: "Auto Deliverable"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: feature_2_by_partner {
   group_label: "Auto Deliverable"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: feature_3_by_partner {
   group_label: "Auto Deliverable"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: narrative_by_cookie_domain {
   group_label: "Auto Deliverable"
   label: "Narrative - Weight Distribution by Cookie Domain"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: weight_by_partner {
   group_label: "Auto Deliverable"
   label: "Weight Distribution by Partner"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: bothhighacc_by_partner {
   group_label: "Auto Deliverable"
   label: "BothHighAcc - Weight Distribution by Partner"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: deterministic_by_partner {
   group_label: "Auto Deliverable"
   label: "Deterministic - Weight Distribution by Partner"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: hiaccprobabilistic_by_partner {
   group_label: "Auto Deliverable"
   label: "HiAccProbabilistic - Weight Distribution by Partner"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: narrative_thirdpartyids_hems {
   group_label: "Auto Deliverable"
   label: "Narrative - Unique 3rd Party IDs and Hems"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: narrative_unique_pairs {
   group_label: "Auto Deliverable"
   label: "Narrative - Unique Pairs Count"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: narrative_pairs_count_by_cookie_domain {
   group_label: "Auto Deliverable"
   label: "Narrative - Unique Pairs Count by Cookie Domain"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: narrative_unique_hems_by_cookie_domain {
   group_label: "Auto Deliverable"
   label: "Narrative - Unique Hems Count by Cookie Domain"
+    # Unused Last 180 as of 2020-05-26
 }
 
 explore: narrative_no_unique_thirdpartyids_by_cookie_domain {
   group_label: "Auto Deliverable"
   label: "Narrative -  Unique 3rd Party IDs count by Cookie Domain"
+    # Unused Last 180 as of 2020-05-26
 }
