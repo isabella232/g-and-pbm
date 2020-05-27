@@ -6,7 +6,7 @@ view: index_tracking {
       clientname,
       countrylookup country,
       lidid <> '' contains_lidid,
-      mostlikelyemailhash <> '' contains_emailhash,
+      mostlikelyemailhash <> '' contains_unifiedid,
       COUNT(*) requests
       FROM auto_logs.idaas_idx_track_log
       WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '7' DAY
@@ -41,9 +41,9 @@ view: index_tracking {
     sql: ${TABLE}.contains_lidid ;;
   }
 
-  dimension: contains_emailhash {
+  dimension: contains_unifiedid {
     type: string
-    sql: ${TABLE}.contains_emailhash ;;
+    sql: ${TABLE}.contains_unifiedid ;;
   }
 
   measure: sum_requests {
@@ -57,9 +57,9 @@ view: index_tracking {
     hidden: yes
   }
 
-  measure: requests_with_emailhash {
+  measure: requests_with_unifiedid {
     type: sum
-    sql: CASE WHEN ${contains_emailhash} THEN ${TABLE}.requests END ;;
+    sql: CASE WHEN ${contains_unifiedid} THEN ${TABLE}.requests END ;;
     hidden: yes
   }
 
@@ -69,9 +69,9 @@ view: index_tracking {
     value_format_name: percent_0
   }
 
-  measure: pct_requests_with_emailhash {
+  measure: pct_requests_with_unifiedid {
     type: number
-    sql: ${requests_with_emailhash}/CAST(${sum_requests} AS REAL) ;;
+    sql: ${requests_with_unifiedid}/CAST(${sum_requests} AS REAL) ;;
     value_format_name: percent_0
   }
 }
