@@ -42,7 +42,7 @@ view: index_tracking {
   }
 
   dimension: contains_unifiedid {
-    type: string
+    type: yesno
     sql: ${TABLE}.contains_unifiedid ;;
   }
 
