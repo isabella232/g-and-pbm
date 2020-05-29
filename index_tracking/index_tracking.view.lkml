@@ -43,6 +43,7 @@ view: index_tracking {
 
   dimension: contains_unifiedid {
     type: yesno
+    label: "Contains Emailhash"
     sql: ${TABLE}.contains_unifiedid ;;
   }
 
@@ -71,6 +72,7 @@ view: index_tracking {
 
   measure: pct_requests_with_unifiedid {
     type: number
+    label: "Pct Requests with Emailhash"
     sql: ${requests_with_unifiedid}/CAST(${sum_requests} AS REAL) ;;
     value_format_name: percent_0
   }
