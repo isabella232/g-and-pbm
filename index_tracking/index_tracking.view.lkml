@@ -7,11 +7,13 @@ view: index_tracking {
       clientname,
       countrylookup country,
       lidid <> '' contains_lidid,
+      query LIKE 'duid=%' contains_fpc,
+      query LIKE '44489=%' contains_tdd,
       mostlikelyemailhash <> '' contains_unifiedid,
       COUNT(*) requests
       FROM auto_logs.idaas_idx_track_log
       WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '7' DAY
-      GROUP BY 1,2,3,4,5,6,7
+      GROUP BY 1,2,3,4,5,6,7,8,9
        ;;
   }
 
@@ -47,6 +49,16 @@ view: index_tracking {
     sql: ${TABLE}.contains_lidid ;;
   }
 
+  dimension: contains_fpc {
+    type: yesno
+    sql: ${TABLE}.contains_fpc;;
+  }
+
+  dimension: contains_tdd {
+    type: yesno
+    sql: ${TABLE}.contains_tdd;;
+  }
+
   dimension: contains_unifiedid {
     type: yesno
     label: "Contains Emailhash"
@@ -64,6 +76,18 @@ view: index_tracking {
     hidden: yes
   }
 
+  measure: requests_with_fpc {
+    type: sum
+    sql: CASE WHEN ${contains_fpc} THEN ${TABLE}.requests END;;
+    hidden: yes
+  }
+
+  measure: requests_with_tdd {
+    type: sum
+    sql: CASE WHEN ${contains_tdd} THEN ${TABLE}.requests END;;
+    hidden: yes
+  }
+
   measure: requests_with_unifiedid {
     type: sum
     sql: CASE WHEN ${contains_unifiedid} THEN ${TABLE}.requests END ;;
@@ -73,6 +97,18 @@ view: index_tracking {
   measure: pct_requests_with_lidid {
     type: number
     sql: ${requests_with_lidid}/CAST(${sum_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: pct_requests_with_fpc {
+    type: number
+    sql: ${requests_with_fpc}/CAST(${sum_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: pct_requests_with_tdd {
+    type: number
+    sql: ${requests_with_tdd}/CAST(${sum_requests} AS REAL) ;;
     value_format_name: percent_0
   }
 
