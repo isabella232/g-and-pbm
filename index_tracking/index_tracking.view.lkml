@@ -75,6 +75,11 @@ view: index_tracking {
     sql: CASE WHEN ${contains_lidid} OR ${contains_fpc} OR ${contains_tdd} THEN ${TABLE}.requests END ;;
   }
 
+  measure: sum_invalid_requests {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} = FALSE AND ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END ;;
+  }
+
   measure: requests_with_lidid {
     type: sum
     sql: CASE WHEN ${contains_lidid} THEN ${TABLE}.requests END;;
