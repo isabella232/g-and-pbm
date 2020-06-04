@@ -70,6 +70,11 @@ view: index_tracking {
     sql: ${TABLE}.requests ;;
   }
 
+  measure: sum_valid_requests {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} OR ${contains_fpc} OR ${contains_tdd} THEN ${TABLE}.requests END ;;
+  }
+
   measure: requests_with_lidid {
     type: sum
     sql: CASE WHEN ${contains_lidid} THEN ${TABLE}.requests END;;
@@ -114,8 +119,15 @@ view: index_tracking {
 
   measure: pct_requests_with_unifiedid {
     type: number
-    label: "Pct Requests with Emailhash"
+    label: "Pct Resolved Requests"
     sql: ${requests_with_unifiedid}/CAST(${sum_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: pct__valid_requests_with_unifiedid{
+    type: number
+    label: "Pct Valid Resolved Requests "
+    sql: ${requests_with_unifiedid}/CAST(${sum_valid_requests} AS REAL) ;;
     value_format_name: percent_0
   }
 }
