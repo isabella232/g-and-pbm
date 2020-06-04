@@ -3,6 +3,7 @@ view: index_tracking {
     sql: SELECT
       DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) event_timestamp,
       REGEXP_EXTRACT(referer,'(?:[\w-]+\.)+[\w-]+') refererdomain,
+      source,
       clientname,
       countrylookup country,
       lidid <> '' contains_lidid,
@@ -10,7 +11,7 @@ view: index_tracking {
       COUNT(*) requests
       FROM auto_logs.idaas_idx_track_log
       WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '7' DAY
-      GROUP BY 1,2,3,4,5,6
+      GROUP BY 1,2,3,4,5,6,7
        ;;
   }
 
@@ -24,6 +25,11 @@ view: index_tracking {
   dimension: refererdomain {
     type: string
     sql: ${TABLE}.refererdomain ;;
+  }
+
+  dimension: source {
+    type: string
+    sql: ${TABLE}.source ;;
   }
 
   dimension: clientname {
