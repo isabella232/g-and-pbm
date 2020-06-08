@@ -83,19 +83,16 @@ view: index_tracking {
   measure: requests_with_lidid {
     type: sum
     sql: CASE WHEN ${contains_lidid} THEN ${TABLE}.requests END;;
-    hidden: yes
   }
 
   measure: requests_with_fpc {
     type: sum
     sql: CASE WHEN ${contains_fpc} THEN ${TABLE}.requests END;;
-    hidden: yes
   }
 
   measure: requests_with_tdd {
     type: sum
     sql: CASE WHEN ${contains_tdd} THEN ${TABLE}.requests END;;
-    hidden: yes
   }
 
   measure: requests_with_unifiedid {
