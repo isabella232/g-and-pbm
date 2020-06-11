@@ -85,9 +85,19 @@ view: index_tracking {
     sql: CASE WHEN ${contains_lidid} THEN ${TABLE}.requests END;;
   }
 
+  measure: requests_with_lidid_only {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
+  }
+
   measure: requests_with_fpc {
     type: sum
     sql: CASE WHEN ${contains_fpc} THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_fpc_only {
+    type: sum
+    sql: CASE WHEN ${contains_fpc} AND ${contains_lidid} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
   }
 
   measure: requests_with_tdd {
@@ -95,10 +105,25 @@ view: index_tracking {
     sql: CASE WHEN ${contains_tdd} THEN ${TABLE}.requests END;;
   }
 
+  measure: requests_with_tdd_only {
+    type: sum
+    sql: CASE WHEN ${contains_tdd} AND ${contains_lidid} = FALSE AND ${contains_fpc} = FALSE THEN ${TABLE}.requests END;;
+  }
+
   measure: requests_with_unifiedid {
     type: sum
     sql: CASE WHEN ${contains_unifiedid} THEN ${TABLE}.requests END ;;
     hidden: yes
+  }
+
+  measure: requests_with_lidid_and_fpc {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_lidid_and_tdd {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} AND ${contains_tdd} AND ${contains_fpc} = FALSE THEN ${TABLE}.requests END;;
   }
 
   measure: pct_requests_with_lidid {
