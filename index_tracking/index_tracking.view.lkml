@@ -126,6 +126,11 @@ view: index_tracking {
     sql: CASE WHEN ${contains_lidid} AND ${contains_tdd} AND ${contains_fpc} = FALSE THEN ${TABLE}.requests END;;
   }
 
+  measure: requests_with_tdd_and_fpc {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} = FALSE AND ${contains_tdd} AND ${contains_fpc} THEN ${TABLE}.requests END;;
+  }
+
   measure: requests_with_lidid_tdd_fpc {
     type: sum
     sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} THEN ${TABLE}.requests END;;
