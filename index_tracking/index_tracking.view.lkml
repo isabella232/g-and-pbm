@@ -7,8 +7,8 @@ view: index_tracking {
       clientname,
       countrylookup country,
       lidid <> '' contains_lidid,
-      query LIKE 'duid=%' contains_fpc,
-      query LIKE '44489=%' contains_tdd,
+      query LIKE '%duid=%' contains_fpc,
+      query LIKE '%44489=%' contains_tdd,
       mostlikelyemailhash <> '' contains_unifiedid,
       COUNT(*) requests
       FROM auto_logs.idaas_idx_track_log
@@ -124,6 +124,11 @@ view: index_tracking {
   measure: requests_with_lidid_and_tdd {
     type: sum
     sql: CASE WHEN ${contains_lidid} AND ${contains_tdd} AND ${contains_fpc} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_lidid_tdd_fpc {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} THEN ${TABLE}.requests END;;
   }
 
   measure: pct_requests_with_lidid {
