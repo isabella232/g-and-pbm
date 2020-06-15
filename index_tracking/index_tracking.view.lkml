@@ -32,6 +32,7 @@ view: index_tracking {
   dimension: source {
     type: string
     sql: ${TABLE}.source;;
+    suggestions: ["ie","prebid",""]
   }
 
   dimension: clientname {
