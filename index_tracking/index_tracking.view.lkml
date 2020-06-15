@@ -31,7 +31,7 @@ view: index_tracking {
 
   dimension: source {
     type: string
-    sql: ${TABLE}.source ;;
+    sql: ${TABLE}.source;;
   }
 
   dimension: clientname {
@@ -72,12 +72,12 @@ view: index_tracking {
 
   measure: sum_valid_requests {
     type: sum
-    sql: CASE WHEN ${contains_lidid} OR ${contains_fpc} OR ${contains_tdd} THEN ${TABLE}.requests END ;;
+    sql: CASE WHEN ${contains_fpc} OR ${contains_tdd} THEN ${TABLE}.requests END ;;
   }
 
   measure: sum_invalid_requests {
     type: sum
-    sql: CASE WHEN ${contains_lidid} = FALSE AND ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END ;;
+    sql: CASE WHEN ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END ;;
   }
 
   measure: requests_with_lidid {
@@ -112,7 +112,7 @@ view: index_tracking {
 
   measure: requests_with_unifiedid {
     type: sum
-    sql: CASE WHEN ${contains_unifiedid} THEN ${TABLE}.requests END ;;
+    sql: CASE WHEN ${contains_unifiedid} AND (${contains_fpc} OR ${contains_tdd}) THEN ${TABLE}.requests END ;;
     hidden: yes
   }
 
