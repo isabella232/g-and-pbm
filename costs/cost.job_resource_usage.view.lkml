@@ -1,0 +1,101 @@
+view: job_resource_usage {
+  sql_table_name: auto_logs.app_metrics ;;
+  suggestions: no
+
+  dimension_group: run {
+    description: "Date of log file"
+    type: time
+    timeframes: [date,day_of_month,day_of_week,month,year]
+    sql: DATE_PARSE(CONCAT(${TABLE}.year_p,${TABLE}.month_p,${TABLE}.day_p),'%Y%m%d') ;;
+  }
+
+  dimension: cluster_name {
+    description: "Name of cluster"
+    type: string
+    sql: ${TABLE}.clustername ;;
+  }
+
+  dimension: job_name {
+    description: "DWH job name"
+    type: string
+    sql: ${TABLE}.lijobname ;;
+  }
+
+  dimension: job_status {
+    description: "Final job status"
+    label: "Application Status"
+    type: string
+    sql: ${TABLE}.finalstatus ;;
+  }
+
+  dimension: application_type {
+    description: "Spark or MapReduce"
+    type: string
+    sql: ${TABLE}.applicationtype ;;
+  }
+
+  dimension: application_id {
+    description: "ID of application"
+    type: string
+    sql: ${TABLE}.id ;;
+  }
+
+  dimension: application_name {
+    description: "Name of application"
+    type: string
+    sql: ${TABLE}.name ;;
+  }
+
+  measure: applications {
+    description: "Sum of job applications"
+    type: count
+  }
+
+  measure: jobs {
+    description: "Count of Jobs"
+    type: count_distinct
+    sql: ${job_name} ;;
+    drill_fields: [applications_by_job*]
+  }
+
+  measure: clusters {
+    description: "Count of clusters"
+    type: count_distinct
+    sql: ${cluster_name} ;;
+  }
+
+  measure: mb_seconds {
+    description: "# MB allocated to application * seconds run"
+    type: sum
+    sql: ${TABLE}.memoryseconds ;;
+  }
+
+  measure: vcore_seconds {
+    description: "# vcores allocated to application * seconds run"
+    type: sum
+    sql: ${TABLE}.vcoreseconds ;;
+  }
+
+  measure: successful_apps {
+    description: "Applications with final status: SUCCEEDED"
+    hidden: yes
+    type: count
+    filters: [job_status: "SUCCEEDED"]
+  }
+
+  measure: unsuccessful_apps {
+    description: "Applications with final status: FAILED or KILLED"
+    hidden: yes
+    type: count
+    filters: [job_status: "-SUCCEEDED"]
+  }
+
+  set: applications_by_job {
+    fields: [cluster_name,job_name,applications,successful_apps,unsuccessful_apps]
+  }
+
+  set: jobs_by_cluster {
+    fields: [cluster_name,jobs]
+  }
+
+}
