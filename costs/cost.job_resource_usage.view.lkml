@@ -15,6 +15,18 @@ view: job_resource_usage {
     sql: ${TABLE}.clustername ;;
   }
 
+  dimension: cluster_group {
+    description: "Cluster name if daily job"
+    type: string
+    sql: COALESCE(REGEXP_EXTRACT(${cluster_name},'(.*)(?=-\d{8}$)',1),'Ad hoc') ;;
+  }
+
+  dimension: cluster_group_date {
+    description: "Date of cluster group job"
+    type: string
+    sql: REGEXP_EXTRACT(${cluster_name},'(\d{8}$)',1) ;;
+  }
+
   dimension: job_name {
     description: "DWH job name"
     type: string
@@ -22,7 +34,7 @@ view: job_resource_usage {
   }
 
   dimension: job_status {
-    description: "Final job status"
+    description: "Final application status"
     label: "Application Status"
     type: string
     sql: ${TABLE}.finalstatus ;;
@@ -47,7 +59,7 @@ view: job_resource_usage {
   }
 
   measure: applications {
-    description: "Sum of job applications"
+    description: "Count of job applications"
     type: count
   }
 
@@ -62,25 +74,32 @@ view: job_resource_usage {
     description: "Count of clusters"
     type: count_distinct
     sql: ${cluster_name} ;;
+    drill_fields: [jobs_by_cluster_group*]
   }
 
   measure: mb_seconds {
     description: "# MB allocated to application * seconds run"
+    label: "MB Seconds"
     type: sum
     sql: ${TABLE}.memoryseconds ;;
+    drill_fields: [cluster_group,mb_seconds_cg]
   }
 
   measure: vcore_seconds {
     description: "# vcores allocated to application * seconds run"
     type: sum
     sql: ${TABLE}.vcoreseconds ;;
+    drill_fields: [cluster_group,vcore_seconds_cg]
   }
+
+  # Drill Measures #
 
   measure: successful_apps {
     description: "Applications with final status: SUCCEEDED"
     hidden: yes
     type: count
     filters: [job_status: "SUCCEEDED"]
+    drill_fields: [app_drill*]
   }
 
   measure: unsuccessful_apps {
@@ -88,14 +107,91 @@ view: job_resource_usage {
     hidden: yes
     type: count
     filters: [job_status: "-SUCCEEDED"]
+    drill_fields: [app_drill*]
   }
+
+  measure: mb_seconds_cg {
+    description: "Duplicate of MB Seconds for cluster group drill field"
+    label: "MB Seconds"
+    hidden: yes
+    type: number
+    sql: ${mb_seconds} ;;
+    drill_fields: [cluster_name,mb_seconds_cluster]
+  }
+
+  measure: vcore_seconds_cg {
+    description: "Duplicate of Vcore Seconds for cluster group drill field"
+    label: "Vcore Seconds"
+    hidden: yes
+    type: number
+    sql: ${vcore_seconds} ;;
+    drill_fields: [cluster_name,vcore_seconds_cluster]
+  }
+
+  measure: mb_seconds_cluster {
+    description: "Duplicate of MB Seconds for cluster drill field"
+    label: "MB Seconds"
+    hidden: yes
+    type: number
+    sql: ${mb_seconds} ;;
+    drill_fields: [job_name,mb_seconds_jobs]
+  }
+
+  measure: vcore_seconds_cluster {
+    description: "Duplicate of Vcore Seconds for cluster drill field"
+    label: "Vcore Seconds"
+    hidden: yes
+    type: number
+    sql: ${vcore_seconds} ;;
+    drill_fields: [job_name,vcore_seconds_jobs]
+  }
+
+  measure: mb_seconds_jobs {
+    description: "Duplicate of MB Seconds for jobs drill field"
+    label: "MB Seconds"
+    hidden: yes
+    type: number
+    sql: ${mb_seconds} ;;
+    drill_fields: [application_id,application_name,application_type,mb_seconds_app]
+  }
+
+  measure: vcore_seconds_jobs {
+    description: "Duplicate of Vcore Seconds for jobs drill field"
+    label: "Vcore Seconds"
+    hidden: yes
+    type: number
+    sql: ${vcore_seconds} ;;
+    drill_fields: [application_id,application_name,application_type,vcore_seconds_app]
+  }
+
+  measure: mb_seconds_app {
+    description: "Duplicate of MB Seconds for apps drill field"
+    label: "MB Seconds"
+    hidden: yes
+    type: number
+    sql: ${mb_seconds} ;;
+  }
+
+  measure: vcore_seconds_app {
+    description: "Duplicate of Vcore Seconds for apps drill field"
+    label: "Vcore Seconds"
+    hidden: yes
+    type: number
+    sql: ${vcore_seconds} ;;
+  }
+
+  # Drill field sets #
 
   set: applications_by_job {
     fields: [cluster_name,job_name,applications,successful_apps,unsuccessful_apps]
   }
 
-  set: jobs_by_cluster {
-    fields: [cluster_name,jobs]
+  set: jobs_by_cluster_group {
+    fields: [cluster_group,cluster_name,jobs]
+  }
+
+  set: app_drill {
+    fields: [application_id,application_name, application_type,mb_seconds,vcore_seconds]
   }
 
 }
