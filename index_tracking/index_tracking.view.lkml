@@ -10,10 +10,13 @@ view: index_tracking {
       query LIKE '%duid=%' contains_fpc,
       query LIKE '%44489=%' contains_tdd,
       mostlikelyemailhash <> '' contains_unifiedid,
+      CASE WHEN usedidentifier <> '' AND query LIKE CONCAT('%duid=',usedidentifier,'%') THEN 'FPC'
+      WHEN usedidentifier <> '' AND query LIKE CONCAT('%44489=',usedidentifier,'%') THEN 'TDD'
+      WHEN usedidentifier <> '' AND lidid = usedidentifier THEN 'LIDID' ELSE 'none' END id_used,
       COUNT(*) requests
-      FROM prev_auto_logs.idaas_idx_track_log
+      FROM auto_logs.idaas_idx_track_log
       WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '7' DAY
-      GROUP BY 1,2,3,4,5,6,7,8,9
+      GROUP BY 1,2,3,4,5,6,7,8,9,10
        ;;
   }
 
@@ -64,6 +67,11 @@ view: index_tracking {
     type: yesno
     label: "Contains Emailhash"
     sql: ${TABLE}.contains_unifiedid ;;
+  }
+
+  dimension: id_used {
+    type: string
+    sql: ${TABLE}.id_used ;;
   }
 
   measure: sum_requests {
