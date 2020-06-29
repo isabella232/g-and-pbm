@@ -11,7 +11,7 @@ view: index_tracking {
       query LIKE '%44489=%' contains_tdd,
       mostlikelyemailhash <> '' contains_unifiedid,
       CASE WHEN usedidentifier <> '' AND query LIKE CONCAT('%duid=',usedidentifier,'%') THEN 'FPC'
-      WHEN usedidentifier <> '' AND query LIKE CONCAT('%44489/',usedidentifier,'%') THEN 'TDD'
+      WHEN usedidentifier <> '' AND query LIKE CONCAT('%44489=',regexp_extract(usedidentifier, '44489\/(.*)', 1),'%') THEN 'TDD'
       WHEN usedidentifier <> '' AND lidid = usedidentifier THEN 'LIDID' ELSE 'none' END id_used,
       COUNT(*) requests
       FROM auto_logs.idaas_idx_track_log
