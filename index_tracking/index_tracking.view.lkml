@@ -81,12 +81,12 @@ view: index_tracking {
 
   measure: sum_valid_requests {
     type: sum
-    sql: CASE WHEN ${contains_fpc} OR ${contains_tdd} THEN ${TABLE}.requests END ;;
+    sql: CASE WHEN ${contains_fpc} THEN ${TABLE}.requests END ;;
   }
 
   measure: sum_invalid_requests {
     type: sum
-    sql: CASE WHEN ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END ;;
+    sql: CASE WHEN ${contains_fpc} = FALSE THEN ${TABLE}.requests END ;;
   }
 
   measure: requests_with_lidid {
