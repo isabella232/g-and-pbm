@@ -33,6 +33,16 @@ view: metadata_aggregate {
     sql: ${TABLE}.hasbouncex ;;
   }
 
+  dimension: has_taboola {
+    type: yesno
+    sql: ${TABLE}.hastaboola ;;
+  }
+
+  dimension: has_outbrain {
+    type: yesno
+    sql: ${TABLE}.hasoutbrain ;;
+  }
+
   dimension: header_ssp_adapters {
     type: string
     sql: ${TABLE}.headersspadapters ;;
