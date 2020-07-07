@@ -30,6 +30,10 @@ view: index_tracking {
   dimension: refererdomain {
     type: string
     sql: ${TABLE}.refererdomain ;;
+    link: {
+      label: "Apex Domain Breakdown"
+      url: "/dashboards-next/737?Apex+Domain={{ value | url_encode }} "
+    }
   }
 
   dimension: source {
@@ -215,5 +219,4 @@ view: index_tracking {
     sql: ${requests_resolved_w_FPC} /CAST(${sum_valid_requests} AS REAL) ;;
     value_format_name: percent_0
   }
-
 }
