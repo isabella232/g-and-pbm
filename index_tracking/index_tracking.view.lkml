@@ -73,6 +73,7 @@ view: index_tracking {
     sql: ${TABLE}.contains_unifiedid ;;
   }
 
+  # dimension used to determine which id was used to resolve to a nonID
   dimension: id_used {
     type: string
     sql: ${TABLE}.id_used ;;
@@ -93,6 +94,7 @@ view: index_tracking {
     sql: CASE WHEN ${contains_fpc} = FALSE THEN ${TABLE}.requests END ;;
   }
 
+  # Combinations of IDs the requests come with FPC LIDID TDD
   measure: requests_with_lidid {
     type: sum
     sql: CASE WHEN ${contains_lidid} THEN ${TABLE}.requests END;;
@@ -149,6 +151,7 @@ view: index_tracking {
     sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} THEN ${TABLE}.requests END;;
   }
 
+# Percent of total for ID and resolution combinations
   measure: pct_requests_with_lidid {
     type: number
     sql: ${requests_with_lidid}/CAST(${sum_requests} AS REAL) ;;
