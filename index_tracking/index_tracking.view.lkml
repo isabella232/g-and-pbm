@@ -30,6 +30,10 @@ view: index_tracking {
   dimension: refererdomain {
     type: string
     sql: ${TABLE}.refererdomain ;;
+    link: {
+      label: "Apex Domain Breakdown"
+      url: "/dashboards-next/737?Apex+Domain={{ value | url_encode }} "
+    }
   }
 
   dimension: source {
@@ -174,6 +178,45 @@ view: index_tracking {
     type: number
     label: "Pct Valid Resolved Requests "
     sql: ${requests_with_unifiedid}/CAST(${sum_valid_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: requests_resolved_w_TDD {
+    type: sum
+    sql:CASE WHEN ${id_used} = 'TDD' AND ${contains_fpc} THEN ${TABLE}.requests END;;
+    value_format_name: percent_0
+  }
+
+  measure: resolution_rate_TDD {
+    type: number
+    label: "Pct Valid requests resolved with TDD"
+    sql: ${requests_resolved_w_TDD} /CAST(${sum_valid_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: requests_resolved_w_LIDID {
+    type: sum
+    sql:CASE WHEN ${id_used} = 'LIDID' AND ${contains_fpc} THEN ${TABLE}.requests END;;
+    value_format_name: percent_0
+  }
+
+  measure: resolution_rate_LIDID {
+    type: number
+    label: "Pct Valid requests resolved with LIDID"
+    sql: ${requests_resolved_w_LIDID} /CAST(${sum_valid_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: requests_resolved_w_FPC {
+    type: sum
+    sql:CASE WHEN ${id_used} = 'FPC' AND ${contains_fpc} THEN ${TABLE}.requests END;;
+    value_format_name: percent_0
+  }
+
+  measure: resolution_rate_FPC {
+    type: number
+    label: "Pct Valid requests resolved with FPC"
+    sql: ${requests_resolved_w_FPC} /CAST(${sum_valid_requests} AS REAL) ;;
     value_format_name: percent_0
   }
 }
