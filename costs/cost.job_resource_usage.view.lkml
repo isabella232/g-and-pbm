@@ -50,6 +50,22 @@ view: job_resource_usage {
     description: "ID of application"
     type: string
     sql: ${TABLE}.id ;;
+    primary_key: yes
+  }
+
+  dimension: join_id {
+    description: "reduce of app id for joining on mapreduce tasks"
+    type: string
+    sql: REGEXP_EXTRACT(${application_id},'^application_(\d*)_',1) ;;
+    #sql: REGEXP_EXTRACT(${application_id},'^application_(\d*_\d*)_',1) ;;
+    hidden: yes
+  }
+
+  dimension: spark_join_id {
+    description: "reduce of app id for joiing on spark tasks"
+    type: string
+    sql: REGEXP_EXTRACT(${application_id}, '^application_(\d*_\d*)$',1) ;;
+    hidden: yes
   }
 
   dimension: application_name {

@@ -5,19 +5,48 @@ include: "*.view.lkml"                # include all views in the views/ folder i
 label: "EMR Resource Usage"
 
 explore: job_resource_usage {
+  join: mapreduce_tasks {
+    # do a from because I wanted to make "ID" hidden and suspect that will add more modifications in the future
+    from: mapreduce_jr_usage
+    relationship: one_to_many
+    sql_on: ${job_resource_usage.join_id} = ${mapreduce_tasks.join_id};;
+    type: left_outer
+    view_label: "MapReduce Tasks"
+    fields: [mapreduce_tasks.average_map_memory_usage,
+      mapreduce_tasks.average_reduce_memory_usage,
+      mapreduce_tasks.peak_map_memory_usage,
+      mapreduce_tasks.peak_reduce_memory_usage,
+      mapreduce_tasks.total_all_memory_usage,
+      mapreduce_tasks.total_map_memory_usage,
+      mapreduce_tasks.total_reduce_memory_usage,
+      mapreduce_tasks.total_all_cpu_usage,
+      mapreduce_tasks.total_map_cpu_usage,
+      mapreduce_tasks.total_reduce_cpu_usage,
+      mapreduce_tasks.tasks,
+      mapreduce_tasks.is_map,
+      mapreduce_tasks.is_reduce,
+      mapreduce_tasks.id]
+  }
 
+  join: spark_tasks_jr_usage {
+    relationship: one_to_many
+    sql_on: ${job_resource_usage.spark_join_id} = ${spark_tasks_jr_usage.app_id}
+    and ${job_resource_usage.cluster_group_date} = ${spark_tasks_jr_usage.cluster_date};;
+    type: left_outer
+    view_label: "Spark Tasks"
+    fields: [spark_tasks_jr_usage.average_executor_cpu_time,
+      spark_tasks_jr_usage.peak_executor_cpu_time,
+      spark_tasks_jr_usage.total_executor_cpu_time,
+      spark_tasks_jr_usage.average_executor_memory,
+      spark_tasks_jr_usage.peak_executor_memory,
+      spark_tasks_jr_usage.total_executor_memory,
+      spark_tasks_jr_usage.tasks]
+  }
 }
-# # Select the views that should be a part of this model,
-# # and define the joins that connect them together.
-#
-# explore: order_items {
-#   join: orders {
-#     relationship: many_to_one
-#     sql_on: ${orders.id} = ${order_items.order_id} ;;
-#   }
-#
-#   join: users {
-#     relationship: many_to_one
-#     sql_on: ${users.id} = ${orders.user_id} ;;
-#   }
-# }
+
+explore: mapreduce_tasks {
+  description: "CPU and Memory Usage for MapReduce"
+  label: "MapReduce Tasks"
+}
+
+explore: spark_tasks {}
