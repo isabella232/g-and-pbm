@@ -1,5 +1,8 @@
 view: partner_inbound_syncs_detailed {
-  sql_table_name: auto_reports.detailed_daily_partner_inbound_sync_aggregates;;
+  derived_table: {
+    sql: SELECT * FROM auto_reports.detailed_daily_partner_inbound_sync_aggregates
+    WHERE LENGTH(publisherorappid) = 5;;
+    }
   suggestions: no
 
   # Standard Dimensions #
