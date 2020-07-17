@@ -3,8 +3,8 @@ view: overall_daily_partner_inbound_sync_aggregates {
   suggestions: no
 
   dimension: date {
-    type: string
-    sql: ${TABLE}."date" ;;
+    type: date
+    sql: date_parse(${TABLE}.date,'%Y%m%d') ;;
   }
 
   dimension: date_p {
@@ -12,13 +12,13 @@ view: overall_daily_partner_inbound_sync_aggregates {
     sql: ${TABLE}.date_p ;;
   }
 
-  dimension: distinctbidderuuidcount {
-    type: number
+  measure: distinctbidderuuidcount {
+    type: sum
     sql: ${TABLE}.distinctbidderuuidcount ;;
   }
 
-  dimension: distinctlididcount {
-    type: number
+  measure: distinctlididcount {
+    type: sum
     sql: ${TABLE}.distinctlididcount ;;
   }
 
