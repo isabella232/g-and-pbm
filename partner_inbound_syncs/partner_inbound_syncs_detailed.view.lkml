@@ -6,7 +6,7 @@ view: partner_inbound_syncs_detailed {
 
   dimension: date {
     type: date
-    sql: PARSE_DATE('%Y%m%d',${TABLE}.date) ;;
+    sql: date_parse(${TABLE}.date,'%Y%m%d') ;;
   }
 
   dimension: publisherorappid {
