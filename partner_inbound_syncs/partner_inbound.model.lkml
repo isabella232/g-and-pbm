@@ -5,3 +5,7 @@ include: "*.view.lkml"                # include all views in the views/ folder i
 explore: partner_inbound_syncs_detailed {
   label: "Detailed Partner Inbound Syncs Aggs"
 }
+
+explore: overall_daily_partner_inbound_sync_aggregates {
+  label: "Overall Partner Inbound Syncs Counts"
+}
