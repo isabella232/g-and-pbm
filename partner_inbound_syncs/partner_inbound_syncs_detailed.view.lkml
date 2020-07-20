@@ -15,16 +15,28 @@ view: partner_inbound_syncs_detailed {
   dimension: publisherorappid {
     type: string
     sql: ${TABLE}.publisherorappid ;;
+    link: {
+      label: "Partner Syncs Explorer"
+      url: "/dashboards-next/746?PublisherorAppID={{ value | url_encode }} "
+    }
   }
 
   dimension: bidderuuid {
     type: string
     sql: ${TABLE}.bidderuuid ;;
+    link: {
+      label: "Partner Syncs Explorer"
+      url: "/dashboards-next/746?BidderUUID={{ value | url_encode }} "
+    }
   }
 
   dimension: lidid {
     type: string
     sql: ${TABLE}.lidid ;;
+    link: {
+      label: "Partner Syncs Explorer"
+      url: "/dashboards-next/746?LIDID={{ value | url_encode }} "
+    }
   }
 
   dimension: region {
