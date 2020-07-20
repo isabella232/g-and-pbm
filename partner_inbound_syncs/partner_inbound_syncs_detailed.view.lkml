@@ -32,6 +32,19 @@ view: partner_inbound_syncs_detailed {
     sql:  ${TABLE}.region ;;
   }
 
+  # Extra Dimensions #
+
+  dimension: valid_bidderuuid {
+    type: yesno
+    sql: ${TABLE}.bidderuuid IS NOT NULL AND ${TABLE}.bidderuuid <> '';;
+  }
+
+  dimension: valid_lidid {
+    type: yesno
+    sql: ${TABLE}.lidid IS NOT NULL AND ${TABLE}.lidid <> '';;
+  }
+
+
   # Measures #
 
   measure: count {
