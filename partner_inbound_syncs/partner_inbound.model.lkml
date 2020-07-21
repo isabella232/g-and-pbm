@@ -20,3 +20,7 @@ explore: overall_daily_partner_inbound_sync_aggregates {
 explore: daily_no_syncing_partners {
   label: "Number of Daily Partners Syncing to us"
 }
+
+explore: partner_inbound_aggs {
+  label: "Full Partner Inbound Sync Aggs"
+}

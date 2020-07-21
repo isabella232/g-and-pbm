@@ -1,7 +1,7 @@
 view: daily_no_syncing_partners {
   derived_table: {
     sql:
-    SELECT date_p, COUNT(DISTINCT(publisherorappid)) no_partners
+    SELECT date, COUNT(DISTINCT(publisherorappid)) no_partners
     FROM auto_reports.detailed_daily_partner_inbound_sync_aggregates
     GROUP BY 1 ;;
     }
@@ -9,11 +9,11 @@ view: daily_no_syncing_partners {
 
   dimension: date {
     type: date
-    sql: ${TABLE}.date_p ;;
+    sql: date_parse(${TABLE}.date,'%Y%m%d') ;;
   }
 
   measure: no_partners {
-    type: number
+    type: sum
     sql: ${TABLE}.no_partners ;;
   }
 
