@@ -131,6 +131,12 @@ view: index_tracking {
     hidden: yes
   }
 
+  measure: requests_with_nonid {
+    type: sum
+    sql: CASE WHEN ${id_used} <> 'none' AND ${contains_fpc} THEN ${TABLE}.requests END ;;
+    hidden: yes
+  }
+
   measure: requests_with_lidid_and_fpc {
     type: sum
     sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
@@ -179,8 +185,8 @@ view: index_tracking {
 
   measure: pct__valid_requests_with_unifiedid{
     type: number
-    label: "Pct Valid Resolved Requests "
-    sql: ${requests_with_unifiedid}/CAST(${sum_valid_requests} AS REAL) ;;
+    label: "Pct Valid Resolved Requests"
+    sql: ${requests_with_nonid}/CAST(${sum_valid_requests} AS REAL) ;;
     value_format_name: percent_0
   }
 
