@@ -187,7 +187,7 @@ view: index_tracking {
   measure: requests_resolved_w_TDD {
     type: sum
     sql:CASE WHEN ${id_used} = 'TDD' AND ${contains_fpc} THEN ${TABLE}.requests END;;
-    value_format_name: percent_0
+    value_format_name: decimal_0
   }
 
   measure: resolution_rate_TDD {
@@ -200,7 +200,7 @@ view: index_tracking {
   measure: requests_resolved_w_LIDID {
     type: sum
     sql:CASE WHEN ${id_used} = 'LIDID' AND ${contains_fpc} THEN ${TABLE}.requests END;;
-    value_format_name: percent_0
+    value_format_name: decimal_0
   }
 
   measure: resolution_rate_LIDID {
@@ -213,7 +213,7 @@ view: index_tracking {
   measure: requests_resolved_w_FPC {
     type: sum
     sql:CASE WHEN ${id_used} = 'FPC' AND ${contains_fpc} THEN ${TABLE}.requests END;;
-    value_format_name: percent_0
+    value_format_name: decimal_0
   }
 
   measure: resolution_rate_FPC {
