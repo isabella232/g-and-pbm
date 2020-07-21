@@ -16,3 +16,7 @@ explore: partner_inbound_syncs_detailed {
 explore: overall_daily_partner_inbound_sync_aggregates {
   label: "Overall Partner Inbound Syncs Counts"
 }
+
+explore: daily_no_syncing_partners {
+  label: "Number of Daily Partners Syncing to us"
+}
