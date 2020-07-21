@@ -25,6 +25,10 @@ view: index_tracking_new_domains_7d {
   dimension: refererdomain {
     type: string
     sql: ${TABLE}.refererdomain ;;
+    link: {
+      label: "Apex Domain Breakdown"
+      url: "/dashboards-next/737?Apex+Domain={{ value | url_encode }} "
+    }
   }
 
   dimension: appearances {
