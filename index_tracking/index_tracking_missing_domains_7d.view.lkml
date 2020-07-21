@@ -1,11 +1,11 @@
 view: index_tracking_missing_domains_7d {
     derived_table: {
-      sql: WITH prev_7d AS (SELECT REGEXP_EXTRACT(referer,'(?:[\w-]+\.)+[\w-]+') refererdomain, count(*) appearances
+      sql: WITH prev_7d AS (SELECT refererapexdomain refererdomain, count(*) appearances
               FROM auto_logs.idaas_idx_track_log
               WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '14' DAY
               AND DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) <= CURRENT_DATE - INTERVAL '7' DAY
               GROUP BY 1),
-              current_7d AS (SELECT REGEXP_EXTRACT(referer,'(?:[\w-]+\.)+[\w-]+') refererdomain, count(*) appearances
+              current_7d AS (SELECT refererapexdomain refererdomain, count(*) appearances
               FROM auto_logs.idaas_idx_track_log
               WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '7' DAY
               GROUP BY 1

@@ -2,7 +2,7 @@ view: index_tracking {
   derived_table: {
     sql: SELECT
       DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) event_timestamp,
-      REGEXP_EXTRACT(referer,'(?:[\w-]+\.)+[\w-]+') refererdomain,
+      refererapexdomain refererdomain,
       source,
       clientname,
       countrylookup country,
