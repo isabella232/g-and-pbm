@@ -16,6 +16,7 @@ view: partner_inbound_aggs {
       label: "Partner Syncs Explorer"
       url: "/dashboards-next/746?PublisherorAppID={{ value | url_encode }} "
     }
+    drill_fields: [partner_drill*]
   }
 
   dimension: bidderuuid {
@@ -56,6 +57,18 @@ view: partner_inbound_aggs {
   measure: partner_count {
     type: count_distinct
     sql: ${TABLE}.publisherorappid;;
+    value_format_name: decimal_0
+  }
+
+  measure: biidderuuid_distinct_count {
+    type: count_distinct
+    sql: ${TABLE}.bidderuuid;;
+    value_format_name: decimal_0
+  }
+
+  measure: lidid_distinct_count {
+    type: count_distinct
+    sql: ${TABLE}.lidid;;
     value_format_name: decimal_0
   }
 
