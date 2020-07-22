@@ -1,5 +1,5 @@
 view: lfx_zf_pubvertisers {
-  sql_table_name: looker.lfx_zf_pubvertisers ;;
+  sql_table_name: lfx_zf_pubvertisers ;;
 
   dimension: id {
     primary_key: yes
@@ -403,8 +403,7 @@ view: lfx_zf_pubvertisers {
   }
 
   dimension: pub_uid {
-    type: number
-    value_format_name: id
+    type: string
     sql: ${TABLE}.pub_uid ;;
   }
 
@@ -509,7 +508,7 @@ view: lfx_zf_pubvertisers {
   }
 
   dimension: userver_id {
-    type: number
+    type: string
     sql: ${TABLE}.userver_id ;;
   }
 
@@ -556,8 +555,8 @@ view: pubvertiser_pub_name {
   }
 
   dimension: pub_uid {
-    type: number
+    type: string
     value_format_name: id
-    sql: ${TABLE}.pub_uid ;;
+    sql: ${TABLE}.pub_uid;;
   }
 }
