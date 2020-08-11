@@ -27,15 +27,28 @@ view: sellable_pairs_hem_maid_pairs_info {
   }
 
 # Measures #
-  dimension: connectedhems {
-    type: number
+  measure: count_hems {
+    type: sum
     sql: ${TABLE}.connectedhems ;;
+    value_format_name: decimal_0
   }
 
-
-  dimension: seconddompairs {
-    type: number
+  measure: count_pairs {
+    type: sum
     sql: ${TABLE}.seconddompairs ;;
+    value_format_name: decimal_0
+  }
+
+  measure: avg_hems {
+    type: average
+    sql: ${TABLE}.connectedhems ;;
+    value_format_name: decimal_0
+  }
+
+  measure: avg_pairs {
+    type: average
+    sql: ${TABLE}.seconddompairs;;
+    value_format_name: decimal_0
   }
 
 }

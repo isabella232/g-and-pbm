@@ -28,13 +28,8 @@ view: unified_client_id_health_stats_histogram {
     timeframes: [date,month,quarter,year]
   }
 
-  measure: count_2 {
+  measure: count {
     type: sum
     sql: ${TABLE}."count" ;;
-  }
-
-  measure: count {
-    type: count
-    drill_fields: []
   }
 }
