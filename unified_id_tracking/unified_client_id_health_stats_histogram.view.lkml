@@ -9,7 +9,6 @@ view: unified_client_id_health_stats_histogram {
 
   dimension: bin_mid {
     type: number
-    value_format_name: id
     sql: ${TABLE}.bin_mid ;;
   }
 
@@ -18,13 +17,18 @@ view: unified_client_id_health_stats_histogram {
     sql: ${TABLE}.bin_upper ;;
   }
 
+  dimension: count_unified_client_id_health_stats_histogram {
+    type: number
+    sql: ${TABLE}."count" ;;
+  }
+
   dimension_group: generation {
     type: time
     sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
     timeframes: [date,month,quarter,year]
   }
 
-  measure: count_unified_client_id_health_stats_histogram {
+  measure: count_2 {
     type: sum
     sql: ${TABLE}."count" ;;
   }
