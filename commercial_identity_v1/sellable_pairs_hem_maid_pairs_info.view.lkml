@@ -1,10 +1,13 @@
 view: sellable_pairs_hem_maid_pairs_info {
-  sql_table_name: auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info ;;
+  derived_table: {
+    sql: SELECT *, CASE WHEN connectedhemmaidavailability = '' THEN 'None' ELSE connectedhemmaidavailability END connected_hem_maid_availability FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info WHERE date_p IN (SELECT MAX(date_p) FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info);;
+  }
+
   suggestions: no
 
   dimension: connected_hem_maid_availability {
     type: string
-    sql: REPLACE(${TABLE}.connectedhemmaidavailability,'""','None');;
+    sql: ${TABLE}.connected_hem_maid_availability;;
     label: "Hem Maid Availability"
   }
 
@@ -47,8 +50,7 @@ view: sellable_pairs_hem_maid_pairs_info {
 
   measure: avg_pairs {
     type: average
-    sql: ${TABLE}.seconddompairs;;
+    sql: ${TABLE}.seconddompairs ;;
     value_format_name: decimal_0
   }
-
 }
