@@ -79,6 +79,18 @@ view: metadata_aggregate {
     sql: ${TABLE}.url ;;
   }
 
+  dimension: domain {
+    type: string
+    sql: REGEXP_EXTRACT(${url},'^https?:\/\/\w+\.([^\/]+)\/?$',1) ;;
+  }
+
+  dimension: primary_key {
+    type: string
+    sql: CONCAT(${url},CAST(${exact_time_raw} AS VARCHAR)) ;;
+    primary_key: yes
+    hidden: yes
+  }
+
   # IX ID MODULE DIMENSIONS
 
   dimension: ix_idmodules {
