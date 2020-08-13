@@ -12,7 +12,7 @@ explore: metadata_aggregate {
     sql_where: ${zf_pubvertisers.type} = 'publisher' OR ${zf_pubvertisers.type} IS NULL ;;
     relationship: many_to_many
     type: left_outer
-    fields: [zf_pubvertisers.publisher_id,zf_pubvertisers.name]
+    fields: [zf_pubvertisers.publisher_id,zf_pubvertisers.name,zf_pubvertisers.count]
 
   }
 }

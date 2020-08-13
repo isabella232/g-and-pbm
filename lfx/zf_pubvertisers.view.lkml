@@ -560,7 +560,6 @@ view: zf_pubvertisers {
 
   measure: count {
     type: count
-    drill_fields: [detail*]
   }
 
   # ----- Sets of fields for drilling ------
