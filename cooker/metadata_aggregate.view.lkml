@@ -197,6 +197,56 @@ view: metadata_aggregate {
     label: "Contains Liveintent"
   }
 
+  # header SSP adapters #
+
+  dimension: contains_rubicon {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE 'rubi%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_pubmatic {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE 'pubmatic%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_openx {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE 'openx%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_ix {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x = 'ix')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_index_exchange {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE '%indexexchange%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_trustx {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE '%trustx%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_mediagrid {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE '%grid%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_appnexus {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE 'appnexus%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
   measure: count {
     type: count
     drill_fields: [url, has_prebid, has_bouncex, ix_library_type, has_liveconnect_tag, has_bouncex]
