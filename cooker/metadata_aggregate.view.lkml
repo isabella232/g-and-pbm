@@ -10,7 +10,7 @@ view: metadata_aggregate {
 
   dimension: had_parsing_error {
     type: yesno
-    sql: ${error_message} IS NOT NULL AND ${error_message} NOT LIKE 'Failed to load resource: ABORTED' ;;
+    sql: ${error_message} IS NOT NULL AND ${error_message} NOT LIKE '%Failed to load resource: ABORTED' ;;
     group_label: "Errors"
   }
 
