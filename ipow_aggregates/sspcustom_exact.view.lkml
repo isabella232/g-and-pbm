@@ -2,6 +2,13 @@ view: sspcustom_exact {
   sql_table_name: auto_sspaggregates.sspcustom_exact ;;
   suggestions: no
 
+  dimension: primary_key {
+    type: string
+    sql: CONCAT("date", size, deal_id, creative_id, section_id, line_item_id, res_bid_cid, demand_type, CAST(attrib_conversions <> 0 as VARCHAR)) ;;
+    primary_key: yes
+    hidden: yes
+  }
+
   dimension: actual_dsp_fee {
     type: number
     sql: ${TABLE}.actual_dsp_fee ;;
@@ -251,12 +258,12 @@ view: sspcustom_exact {
   dimension: date {
     type: string
     sql: ${TABLE}."date" ;;
-    hidden: yes
   }
 
   dimension: date_p {
     type: string
     sql: ${TABLE}.date_p ;;
+    hidden: yes
   }
 
   dimension: deal_id {
@@ -335,8 +342,8 @@ view: sspcustom_exact {
   }
 
   dimension: publisher_id {
-    type: string
-    sql: ${TABLE}.publisher_id ;;
+    type: number
+    sql: CAST(${TABLE}.publisher_id AS BIGINT) ;;
   }
 
   dimension: publisher_revenue {

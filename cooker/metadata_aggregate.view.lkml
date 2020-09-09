@@ -28,6 +28,13 @@ view: metadata_aggregate {
     sql: ${TABLE}.exacttime ;;
   }
 
+  dimension: cooker_date {
+    type: string
+    sql: ${TABLE}.cookerdate ;;
+    hidden: yes
+    # created to make simpler joins with aggregate tables
+  }
+
   dimension: has_bouncex {
     type: yesno
     sql: ${TABLE}.hasbouncex ;;

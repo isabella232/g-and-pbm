@@ -2,6 +2,7 @@ connection: "athena_berlin"
 
 include: "*.view.lkml"
 include: "/lfx/*.view.lkml"
+include: "/ipow_aggregates/*.view.lkml"
 
 explore: metadata_aggregate {
   label: "Header Metadata"
@@ -13,6 +14,13 @@ explore: metadata_aggregate {
     relationship: many_to_many
     type: left_outer
     fields: [zf_pubvertisers.publisher_id,zf_pubvertisers.name,zf_pubvertisers.count]
+  }
 
+  join: sspcustom_exact {
+    view_label: "Exchange Performance"
+    sql_on: ${zf_pubvertisers.publisher_id} = ${sspcustom_exact.publisher_id}
+    AND ${metadata_aggregate.cooker_date} = ${sspcustom_exact.date};;
+    relationship: one_to_many
+    type: left_outer
   }
 }
