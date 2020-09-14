@@ -273,4 +273,10 @@ view: metadata_aggregate {
     # hidden because only has a specific use
   }
 
+  measure: count_urls {
+    type: count_distinct
+    sql: ${url} ;;
+    drill_fields: [url]
+  }
+
 }
