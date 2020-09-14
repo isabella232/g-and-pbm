@@ -69,6 +69,7 @@ view: sspcustom_exact {
     sql: ${advertiser_spent} ;;
     group_label: "Summations"
     group_item_label: "Gross Revenue"
+    value_format_name: usd
   }
 
   dimension: anomaly_clicks_filtered {
@@ -357,6 +358,7 @@ view: sspcustom_exact {
     sql: ${publisher_revenue} ;;
     group_label: "Summations"
     group_item_label: "Publisher Revenue"
+    value_format_name: usd
   }
 
   dimension: pvc {
