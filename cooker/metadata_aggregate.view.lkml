@@ -254,6 +254,26 @@ view: metadata_aggregate {
     group_label: "Header SSP Adapter Types"
   }
 
+  # TagsDown Classifiers #
+
+  dimension: liveintent_user_id_module_active {
+    type: yesno
+    sql: ${has_liveintent_idmodule_enabled_in_ix} OR ${has_liveintent_idmodule_enabled_in_prebid} ;;
+    hidden: yes
+  }
+
+  dimension: tagsdown_status {
+    type: string
+    sql: CASE WHEN ${zf_pubvertisers.name} IS NULL THEN 'Missing matching domain'
+              WHEN NOT(${has_liveconnect_tag}) THEN 'No LiveConnect tag'
+              WHEN NOT(${liveintent_user_id_module_active}) THEN 'LI user module inactive'
+            /*WHEN NOT(has_cname) THEN 'No CNAME'
+              WHEN NOT(lc_param_in_email) THEN 'No LC Param in Email'
+              WHEN NOT(repapering) THEN 'Needs re-papering'*/
+              ELSE 'Full setup publisher'
+              END;;
+  }
+
   measure: count {
     type: count
     drill_fields: [url, has_prebid, has_bouncex, ix_library_type, has_liveconnect_tag, has_bouncex]
