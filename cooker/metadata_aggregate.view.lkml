@@ -1,5 +1,5 @@
 view: metadata_aggregate {
-  sql_table_name: cooker.cooker_metadata_agg ;;
+  sql_table_name: AwsDataCatalog.cooker.cooker_metadata_agg ;;
   suggestions: no
 
   dimension: error_message {
@@ -265,10 +265,10 @@ view: metadata_aggregate {
   dimension: tagsdown_status {
     type: string
     sql: CASE WHEN ${zf_pubvertisers.name} IS NULL THEN 'Missing matching domain'
+              WHEN ${domain_properties_production.cname} IS NULL THEN 'No CNAME'
               WHEN NOT(${has_liveconnect_tag}) THEN 'No LiveConnect tag'
-              WHEN NOT(${liveintent_user_id_module_active}) THEN 'LI user module inactive'
-            /*WHEN NOT(has_cname) THEN 'No CNAME'
-              WHEN NOT(lc_param_in_email) THEN 'No LC Param in Email'
+              WHEN NOT(${liveintent_user_id_module_active}) THEN 'No LI user modules'
+            /*WHEN NOT(lc_param_in_email) THEN 'No LC Param in Email'
               WHEN NOT(repapering) THEN 'Needs re-papering'*/
               ELSE 'Full setup publisher'
               END;;
@@ -295,6 +295,7 @@ view: metadata_aggregate {
 
   measure: count_urls {
     type: count_distinct
+    label: "Count (URLs)"
     sql: ${url} ;;
     drill_fields: [url]
   }

@@ -1,5 +1,5 @@
 view: zf_pubvertisers {
-  sql_table_name: lfx.zf_pubvertisers ;;
+  sql_table_name: AwsDataCatalog.lfx.zf_pubvertisers ;;
   drill_fields: [id]
   suggestions: no
 
@@ -560,6 +560,12 @@ view: zf_pubvertisers {
 
   measure: count {
     type: count
+  }
+
+  measure: count_publishers {
+    type: count_distinct
+    sql: ${publisher_id} ;;
+    label: "Count (Publishers)"
   }
 
   # ----- Sets of fields for drilling ------
