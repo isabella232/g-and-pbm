@@ -10,13 +10,13 @@ view: c_identity_agg_partner_ids_domain {
 
   dimension: event_date {
     type: date
-    sql: DATE_PARSE(${TABLE}.event_date,'%Y%m%d') ;;
+    sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
     label: "Generation Date"
   }
 
   measure: hems {
     type: average
-    sql: ${TABLE}.pii_count ;;
+    sql: ${TABLE}.piicount ;;
     label: "Count HEMs"
     value_format_name: decimal_0
   }

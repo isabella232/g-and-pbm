@@ -1,28 +1,28 @@
 view: c_identity_domain_relations {
-  sql_table_name: no_id_logs.sellable_pairs_hem_maid ;;
+  sql_table_name: auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info ;;
   suggestions: no
 
   dimension: connected_hem_maid_availability {
     type: string
-    sql: REPLACE(${TABLE}.connected_hem_maid_availability,'""','None') ;;
+    sql: REPLACE(${TABLE}.connectedhemmaidavailability,'""','None') ;;
     label: "Hem Maid Availability"
   }
 
   dimension: primary_cdomain {
     type: string
-    sql: ${TABLE}.primary_cdomain ;;
+    sql: ${TABLE}.primarycookiedomain ;;
     label: "Primary Cookie Domain ID"
   }
 
   dimension: secondary_cdomain {
     type: string
-    sql: ${TABLE}.secondary_cdomain ;;
+    sql: ${TABLE}.secondarycookieddomain ;;
     label: "Secondary Cookie Domain ID"
   }
 
   dimension_group: generation {
     type: time
-    sql: DATE_PARSE(${TABLE}.event_date,'%Y%m%d') ;;
+    sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
     timeframes: [date,month,quarter,year]
   }
 
@@ -30,13 +30,13 @@ view: c_identity_domain_relations {
 
   measure: count_hems {
     type: sum
-    sql: ${TABLE}.connected_hems;;
+    sql: ${TABLE}.connectedhems;;
     value_format_name: decimal_0
   }
 
   measure: count_pairs {
     type: sum
-    sql: ${TABLE}.second_dom_pairs;;
+    sql: ${TABLE}.seconddompairs;;
     value_format_name: decimal_0
   }
 

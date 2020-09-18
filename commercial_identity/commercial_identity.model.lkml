@@ -1,4 +1,4 @@
-connection: "ny_athena"
+connection: "athena_copenhagen"
 
 include: "*.view.lkml"                       # include all views in this project
 include: "/metadata/bidder_sync_names.view.lkml"   # including bidder sync names view

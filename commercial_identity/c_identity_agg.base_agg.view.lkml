@@ -1,5 +1,5 @@
 view: c_identity_base_agg {
-  sql_table_name: no_id_logs.sellable_pairs_aggregates ;;
+  sql_table_name: auto_bidatapipelines.sellable_pairs_aggregates_info ;;
   suggestions: no
 
 # Standard Dimensions #
@@ -11,7 +11,9 @@ view: c_identity_base_agg {
 
   dimension: cluster_size {
     type: string
-    sql: ${TABLE}.cluster_size ;;
+    #sql: ${TABLE}.cluster_size ;;
+    # was this messed up when we moved over?
+    sql: CAST(${TABLE}.cookiehashrank AS VARCHAR) ;;
   }
 
   dimension: cookiedomain {
@@ -34,7 +36,7 @@ view: c_identity_base_agg {
 
   dimension_group: generation {
     type: time
-    sql: DATE_PARSE(${TABLE}.event_date,'%Y%m%d') ;;
+    sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
     timeframes: [date,month,quarter,year]
   }
 
@@ -79,7 +81,7 @@ view: c_identity_base_agg {
 
   measure: count_pairs {
     type: sum
-    sql: ${TABLE}.algorithm_count ;;
+    sql: ${TABLE}.count ;;
     value_format_name: decimal_0
   }
 
