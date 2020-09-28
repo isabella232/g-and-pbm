@@ -13,3 +13,11 @@ explore: unified_client_id_health_stats_excessive_growth {
 explore: unified_client_id_health_stats_histogram {
   label: "Histogram"
 }
+
+explore: largest_UUIDs_top_20 {
+  label: "Top 20 latest and largest UUIDs "
+}
+
+explore: one_day_growth_per_size_range {
+  label: "One day Growth per size range"
+}

@@ -1,5 +1,9 @@
 view: unified_client_id_health_stats_histogram {
-  sql_table_name: auto_clientidentifiers.unified_client_id_health_stats_growth_histogram ;;
+  derived_table: {
+    sql: SELECT *
+      FROM auto_clientidentifiers.unified_client_id_health_stats_growth_histogram
+      WHERE CAST(date_p AS integer) > (SELECT CAST(max(date_p) AS INTEGER)-7 FROM auto_clientidentifiers.unified_client_id_health_stats_growth_histogram);;
+  }
   suggestions: no
 
   dimension: bin_lower {
