@@ -47,20 +47,20 @@ explore: sellable_pairs_cookie_count_by_domain_info {
   }
 }
 
-explore: sellable_pairs_hem_maid_pairs_info {
+explore: sellable_identity_domain_relations_latest {
   label: "Overlaps between Partner Domains"
   join: primary {
     from: bidder_names_with_sellable_partner_link
     type: left_outer
     relationship: many_to_one
-    sql_on: ${sellable_pairs_hem_maid_pairs_info.primary_cdomain} = ${primary.pub_or_app_id} ;;
+    sql_on: ${sellable_identity_domain_relations_latest.primary_cdomain} = ${primary.pub_or_app_id} ;;
     view_label: "Primary Cookie Domain"
   }
   join: secondary {
     from: bidder_names_with_sellable_partner_link
     type: left_outer
     relationship: many_to_one
-    sql_on: ${sellable_pairs_hem_maid_pairs_info.secondary_cdomain} = ${secondary.pub_or_app_id} ;;
+    sql_on: ${sellable_identity_domain_relations_latest.secondary_cdomain} = ${secondary.pub_or_app_id} ;;
     view_label: "Secondary Cookie Domain"
   }
 }

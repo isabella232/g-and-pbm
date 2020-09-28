@@ -1,5 +1,5 @@
 view: unified_client_id_health_stats_histogram {
-  sql_table_name: auto_clientidentifiers.unified_client_id_health_stats_histogram ;;
+  sql_table_name: auto_clientidentifiers.unified_client_id_health_stats_growth_histogram ;;
   suggestions: no
 
   dimension: bin_lower {
