@@ -1,17 +1,17 @@
 view: c_identity_agg_hems_total {
-  sql_table_name: no_id_logs.sellable_pairs_pii ;;
+  sql_table_name: auto_bidatapipelines.sellable_pairs_pii_count_info ;;
   suggestions: no
 
   dimension: event_date {
     type: date
-    sql: DATE_PARSE(${TABLE}.event_date,'%Y%m%d') ;;
+    sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
     label: "Generation Date"
   }
 
   measure: hems {
     type: average
     label: "Count HEMs"
-    sql: NULLIF(${TABLE}.distinctpii_count,0) ;;
+    sql: NULLIF(${TABLE}.piicount,0) ;;
     value_format_name: decimal_0
   }
 }

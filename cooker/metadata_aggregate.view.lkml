@@ -1,5 +1,5 @@
 view: metadata_aggregate {
-  sql_table_name: cooker.cooker_metadata_agg ;;
+  sql_table_name: AwsDataCatalog.cooker.cooker_metadata_agg ;;
   suggestions: no
 
   dimension: error_message {
@@ -10,7 +10,7 @@ view: metadata_aggregate {
 
   dimension: had_parsing_error {
     type: yesno
-    sql: ${error_message} IS NOT NULL ;;
+    sql: ${error_message} IS NOT NULL AND ${error_message} NOT LIKE '%Failed to load resource: ABORTED' ;;
     group_label: "Errors"
   }
 
@@ -26,6 +26,13 @@ view: metadata_aggregate {
       year
     ]
     sql: ${TABLE}.exacttime ;;
+  }
+
+  dimension: cooker_date {
+    type: string
+    sql: ${TABLE}.cookerdate ;;
+    hidden: yes
+    # created to make simpler joins with aggregate tables
   }
 
   dimension: has_bouncex {
@@ -77,6 +84,18 @@ view: metadata_aggregate {
   dimension: url {
     type: string
     sql: ${TABLE}.url ;;
+  }
+
+  dimension: domain {
+    type: string
+    sql: REGEXP_EXTRACT(${url},'^https?:\/\/\w+\.([^\/]+)\/?$',1) ;;
+  }
+
+  dimension: primary_key {
+    type: string
+    sql: CONCAT(${url},CAST(${exact_time_raw} AS VARCHAR)) ;;
+    primary_key: yes
+    hidden: yes
   }
 
   # IX ID MODULE DIMENSIONS
@@ -185,6 +204,76 @@ view: metadata_aggregate {
     label: "Contains Liveintent"
   }
 
+  # header SSP adapters #
+
+  dimension: contains_rubicon {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE 'rubi%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_pubmatic {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE 'pubmatic%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_openx {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE 'openx%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_ix {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x = 'ix')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_index_exchange {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE '%indexexchange%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_trustx {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE '%trustx%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_mediagrid {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE '%grid%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  dimension: contains_appnexus {
+    type: yesno
+    sql: CARDINALITY(FILTER(${header_ssp_adapters}, x -> x LIKE 'appnexus%')) > 0 ;;
+    group_label: "Header SSP Adapter Types"
+  }
+
+  # TagsDown Classifiers #
+
+  dimension: liveintent_user_id_module_active {
+    type: yesno
+    sql: ${has_liveintent_idmodule_enabled_in_ix} OR ${has_liveintent_idmodule_enabled_in_prebid} ;;
+    hidden: yes
+  }
+
+  dimension: tagsdown_status {
+    type: string
+    sql: CASE WHEN ${zf_pubvertisers.name} IS NULL THEN 'Missing matching domain'
+              WHEN ${domain_properties_production.cname} IS NULL THEN 'No CNAME'
+              WHEN NOT(${has_liveconnect_tag}) THEN 'No LiveConnect tag'
+              WHEN NOT(${liveintent_user_id_module_active}) THEN 'No LI user modules'
+            /*WHEN NOT(lc_param_in_email) THEN 'No LC Param in Email'
+              WHEN NOT(repapering) THEN 'Needs re-papering'*/
+              ELSE 'Full setup publisher'
+              END;;
+  }
+
   measure: count {
     type: count
     drill_fields: [url, has_prebid, has_bouncex, ix_library_type, has_liveconnect_tag, has_bouncex]
@@ -202,6 +291,13 @@ view: metadata_aggregate {
     sql: ${number_installed_prebid_modules} ;;
     hidden: yes
     # hidden because only has a specific use
+  }
+
+  measure: count_urls {
+    type: count_distinct
+    label: "Count (URLs)"
+    sql: ${url} ;;
+    drill_fields: [url]
   }
 
 }

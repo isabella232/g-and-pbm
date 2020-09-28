@@ -30,8 +30,8 @@ explore: job_resource_usage {
 
   join: spark_tasks_jr_usage {
     relationship: one_to_many
-    sql_on: ${job_resource_usage.spark_join_id} = ${spark_tasks_jr_usage.app_id}
-    and ${job_resource_usage.cluster_group_date} = ${spark_tasks_jr_usage.cluster_date};;
+    sql_on: ${job_resource_usage.cluster_group_date} = ${spark_tasks_jr_usage.cluster_date}
+    and ${job_resource_usage.spark_join_id} = ${spark_tasks_jr_usage.app_id};;
     type: left_outer
     view_label: "Spark Tasks"
     fields: [spark_tasks_jr_usage.average_executor_cpu_time,
@@ -49,4 +49,6 @@ explore: mapreduce_tasks {
   label: "MapReduce Tasks"
 }
 
-explore: spark_tasks {}
+explore: spark_tasks {
+  description: "CPU and Memory Uusage for Spark"
+}
