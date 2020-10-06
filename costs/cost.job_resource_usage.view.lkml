@@ -53,6 +53,13 @@ view: job_resource_usage {
     primary_key: yes
   }
 
+  dimension: lcid {
+    description: "limr cluster id"
+    type: string
+    sql: ${TABLE}.lcid ;;
+    hidden: yes
+  }
+
   dimension: join_id {
     description: "reduce of app id for joining on mapreduce tasks"
     type: string
@@ -210,4 +217,67 @@ view: job_resource_usage {
     fields: [application_id,application_name, application_type,mb_seconds,vcore_seconds]
   }
 
+}
+
+view: cluster_costs {
+  extends: [job_resource_usage]
+  derived_table: {
+    sql: SELECT *,
+        SUM(memoryseconds) OVER (PARTITION BY lcid) ttl_mb_sec,
+        memoryseconds/CAST(SUM(memoryseconds) OVER (PARTITION BY lcid) AS REAL) pct_ttl_lcid_mb,
+        SUM(vcoreseconds) OVER (PARTITION BY lcid) ttl_vcore_sec,
+        vcoreseconds/CAST(SUM(vcoreseconds) OVER (PARTITION BY lcid) AS REAL) pct_ttl_lcid_vcore
+        FROM auto_logs.app_metrics ;;
+  }
+
+  #dimension: ttl_mb_sec {
+  #  type: number
+  #  sql: ${TABLE}.ttl_mb_sec ;;
+  #  hidden: yes
+  #}
+
+  #dimension: ttl_vcore_sec {
+  #  type: number
+  #  sql: ${TABLE}.ttl_vcore_sec ;;
+  #  hidden: yes
+  #}
+
+  dimension: pct_ttl_lcid_mb {
+    type: number
+    sql: ${TABLE}.pct_ttl_lcid_mb;;
+    value_format_name: percent_4
+    hidden: yes
+  }
+
+  #measure: pct_ttl_lcid_mb_proof {
+    # used for testing pct_ttl_lcid_mb
+  #  type: sum
+  #  sql: ${TABLE}.pct_ttl_lcid_mb;;
+  #  value_format_name: percent_4
+  #  hidden: yes
+  #}
+
+
+  dimension: pct_ttl_lcid_vcore {
+    type: number
+    sql: ${TABLE}.pct_ttl_lcid_vcore ;;
+    value_format_name: percent_4
+    hidden: yes
+  }
+
+  dimension_group: run {
+    description: "Items can have multiple run dates if duration is greater than a day. Start date works as alternative."
+  }
+
+  set: applications_by_job {
+    fields: [cluster_name,job_name,applications,successful_apps,unsuccessful_apps]
+  }
+
+  set: jobs_by_cluster_group {
+    fields: [cluster_group,cluster_name,jobs]
+  }
+
+  set: app_drill {
+    fields: [application_id,application_name, application_type,mb_seconds,vcore_seconds]
+  }
 }

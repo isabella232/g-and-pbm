@@ -52,3 +52,14 @@ explore: mapreduce_tasks {
 explore: spark_tasks {
   description: "CPU and Memory Uusage for Spark"
 }
+
+explore: cluster_costs {
+  label: "LIMR Cluster Costs"
+  view_label: "LIMR Cluster Costs"
+    join: limr_cluster_costs_job_resources {
+      view_label: "LIMR Cluster Costs"
+      relationship: many_to_one
+      sql_on: ${cluster_costs.lcid} = ${limr_cluster_costs_job_resources.limr_cluster} ;;
+      type: left_outer
+    }
+  }
