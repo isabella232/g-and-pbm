@@ -67,4 +67,8 @@ view: limr_cluster_costs_job_resources {
   measure: sum_cost {
     hidden: yes
   }
+
+  dimension: report_month {
+    hidden: yes
+  }
 }
