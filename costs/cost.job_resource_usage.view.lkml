@@ -5,7 +5,7 @@ view: job_resource_usage {
   dimension_group: run {
     description: "Date of log file"
     type: time
-    timeframes: [date,day_of_month,day_of_week,month,year]
+    timeframes: [date,day_of_month,day_of_week,month,quarter,year]
     sql: DATE_PARSE(CONCAT(${TABLE}.year_p,${TABLE}.month_p,${TABLE}.day_p),'%Y%m%d') ;;
   }
 

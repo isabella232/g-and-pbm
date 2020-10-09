@@ -36,7 +36,7 @@ view: limr_cluster_costs {
 
   dimension_group: start {
     type: time
-    timeframes: [raw,date,month,quarter,year,hour_of_day]
+    timeframes: [raw,date,day_of_month,day_of_week,month,quarter,year,hour_of_day]
     sql: ${TABLE}.startdate ;;
     description: "Start timestamp of LIMR cluster ID"
   }
