@@ -71,4 +71,10 @@ view: limr_cluster_costs_job_resources {
   dimension: report_month {
     hidden: yes
   }
+
+  dimension: cost_center {
+    group_label: "Cluster"
+    group_item_label: "Cost Center"
+
+  }
 }
