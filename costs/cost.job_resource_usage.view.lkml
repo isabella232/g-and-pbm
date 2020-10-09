@@ -100,6 +100,7 @@ view: job_resource_usage {
     description: "Count of application runs"
     label: "Runs"
     type: count
+    group_label: "Count"
   }
 
   measure: jobs {
@@ -108,6 +109,7 @@ view: job_resource_usage {
     type: count_distinct
     sql: ${job_name} ;;
     drill_fields: [applications_by_job*]
+    group_label: "Count"
   }
 
   measure: clusters {
@@ -115,6 +117,7 @@ view: job_resource_usage {
     type: count_distinct
     sql: ${cluster_name} ;;
     drill_fields: [jobs_by_cluster_group*]
+    group_label: "Count"
   }
 
   measure: mb_seconds {
@@ -123,6 +126,7 @@ view: job_resource_usage {
     type: sum
     sql: ${TABLE}.memoryseconds ;;
     drill_fields: [cluster_group,mb_seconds_cg]
+    group_label: "Duration"
   }
 
   measure: vcore_seconds {
@@ -130,6 +134,7 @@ view: job_resource_usage {
     type: sum
     sql: ${TABLE}.vcoreseconds ;;
     drill_fields: [cluster_group,vcore_seconds_cg]
+    group_label: "Duration"
   }
 
   # Drill Measures #

@@ -5,6 +5,8 @@ include: "*.view.lkml"                # include all views in the views/ folder i
 label: "EMR Resource Usage"
 
 explore: job_resource_usage {
+  label: "LIMR Cluster Performance"
+  description: "Resource usage of LIMR clusters and jobs"
   join: mapreduce_tasks {
     # do a from because I wanted to make "ID" hidden and suspect that will add more modifications in the future
     from: mapreduce_jr_usage
@@ -50,11 +52,12 @@ explore: mapreduce_tasks {
 }
 
 explore: spark_tasks {
-  description: "CPU and Memory Uusage for Spark"
+  description: "CPU and Memory Usage for Spark"
 }
 
 explore: cluster_costs {
   label: "LIMR Cluster Costs"
+  description: "Financial breakdown of LIMR clusters and jobs"
   view_label: "LIMR Cluster Costs"
     join: limr_cluster_costs_job_resources {
       view_label: "LIMR Cluster Costs"
