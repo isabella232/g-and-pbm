@@ -546,6 +546,7 @@ view: zf_pubvertisers {
   dimension: publisher_id {
     type: number
     sql: ${userver_id} ;;
+    value_format_name: id
   }
 
   dimension: advertiser_id {
