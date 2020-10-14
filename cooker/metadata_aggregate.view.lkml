@@ -264,8 +264,9 @@ view: metadata_aggregate {
 
   dimension: tagsdown_status {
     type: string
-    sql: CASE WHEN ${zf_pubvertisers.name} IS NULL THEN 'Missing matching domain'
-              WHEN ${domain_properties_production.cname} IS NULL THEN 'No CNAME'
+    sql: CASE WHEN ${zf_pubvertisers.name} IS NULL THEN 'No matching publisher ID'
+              WHEN ${domain_properties_production.cname} IS NULL THEN 'No matching CNAME'
+              WHEN NOT(${domain_properties_production.hasssl}) THEN 'CNAME missing SSL'
               WHEN NOT(${has_liveconnect_tag}) THEN 'No LiveConnect tag'
               WHEN NOT(${liveintent_user_id_module_active}) THEN 'No LI user modules'
             /*WHEN NOT(lc_param_in_email) THEN 'No LC Param in Email'
