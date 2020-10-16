@@ -88,3 +88,5 @@ explore: c_identity_base_agg {
     view_label: "C Identity Base Agg"
   }
 }
+
+explore: data_delivery_pair_stats {}
