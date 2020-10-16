@@ -1,6 +1,8 @@
 view: largest_UUIDs_top_20 {
   derived_table: {
-    sql: SELECT * FROM auto_clientidentifiers.unified_client_id_health_stats_top_size;;
+    sql: SELECT *
+    FROM auto_clientidentifiers.unified_client_id_health_stats_top_size
+    WHERE CAST(date_p AS integer) > (SELECT CAST(max(date_p) AS INTEGER)-7 FROM auto_clientidentifiers.unified_client_id_health_stats_top_size);;
   }
   suggestions: no
 
