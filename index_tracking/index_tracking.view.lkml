@@ -134,7 +134,6 @@ view: index_tracking {
   measure: requests_with_nonid {
     type: sum
     sql: CASE WHEN ${id_used} <> 'none' AND ${contains_fpc} THEN ${TABLE}.requests END ;;
-    hidden: yes
   }
 
   measure: requests_with_lidid_and_fpc {
