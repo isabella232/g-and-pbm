@@ -15,7 +15,7 @@ view: index_tracking {
       WHEN usedidentifier <> '' AND lidid = usedidentifier THEN 'LIDID' ELSE 'none' END id_used,
       COUNT(*) requests
       FROM auto_logs.idaas_idx_track_log
-      WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '7' DAY
+      WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '30' DAY
       GROUP BY 1,2,3,4,5,6,7,8,9,10
        ;;
   }
