@@ -36,6 +36,7 @@ view: data_delivery_pair_stats {
     label: "Partner Name"
     group_label: "Partner"
     group_item_label: "Name"
+    drill_fields: [name_p]
   }
 
   dimension: cookie_domain_p {
@@ -429,6 +430,41 @@ view: data_delivery_pair_stats {
     sql: ${totalrows} ;;
     group_label: "Total"
     group_item_label: "File Rows"
+    drill_fields: [name_p,totalrows]
+  }
+
+  measure: min_file_rows {
+    type: min
+    sql: ${totalrows} ;;
+    group_label: "Minimum"
+    group_item_label: "File Rows"
+    hidden: yes
+  }
+
+  measure: 25ntile_file_rows {
+    type: percentile
+    percentile: 25
+    sql: ${totalrows} ;;
+    group_label: "25ntile"
+    group_item_label: "File Rows"
+    hidden: yes
+  }
+
+  measure: 75ntile_file_rows {
+    type: percentile
+    percentile: 75
+    sql: ${totalrows} ;;
+    group_label: "75ntile"
+    group_item_label: "File Rows"
+    hidden: yes
+  }
+
+  measure: max_file_rows {
+    type: max
+    sql: ${totalrows} ;;
+    group_label: "Maximum"
+    group_item_label: "File Rows"
+    hidden: yes
   }
 
   measure: average_file_rows {
