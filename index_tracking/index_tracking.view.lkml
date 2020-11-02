@@ -9,14 +9,16 @@ view: index_tracking {
       lidid <> '' contains_lidid,
       query LIKE '%duid=%' contains_fpc,
       query LIKE '%44489=%' contains_tdd,
+      regexp_like(usedidentifier, '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$') contains_ip,
       mostlikelyemailhash <> '' contains_unifiedid,
       CASE WHEN usedidentifier <> '' AND query LIKE CONCAT('%duid=',usedidentifier,'%') THEN 'FPC'
       WHEN usedidentifier <> '' AND query LIKE CONCAT('%44489=',regexp_extract(usedidentifier, '44489\/(.*)', 1),'%') THEN 'TDD'
-      WHEN usedidentifier <> '' AND lidid = usedidentifier THEN 'LIDID' ELSE 'none' END id_used,
+      WHEN usedidentifier <> '' AND lidid = usedidentifier THEN 'LIDID'
+      WHEN usedidentifier <> '' AND usedidentifier = regexp_extract(usedidentifier, '^((25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$') THEN  'IP' ELSE 'none' END id_used,
       COUNT(*) requests
       FROM auto_logs.idaas_idx_track_log
       WHERE DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) >= CURRENT_DATE - INTERVAL '30' DAY
-      GROUP BY 1,2,3,4,5,6,7,8,9,10
+      GROUP BY 1,2,3,4,5,6,7,8,9,10,11
        ;;
   }
 
@@ -67,6 +69,11 @@ view: index_tracking {
     sql: ${TABLE}.contains_tdd;;
   }
 
+  dimension: contains_ip {
+    type: yesno
+    sql: ${TABLE}.contains_ip;;
+  }
+
   dimension: contains_unifiedid {
     type: yesno
     label: "Contains Emailhash"
@@ -94,7 +101,7 @@ view: index_tracking {
     sql: CASE WHEN ${contains_fpc} = FALSE THEN ${TABLE}.requests END ;;
   }
 
-  # Combinations of IDs the requests come with FPC LIDID TDD
+  # Combinations of IDs the requests come with FPC LIDID TDD IP
   measure: requests_with_lidid {
     type: sum
     sql: CASE WHEN ${contains_lidid} THEN ${TABLE}.requests END;;
@@ -102,7 +109,7 @@ view: index_tracking {
 
   measure: requests_with_lidid_only {
     type: sum
-    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
+    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE AND ${contains_ip} = FALSE THEN ${TABLE}.requests END;;
   }
 
   measure: requests_with_fpc {
@@ -112,7 +119,7 @@ view: index_tracking {
 
   measure: requests_with_fpc_only {
     type: sum
-    sql: CASE WHEN ${contains_fpc} AND ${contains_lidid} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
+    sql: CASE WHEN ${contains_fpc} AND ${contains_lidid} = FALSE AND ${contains_tdd} = FALSE AND ${contains_ip} = FALSE THEN ${TABLE}.requests END;;
   }
 
   measure: requests_with_tdd {
@@ -122,12 +129,22 @@ view: index_tracking {
 
   measure: requests_with_tdd_only {
     type: sum
-    sql: CASE WHEN ${contains_tdd} AND ${contains_lidid} = FALSE AND ${contains_fpc} = FALSE THEN ${TABLE}.requests END;;
+    sql: CASE WHEN ${contains_tdd} AND ${contains_lidid} = FALSE AND ${contains_fpc} = FALSE AND ${contains_ip} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_ip {
+    type: sum
+    sql: CASE WHEN ${contains_ip} THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_ip_only {
+    type: sum
+    sql: CASE WHEN ${contains_ip} AND ${contains_lidid} = FALSE AND ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
   }
 
   measure: requests_with_unifiedid {
     type: sum
-    sql: CASE WHEN ${contains_unifiedid} AND (${contains_fpc} OR ${contains_tdd}) THEN ${TABLE}.requests END ;;
+    sql: CASE WHEN ${contains_unifiedid} AND (${contains_fpc} OR ${contains_tdd} OR ${contains_ip}) THEN ${TABLE}.requests END ;;
     hidden: yes
   }
 
@@ -138,22 +155,52 @@ view: index_tracking {
 
   measure: requests_with_lidid_and_fpc {
     type: sum
-    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
+    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} = FALSE AND ${contains_ip} = FALSE THEN ${TABLE}.requests END;;
   }
 
   measure: requests_with_lidid_and_tdd {
     type: sum
-    sql: CASE WHEN ${contains_lidid} AND ${contains_tdd} AND ${contains_fpc} = FALSE THEN ${TABLE}.requests END;;
+    sql: CASE WHEN ${contains_lidid} AND ${contains_tdd} AND ${contains_fpc} = FALSE AND ${contains_ip} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_lidid_and_ip {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} AND ${contains_ip} AND ${contains_fpc} = FALSE AND ${contains_tdd} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_ip_and_tdd {
+    type: sum
+    sql: CASE WHEN ${contains_tdd} AND ${contains_ip} AND ${contains_fpc} = FALSE AND ${contains_lidid} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_ip_and_fpc {
+    type: sum
+    sql: CASE WHEN ${contains_fpc} AND ${contains_ip} AND ${contains_tdd} = FALSE AND ${contains_lidid} = FALSE THEN ${TABLE}.requests END;;
   }
 
   measure: requests_with_tdd_and_fpc {
     type: sum
-    sql: CASE WHEN ${contains_lidid} = FALSE AND ${contains_tdd} AND ${contains_fpc} THEN ${TABLE}.requests END;;
+    sql: CASE WHEN ${contains_lidid} = FALSE AND ${contains_tdd} AND ${contains_fpc} AND ${contains_ip} = FALSE THEN ${TABLE}.requests END;;
   }
 
   measure: requests_with_lidid_tdd_fpc {
     type: sum
-    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} THEN ${TABLE}.requests END;;
+    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} AND ${contains_ip} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_lidid_tdd_ip {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} AND ${contains_ip} AND ${contains_tdd} AND ${contains_fpc} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_ip_tdd_fpc {
+    type: sum
+    sql: CASE WHEN ${contains_ip} AND ${contains_fpc} AND ${contains_tdd} AND ${contains_lidid} = FALSE THEN ${TABLE}.requests END;;
+  }
+
+  measure: requests_with_lidid_tdd_fpc_ip {
+    type: sum
+    sql: CASE WHEN ${contains_lidid} AND ${contains_fpc} AND ${contains_tdd} AND ${contains_ip} THEN ${TABLE}.requests END;;
   }
 
 # Percent of total for ID and resolution combinations
@@ -172,6 +219,12 @@ view: index_tracking {
   measure: pct_requests_with_tdd {
     type: number
     sql: ${requests_with_tdd}/CAST(${sum_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: pct_requests_with_ip {
+    type: number
+    sql: ${requests_with_ip}/CAST(${sum_requests} AS REAL) ;;
     value_format_name: percent_0
   }
 
@@ -225,6 +278,19 @@ view: index_tracking {
     type: number
     label: "Pct Valid requests resolved with FPC"
     sql: ${requests_resolved_w_FPC} /CAST(${sum_valid_requests} AS REAL) ;;
+    value_format_name: percent_0
+  }
+
+  measure: requests_resolved_w_IP {
+    type: sum
+    sql:CASE WHEN ${id_used} = 'IP' AND ${contains_ip} THEN ${TABLE}.requests END;;
+    value_format_name: decimal_0
+  }
+
+  measure: resolution_rate_IP {
+    type: number
+    label: "Pct Valid requests resolved with ip"
+    sql: ${requests_resolved_w_IP} /CAST(${sum_valid_requests} AS REAL) ;;
     value_format_name: percent_0
   }
 }
