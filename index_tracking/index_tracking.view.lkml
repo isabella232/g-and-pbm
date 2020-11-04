@@ -283,7 +283,7 @@ view: index_tracking {
 
   measure: requests_resolved_w_IP {
     type: sum
-    sql:CASE WHEN ${id_used} = 'IP' AND ${contains_ip} THEN ${TABLE}.requests END;;
+    sql:CASE WHEN ${id_used} = 'IP' AND ${contains_fpc} THEN ${TABLE}.requests END;;
     value_format_name: decimal_0
   }
 
