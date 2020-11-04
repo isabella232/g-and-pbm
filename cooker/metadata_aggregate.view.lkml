@@ -275,6 +275,11 @@ view: metadata_aggregate {
               END;;
   }
 
+  measure: tagsdown_types {
+    type: list
+    list_field: tagsdown_status
+  }
+
   measure: count {
     type: count
     drill_fields: [url, has_prebid, has_bouncex, ix_library_type, has_liveconnect_tag, has_bouncex]
