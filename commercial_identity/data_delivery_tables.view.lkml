@@ -557,3 +557,44 @@ view: data_delivery_pair_stats {
     hidden: yes
   }
 }
+
+view: data_delivery_cluster_stats{
+  extends: [data_delivery_pair_stats]
+  sql_table_name: auto_deliverable.data_delivery_liid_att_stats;;
+
+  dimension: cookie_filter {
+    hidden: yes
+  }
+
+  dimension: cookie_suppression_filter {
+    hidden: yes
+  }
+
+  dimension: cookie_accceptable_mapping_levels {
+    hidden: yes
+  }
+
+  dimension: maid_acceptable_mapping_levels {
+    hidden: yes
+  }
+
+  dimension: max_cookie_hash_rank {
+    hidden: yes
+  }
+
+  dimension: cookie_domain_p {
+    hidden: yes
+  }
+
+  measure: sum_supplied_domain_ids {
+    hidden: yes
+  }
+
+  measure: average_supplied_domain_ids {
+    hidden: yes
+  }
+
+  measure: median_supplied_domain_ids {
+    hidden: yes
+  }
+}

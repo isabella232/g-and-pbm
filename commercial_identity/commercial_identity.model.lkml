@@ -90,3 +90,5 @@ explore: c_identity_base_agg {
 }
 
 explore: data_delivery_pair_stats {}
+
+explore: data_delivery_cluster_stats {}
