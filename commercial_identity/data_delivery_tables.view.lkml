@@ -1,5 +1,5 @@
 view: data_delivery_pair_stats {
-  sql_table_name: auto_deliverable.data_delivery_pair_stats ;;
+  sql_table_name: auto_deliverable.pair_delivery_stats ;;
   suggestions: no
 
   dimension: primary_key {
@@ -161,12 +161,14 @@ view: data_delivery_pair_stats {
     sql: ${TABLE}.configentry.cookiefilter ;;
     group_label: "Delivery Configuration"
     label: "Filter (Cookie)"
+    hidden: yes
   }
 
   dimension: id_columns {
     type: string
     sql: ARRAY_SORT(${TABLE}.configentry.idcolumns) ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: cookie_suppression_filter {
@@ -174,36 +176,42 @@ view: data_delivery_pair_stats {
     sql: ${TABLE}.configentry.cookiesuppressionfilter ;;
     group_label: "Delivery Configuration"
     label: "Filter (Cookie Supression)"
+    hidden: yes
   }
 
   dimension: cookie_accceptable_mapping_levels {
     type: string
     sql: ARRAY_SORT(${TABLE}.configentry.cookieacceptablemappinglevels) ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: maid_acceptable_mapping_levels {
     type: string
     sql: ARRAY_SORT(${TABLE}.configentry.maidacceptablemappinglevels);;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: max_cookie_hash_rank {
     type: string
     sql: ${TABLE}.configentry.maxcookiehashrank ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: send_frequency {
     type: string
     sql: ${TABLE}.configentry.frequency ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: delivery_attributes {
     type: string
     sql: ARRAY_SORT(${TABLE}.configentry.deliveryattributes) ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: delivery_filter {
@@ -211,6 +219,7 @@ view: data_delivery_pair_stats {
     sql: ${TABLE}.configentry.filter ;;
     group_label: "Delivery Configuration"
     label: "Filter (Delivery)"
+    hidden: yes
   }
 
   dimension: hash_filter {
@@ -218,6 +227,7 @@ view: data_delivery_pair_stats {
     sql: ${TABLE}.configentry.hashfilter ;;
     group_label: "Delivery Configuration"
     label: "Filter (Hash)"
+    hidden: yes
   }
 
   dimension: hash_suppression_filter {
@@ -225,6 +235,7 @@ view: data_delivery_pair_stats {
     sql: ${TABLE}.configentry.hashsuppressionfilter ;;
     group_label: "Delivery Configuration"
     label: "Filter (Hash Supression)"
+    hidden: yes
   }
 
   dimension: segment_filter {
@@ -232,6 +243,7 @@ view: data_delivery_pair_stats {
     sql: ${TABLE}.configentry.segmentfilter ;;
     group_label: "Delivery Configuration"
     label: "Filter (Segment)"
+    hidden: yes
   }
 
   dimension: segment_suppression_filter {
@@ -239,36 +251,42 @@ view: data_delivery_pair_stats {
     sql: ${TABLE}.configentry.segmentsuppressionfilter ;;
     group_label: "Delivery Configuration"
     label: "Filter (Segment Supression)"
+    hidden: yes
   }
 
   dimension: sftp_directory_prefix {
     type: string
     sql: ${TABLE}.configentry.sftpdirectoryprefix ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: s3_directory_prefix {
     type: string
     sql: ${TABLE}.configentry.s3directoryprefix ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: sftp_success_marker {
     type: string
     sql: ${TABLE}.configentry.sftpsuccessmarker ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: s3_success_marker {
     type: string
     sql: ${TABLE}.configentry.s3successmarker ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   dimension: merge_outputs {
     type: string
     sql: ${TABLE}.configentry.mergeoutputs ;;
     group_label: "Delivery Configuration"
+    hidden: yes
   }
 
   # Previous Delivery ? #
@@ -560,7 +578,7 @@ view: data_delivery_pair_stats {
 
 view: data_delivery_cluster_stats{
   extends: [data_delivery_pair_stats]
-  sql_table_name: auto_deliverable.data_delivery_liid_att_stats;;
+  sql_table_name: auto_deliverable.cluster_delivery_stats;;
 
   dimension: cookie_filter {
     hidden: yes
@@ -601,7 +619,7 @@ view: data_delivery_cluster_stats{
 
 view: data_delivery_liid_attribute_stats {
   extends: [data_delivery_pair_stats]
-  sql_table_name: auto_deliverable.data_delivery_liid_att_stats ;;
+  sql_table_name: auto_deliverable.liid_att_delivery_stats ;;
 
   dimension: cookie_filter {
     hidden: yes
