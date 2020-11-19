@@ -19,6 +19,14 @@ explore: metadata_aggregate {
     fields: [zf_pubvertisers.publisher_id,zf_pubvertisers.name,zf_pubvertisers.count_publishers]
   }
 
+  join: zf_agencies {
+    view_label: "Publisher Metadata"
+    sql_on: ${zf_pubvertisers.agency_id} = ${zf_agencies.id} ;;
+    relationship: many_to_one
+    type: left_outer
+    fields: [zf_agencies.userver_id,zf_agencies.name]
+  }
+
   join: sspcustom_exact {
     view_label: "LI Exchange Measures"
     sql_on: ${zf_pubvertisers.publisher_id} = ${sspcustom_exact.publisher_id}
