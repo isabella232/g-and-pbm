@@ -4,6 +4,7 @@ include: "*.view.lkml"
 include: "/lfx/*.view.lkml"
 include: "/ipow_aggregates/*.view.lkml"
 include: "/metadata/domain_properties_production.view.lkml"
+include: "//liveintent/ownership_sf.view.lkml"
 
 explore: metadata_aggregate {
   label: "Header Metadata"
