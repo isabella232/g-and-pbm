@@ -1,5 +1,6 @@
 view: domain_properties_production {
-  sql_table_name: dynamodb.dynamodb.domain_properties_production ;;
+  #sql_table_name: dynamodb.dynamodb.domain_properties_production ;;
+  sql_table_name: test.tmp_domain_properties ;;
   suggestions: no
 
   dimension: cname {
@@ -9,7 +10,8 @@ view: domain_properties_production {
 
   dimension: domainname {
     type: string
-    sql: ${TABLE}.domainname ;;
+   # sql: ${TABLE}.domainname ;;
+    sql: ${TABLE}.apex_domain ;;
   }
 
   dimension: hasbaker {
@@ -19,7 +21,8 @@ view: domain_properties_production {
 
   dimension: hasssl {
     type: yesno
-    sql: ${TABLE}.hasssl ;;
+  #  sql: ${TABLE}.hasssl ;;
+    sql: ${TABLE}.has_ssl ;;
   }
 
   dimension: productionversion {
