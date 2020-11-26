@@ -20,7 +20,7 @@ view: job_resource_usage {
   dimension: cluster_group {
     description: "Simplified cluster name if daily job"
     type: string
-    sql: COALESCE(REGEXP_EXTRACT(${cluster_name},'(.*)(?=-\d{8}$)',1),'Ad hoc') ;;
+    sql: COALESCE(REGEXP_EXTRACT(${cluster_name},'(.*)(?=-\d{8}($|-\d+$))',1),'Ad hoc') ;;
     group_label: "Cluster"
     group_item_label: "Group Name"
   }
@@ -28,7 +28,7 @@ view: job_resource_usage {
   dimension: cluster_group_date {
     description: "Date of cluster group job"
     type: string
-    sql: REGEXP_EXTRACT(${cluster_name},'(\d{8}$)',1) ;;
+    sql: REGEXP_EXTRACT(${cluster_name},'(\d{8})($|-\d+$)',1) ;;
     group_label: "Cluster"
     group_item_label: "Group Date"
   }
