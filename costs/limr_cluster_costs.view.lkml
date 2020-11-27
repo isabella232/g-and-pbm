@@ -21,6 +21,19 @@ view: limr_cluster_costs {
     description: "User filled in cluster cost center"
   }
 
+  dimension: general_cost_center {
+    type: string
+    sql: CASE WHEN ${cost_center} IN (
+                'segment_processing',
+                'unified_aggregator',
+                'graph_processing',
+                'graph_processing_brother',
+                'recommender',
+                'post_processing',
+                'data-delivery') THEN ${cost_center}
+              ELSE 'Ad hoc' END ;;
+  }
+
   dimension: cost {
     type: number
     sql: ${TABLE}.cost ;;
