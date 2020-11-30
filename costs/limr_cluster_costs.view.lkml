@@ -91,4 +91,19 @@ view: limr_cluster_costs_job_resources {
     group_item_label: "Cost Center"
 
   }
+
+  dimension: general_cost_center {
+    type: string
+    sql: CASE WHEN ${cost_center} IN (
+                'segment_processing',
+                'unified_aggregator',
+                'graph_processing',
+                'graph_processing_brother',
+                'recommender',
+                'post_processing',
+                'data-delivery',
+                'reporting_jobs') THEN ${cost_center}
+              ELSE ${cluster_costs.cluster_group}
+              END ;;
+  }
 }
