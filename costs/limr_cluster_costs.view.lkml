@@ -30,7 +30,8 @@ view: limr_cluster_costs {
                 'graph_processing_brother',
                 'recommender',
                 'post_processing',
-                'data-delivery') THEN ${cost_center}
+                'data-delivery',
+                'reporting_jobs') THEN ${cost_center}
               ELSE 'Ad hoc' END ;;
   }
 
