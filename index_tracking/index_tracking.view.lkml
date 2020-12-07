@@ -3,7 +3,7 @@ view: index_tracking {
     sql: SELECT
       DATE_TRUNC('hour',PARSE_DATETIME(CONCAT(date,time),'yyyyMMddHH:mm:ss.SSS')) event_timestamp,
       refererapexdomain refererdomain,
-      source,
+      destination,
       clientname,
       countrylookup country,
       lidid <> '' contains_lidid,
@@ -40,7 +40,7 @@ view: index_tracking {
 
   dimension: source {
     type: string
-    sql: ${TABLE}.source;;
+    sql: ${TABLE}.destination;;
     suggestions: ["ie","prebid",""]
   }
 
