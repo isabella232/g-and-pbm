@@ -11,7 +11,7 @@ view: c_identity_agg_partner_ids_total {
 
   dimension: cookiedomain {
     type: string
-    sql: ${TABLE}.cookiedomain ;;
+    sql: ${TABLE}.selector ;;
     label: "Cookie Domain ID"
   }
 

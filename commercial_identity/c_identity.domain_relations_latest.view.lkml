@@ -13,13 +13,13 @@ view: c_identity_domain_relations_latest {
 
   dimension: primary_cdomain {
     type: string
-    sql: ${TABLE}.primarycookiedomain ;;
+    sql: ${TABLE}.primaryselector ;;
     label: "Primary Cookie Domain ID"
   }
 
   dimension: secondary_cdomain {
     type: string
-    sql: ${TABLE}.secondarycookieddomain ;;
+    sql: ${TABLE}.secondaryselector ;;
     label: "Secondary Cookie Domain ID"
   }
 
