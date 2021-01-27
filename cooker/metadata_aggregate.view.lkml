@@ -161,6 +161,38 @@ view: metadata_aggregate {
     group_label: "Prebid ID Module Types"
   }
 
+  dimension: contains_lotame_panorama {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'lotamePanoramaId') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: contains_shared_id {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'sharedId') ;;
+    group_label: "Prebid ID Module Types"
+    group_item_label: "Contains Shared ID"
+  }
+
+  dimension: contains_britepool {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'britepoolId') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: contains_parrable {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'parrableId') ;;
+    group_label: "Prebid ID Module Types"
+  }
+
+  dimension: contains_merkle_prebid {
+    type: yesno
+    sql: CONTAINS(${prebid_idmodules},'merkleId') ;;
+    group_label: "Prebid ID Module Types"
+    group_item_label: "Contains Merkle"
+  }
+
   dimension: contains_unifiedid {
     type: yesno
     sql: CONTAINS(${prebid_idmodules},'unifiedId') ;;

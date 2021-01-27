@@ -43,6 +43,7 @@ view: hiaccprobabilistic_by_cookiedomain_full {
         FROM auto_sellable.sellable_pair
         WHERE date_p='20190910'
         AND region_p = 'US'
+        AND hashIsSellable
 
     UNION
 
@@ -89,6 +90,7 @@ view: hiaccprobabilistic_by_cookiedomain_full {
         FROM auto_sellable.sellable_pair
         WHERE date_p='20190910'
         AND region_p = 'US'
+        AND hashIsSellable
         GROUP BY 1
         ORDER BY 1
  ;;

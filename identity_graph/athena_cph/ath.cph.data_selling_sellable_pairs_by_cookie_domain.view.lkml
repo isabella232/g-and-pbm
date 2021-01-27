@@ -2,6 +2,7 @@ view: data_selling_sellable_pairs_by_cookie_domain {
   derived_table: {
     sql: SELECT DATE_PARSE(date_p,'%Y%m%d') event_date, cookie_domain_p, COUNT(*) sellable_pairs
       FROM auto_sellable.sellable_pair
+      WHERE hashIsSellable
       GROUP BY 1,2
        ;;
   }

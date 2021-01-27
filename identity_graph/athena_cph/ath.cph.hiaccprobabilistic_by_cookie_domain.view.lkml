@@ -43,6 +43,7 @@ view: hiaccprobabilistic_by_cookie_domain {
         FROM auto_sellable.sellable_pair
         WHERE date_p='20190910'
         AND region_p = 'US'
+        AND hashIsSellable
         GROUP BY 1
         ORDER BY 1
  ;;
