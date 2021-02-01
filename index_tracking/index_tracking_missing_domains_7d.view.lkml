@@ -39,6 +39,8 @@ view: index_tracking_missing_domains_7d {
       WHERE t2.refererdomain IS NULL
       GROUP BY 1,2
       ;;
+
+    datagroup_trigger: bigquery_idx_update
     }
 
     suggestions: no

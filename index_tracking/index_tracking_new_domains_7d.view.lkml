@@ -40,6 +40,7 @@ view: index_tracking_new_domains_7d {
     GROUP BY 1,2
     ;;
 
+  datagroup_trigger: bigquery_idx_update
   }
 
   suggestions: no
