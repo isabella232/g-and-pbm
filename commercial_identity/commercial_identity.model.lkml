@@ -94,3 +94,5 @@ explore: data_delivery_pair_stats {}
 explore: data_delivery_cluster_stats {}
 
 explore: data_delivery_liid_attribute_stats {}
+
+explore: partner_cookie_stats {}
