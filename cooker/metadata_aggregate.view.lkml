@@ -307,6 +307,11 @@ view: metadata_aggregate {
               END;;
   }
 
+  dimension: cname {
+    type: string
+    sql: ${domain_properties_production.cname} ;;
+  }
+
   measure: tagsdown_types {
     type: list
     list_field: tagsdown_status
