@@ -4,6 +4,7 @@ include: "*.view.lkml"
 include: "/lfx/*.view.lkml"
 include: "/ipow_aggregates/*.view.lkml"
 include: "/metadata/domain_properties_production.view.lkml"
+include: "/metadata/active_exchange_publishers_last_thirty.view.lkml"
 include: "//liveintent/ownership_sf.view.lkml"
 
 explore: metadata_aggregate {
@@ -27,13 +28,21 @@ explore: metadata_aggregate {
     fields: [zf_agencies.userver_id,zf_agencies.name]
   }
 
-  join: sspcustom_exact {
-    view_label: "LI Exchange Measures"
-    sql_on: ${zf_pubvertisers.publisher_id} = ${sspcustom_exact.publisher_id}
-    AND ${metadata_aggregate.cooker_date} = ${sspcustom_exact.date};;
-    relationship: one_to_many
+  #join: sspcustom_exact {
+  #  view_label: "LI Exchange Measures"
+  #  sql_on: ${zf_pubvertisers.publisher_id} = ${sspcustom_exact.publisher_id}
+  #  AND ${metadata_aggregate.cooker_date} = ${sspcustom_exact.date};;
+  #  relationship: one_to_many
+  #  type: left_outer
+  #  fields: [sspcustom_exact.basic_measures*]
+  #}
+
+  join: active_exchange_publishers_last_thirty {
+    sql_on: ${zf_pubvertisers.publisher_id} = ${active_exchange_publishers_last_thirty.publisher_id} ;;
+    relationship: one_to_one
     type: left_outer
-    fields: [sspcustom_exact.basic_measures*]
+    fields: [active_exchange_publishers_last_thirty.total_impressions_last_thirty]
+    view_label: "Publisher Metadata"
   }
 
   join: domain_properties_production {
