@@ -365,6 +365,8 @@ view: zf_agencies {
   dimension: userver_id {
     type: number
     sql: ${TABLE}.userver_id ;;
+    label: "Media Group ID"
+    value_format_name: id
   }
 
   dimension: version {

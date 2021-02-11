@@ -312,6 +312,11 @@ view: metadata_aggregate {
     sql: ${domain_properties_production.cname} ;;
   }
 
+  dimension: is_secure_cname {
+    type: yesno
+    sql: REGEXP_LIKE(${cname},'^lis\.') ;;
+  }
+
   measure: tagsdown_types {
     type: list
     list_field: tagsdown_status

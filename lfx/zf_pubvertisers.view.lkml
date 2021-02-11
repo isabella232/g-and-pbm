@@ -305,6 +305,7 @@ view: zf_pubvertisers {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    label: "Publisher or Advertiser Name"
   }
 
   dimension: pds_user_id {
@@ -567,6 +568,7 @@ view: zf_pubvertisers {
     type: count_distinct
     sql: ${publisher_id} ;;
     label: "Count (Publishers)"
+    drill_fields: [zf_agencies.userver_id, zf_agencies.name, publisher_id, name]
   }
 
   # ----- Sets of fields for drilling ------
