@@ -310,11 +310,15 @@ view: metadata_aggregate {
   dimension: cname {
     type: string
     sql: ${domain_properties_production.cname} ;;
+    group_label: "CNAME"
+    group_item_label: "CNAME"
   }
 
   dimension: is_secure_cname {
     type: yesno
-    sql: REGEXP_LIKE(${cname},'^lis\.') ;;
+    sql: REGEXP_LIKE(${cname},'^(lis|sli)\.') ;;
+    group_label: "CNAME"
+    group_item_label: "Is Secure"
   }
 
   measure: tagsdown_types {
