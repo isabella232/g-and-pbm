@@ -316,7 +316,7 @@ view: metadata_aggregate {
 
   dimension: is_secure_cname {
     type: yesno
-    sql: REGEXP_LIKE(${cname},'^(lis|sli)\.') ;;
+    sql: ${domain_properties_production.hasssl};;
     group_label: "CNAME"
     group_item_label: "Is Secure"
   }
