@@ -30,6 +30,12 @@ explore: pv_owned_v_prospect {
   hidden: yes
 }
 
+
+
 explore: mapping_type_cost_coefficient {
   hidden: yes
+}
+
+explore: partner_cookie_stats {
+  hidden: no
 }

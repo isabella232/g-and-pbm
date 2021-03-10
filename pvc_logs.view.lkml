@@ -27,7 +27,7 @@ FROM (
 SELECT
 PARSE_DATETIME('%F %T', a.root.request.datetime) conversion_time,
 PARSE_DATETIME('%F %T', a.root.impression_dt) impression_time,
-PARSE_DATETIME('%F %T', b.root.request.datetime) click_time,
+PARSE_DATETIME('%F %T', b.time_stamp) click_time,
 a.root.demand.advertiser_id advertiser_id,
 a.root.demand.campaign_id campaign_id,
 a.root.demand.line_item_id line_item_id,
@@ -36,7 +36,14 @@ a.root.upa upa,
 "PCC" conversion_window,
 "PCC" conversion_type
 FROM `elite-contact-671.userver_logs_dsp.conversion_*` a
-LEFT JOIN `elite-contact-671.userver_logs_dsp.click_*` b ON a.root.bid.id = b.root.bid.id
+LEFT JOIN
+(
+  select
+  c.root.bid.id as id,
+  max(c.root.request.datetime) as time_stamp
+  from `elite-contact-671.userver_logs_dsp.click_*` c
+  group by 1
+) b ON a.root.bid.id = b.id
 GROUP BY 1,2,3,4,5,6,7,8,9
 )
 GROUP BY 1,2,3,4,5,6,7,8,9,10
@@ -57,7 +64,8 @@ FROM
 SELECT
 PARSE_DATETIME('%F %T', pvc.root.request.datetime) conversion_time,
 PARSE_DATETIME('%F %T', pvc.root.impression_time)  impression_time,
-PARSE_DATETIME('%F %T', bpcv.root.request.datetime) click_time,
+PARSE_DATETIME('%F %T', pvc.root.impression_time) click_time,
+
 pvc.root.demand.advertiser_id advertiser_id,
 pvc.root.demand.campaign_id campaign_id,
 pvc.root.demand.line_item_id line_item_id,
@@ -66,9 +74,7 @@ pvc.root.upa upa,
 case when pvc.root.pvc_1h = 1 then "PVC within 1h" when pvc.root.pvc_24h = 1 then "PVC within 24h"
 when pvc.root.pvc_72h = 1 then "PVC within 72h" when pvc.root.pvc_over_72h = 1 then "PVC over 72h" else "error" end as conversion_window,
 "PVC" conversion_type
-FROM
-  `elite-contact-671.userver_logs_dsp.pv_conversion_*` pvc
-LEFT JOIN `elite-contact-671.userver_logs_dsp.click_*` bpcv ON pvc.root.bid.id = bpcv.root.bid.id
+FROM `elite-contact-671.userver_logs_dsp.pv_conversion_*` pvc
 INNER JOIN (
 SELECT
 root.bid.id bid_id,
