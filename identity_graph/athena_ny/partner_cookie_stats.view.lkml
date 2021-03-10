@@ -5,43 +5,43 @@ view: partner_cookie_stats
   dimension: day_date {
     type: date
     sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
-    description: "Day Date"
+    label: "Day Date"
   }
 
   dimension: first_seen_date {
     type: date
     sql: DATE_PARSE(${TABLE}.firstseenat,'%Y%m%d') ;;
-    description: "First Seen Date"
+    label: "First Seen Date"
   }
 
   dimension: lastseenat {
     type: date
     sql: DATE_PARSE(${TABLE}.lastseenat,'%Y%m%d') ;;
-    description: "Last Seen Date"
+    label: "Last Seen Date"
   }
 
   dimension: domain {
     type: number
     sql: ${TABLE}.domain ;;
-    description: "Domain"
+    label: "Domain"
   }
 
   measure: totalcount {
     type: sum
     sql: ${TABLE}.totalcount ;;
-    description: "Total Count"
+    label: "Total Count"
   }
 
   measure: numnew {
     type: sum
     sql: ${TABLE}.numnew ;;
-    description: "Number New"
+    label: "Number New"
   }
 
   measure: numdeleted {
     type: sum
     sql: ${TABLE}.numdeleted ;;
-    description: "Number Deleted"
+    label: "Number Deleted"
   }
 
 
