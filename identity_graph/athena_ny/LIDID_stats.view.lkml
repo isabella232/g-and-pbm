@@ -1,5 +1,5 @@
 view: lidid_stats {
-  sql_table_name: auto_dmps.lidid_stats ;;
+  sql_table_name: auto_dmps.li_domain_ulid_stats ;;
 
   dimension: day_date {
     type: date
