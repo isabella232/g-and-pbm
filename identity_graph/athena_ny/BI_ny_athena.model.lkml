@@ -53,3 +53,10 @@ explore: scrapped {
 
   hidden: no
 }
+
+
+explore: lidomulid {
+# Hidden because it appears to be defunct
+
+  hidden: no
+}
