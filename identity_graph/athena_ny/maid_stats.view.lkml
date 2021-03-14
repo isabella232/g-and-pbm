@@ -5,7 +5,7 @@ view: maid_stats {
   dimension: day_date {
     type: date
     sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
-    label: "Day Date"
+    label: "Date"
   }
 
   dimension: first_seen_date {

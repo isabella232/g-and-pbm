@@ -1,11 +1,11 @@
 view: lidomulid {
-
-  sql_table_name: auto_dmps.LiDomUlid ;;
+#auto_dmps.li_domain_ulid_stats
+  sql_table_name: auto_dmps.li_domain_ulid_stats ;;
 
   dimension: day_date {
     type: date
     sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
-    label: "Day Date"
+    label: "Date"
   }
 
   dimension: first_seen_date {
