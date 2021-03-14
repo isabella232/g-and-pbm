@@ -21,7 +21,7 @@ view: partner_cookie_stats
   }
 
   dimension: domain {
-    type: number
+    type: string
     sql: ${TABLE}.domain ;;
     label: "Domain"
   }
