@@ -46,3 +46,10 @@ explore: fpc_stats {
 
   hidden: no
 }
+
+
+explore: scrapped {
+# Hidden because it appears to be defunct
+
+  hidden: no
+}
