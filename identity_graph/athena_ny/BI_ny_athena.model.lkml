@@ -25,3 +25,10 @@ explore: partner_cookie_stats {
 
 hidden: no
 }
+
+
+explore: maid_stats {
+# Hidden because it appears to be defunct
+
+  hidden: no
+}
