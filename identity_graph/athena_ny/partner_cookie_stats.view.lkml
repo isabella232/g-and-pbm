@@ -8,6 +8,8 @@ view: partner_cookie_stats
     label: "Date"
   }
 
+
+
   dimension: first_seen_date {
     type: date
     sql: DATE_PARSE(${TABLE}.firstseenat,'%Y%m%d') ;;
@@ -19,6 +21,14 @@ view: partner_cookie_stats
     sql: DATE_PARSE(${TABLE}.lastseenat,'%Y%m%d') ;;
     label: "Last Seen Date"
   }
+
+  dimension: days_since_last_write {
+    type: number
+    sql: ${TABLE}.dayssincelastwrite ;;
+    label: "Days Since Last Write"
+  }
+
+
 
   dimension: domain {
     type: string
