@@ -32,3 +32,10 @@ explore: maid_stats {
 
   hidden: no
 }
+
+
+explore: lidid_stats {
+# Hidden because it appears to be defunct
+
+  hidden: no
+}
