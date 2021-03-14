@@ -39,3 +39,10 @@ explore: lidid_stats {
 
   hidden: no
 }
+
+
+explore: fpc_stats {
+# Hidden because it appears to be defunct
+
+  hidden: no
+}
