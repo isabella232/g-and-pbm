@@ -87,7 +87,7 @@ view: cookie_stats_total {
 
   measure: totalcount {
     type: sum
-    sql: ${TABLE}.totalcount ;;
+    sql: ${TABLE}.total_count ;;
     label: "Total Count"
   }
 
