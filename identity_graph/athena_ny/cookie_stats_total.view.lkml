@@ -7,11 +7,12 @@ view: cookie_stats_total {
       select
       'partner_cookie_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) as total_count
+      sum(fact.totalcount) /1000000000 as total_count
 
 
       from auto_dmps.partner_cookie_stats fact
       group by 1,2
+      having sum(fact.totalcount)>0
 
 
       UNION ALL
@@ -19,56 +20,59 @@ view: cookie_stats_total {
       select
       'maid_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) as total_count
+      sum(fact.totalcount) /1000000000 as total_count
 
 
       from auto_dmps.maid_stats fact
       group by 1,2
+      having sum(fact.totalcount)>0
 
       UNION ALL
 
       select
       'lidid_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) as total_count
-
+      sum(fact.totalcount) /1000000000 as total_count
 
       from auto_dmps.lidid_stats fact
       group by 1,2
+      having sum(fact.totalcount)>0
 
       UNION ALL
 
       select
       'fpc_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) as total_count
+      sum(fact.totalcount) /1000000000 as total_count
 
 
       from auto_dmps.fpc_stats fact
       group by 1,2
-
+      having sum(fact.totalcount)>0
 
       UNION ALL
 
       select
       'scraped_fpc_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) as total_count
+      sum(fact.totalcount) /1000000000 as total_count
 
 
       from auto_dmps.scraped_fpc_stats fact
       group by 1,2
+      having sum(fact.totalcount)>0
 
       UNION ALL
 
       select
       'li_domain_ulid_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) as total_count
+      sum(fact.totalcount) /1000000000 as total_count
 
 
       from auto_dmps.li_domain_ulid_stats fact
       group by 1,2
+      having sum(fact.totalcount)>0
 
       ;;
    }
