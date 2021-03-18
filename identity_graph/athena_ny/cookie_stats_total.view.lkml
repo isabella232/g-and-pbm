@@ -94,7 +94,7 @@ view: cookie_stats_total {
   measure: totalcount {
     type: sum
     sql: ${TABLE}.total_count ;;
-    label: "Total Count"
+    label: "Total Count in Billions"
   }
 
 
