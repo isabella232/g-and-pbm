@@ -21,42 +21,44 @@ include: "*.view.lkml"                       # include all views in this project
 
 
 explore: partner_cookie_stats {
-# Hidden because it appears to be defunct
+
+
 
 hidden: no
 }
 
 
 explore: maid_stats {
-# Hidden because it appears to be defunct
 
   hidden: no
 }
 
 
 explore: lidid_stats {
-# Hidden because it appears to be defunct
 
   hidden: no
 }
 
 
 explore: fpc_stats {
-# Hidden because it appears to be defunct
 
   hidden: no
 }
 
 
 explore: scrapped {
-# Hidden because it appears to be defunct
 
   hidden: no
 }
 
 
 explore: lidomulid {
-# Hidden because it appears to be defunct
+
+  hidden: no
+}
+
+#cookie_stats_total
+explore: cookie_stats_total {
 
   hidden: no
 }
