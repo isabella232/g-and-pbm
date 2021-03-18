@@ -77,11 +77,19 @@ view: cookie_stats_total {
       ;;
    }
 
+  #dimension: day_date {
+  #  type: date
+  #  sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
+  #  label: "Date"
+  #}
+
   dimension: day_date {
-    type: date
-    sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
+    type: number
+
+    sql: ${TABLE}.date_p;;
     label: "Date"
   }
+
 
   dimension: source {
     type: string
