@@ -59,14 +59,14 @@ left join total_counts n on b.domain = n.domain and b.min_date = n.month_day
 
 
   dimension: max_date {
-    type: date
-    sql: DATE_PARSE(${TABLE}.max_date,'%Y%m%d') ;;
+    type: string
+    sql: ${TABLE}.max_date ;;
     label: "Latest Sync Date"
   }
 
   dimension: min_date {
-    type: date
-    sql: DATE_PARSE(${TABLE}.min_date,'%Y%m%d') ;;
+    type: string
+    sql: ${TABLE}.min_date;;
     label: "Earliest Sync Date"
   }
 
