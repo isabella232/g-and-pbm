@@ -16,11 +16,11 @@ view: parter_cookie_stats_domain
         (
         select
         fact.domain,
-        DATE_TRUNC('month',PARSE_DATETIME(fact.date_p,'yyyyMMdd')) as month_day,
+        DATE_TRUNC('month',PARSE_DATETIME(fact.date_p,'yyyy-MM-dd')) as month_day,
         max(fact.totalcount) as totalcount
 
         from auto_dmps.partner_cookie_stats fact
-        where DATE_TRUNC('day',PARSE_DATETIME(fact.date_p,'yyyyMMdd')) BETWEEN current_date - interval '365' day AND current_date
+        where DATE_TRUNC('day',PARSE_DATETIME(fact.date_p,'yyyy-MM-dd')) BETWEEN current_date - interval '365' day AND current_date
         group by 1,2
         having sum(fact.totalcount)>0
         ) a
