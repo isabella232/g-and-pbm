@@ -62,3 +62,9 @@ explore: cookie_stats_total {
 
   hidden: no
 }
+
+#parter_cookie_stats_domain
+explore: parter_cookie_stats_domain {
+
+  hidden: no
+}
