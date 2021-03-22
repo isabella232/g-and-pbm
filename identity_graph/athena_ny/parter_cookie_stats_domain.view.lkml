@@ -3,50 +3,50 @@ view: parter_cookie_stats_domain
   derived_table:
   {
     sql:
-      with total_counts as
-        (
+with total_counts as
+(
 
 
-        select
-        a.domain,
-        a.month_day,
-        a.totalcount
+select
+a.domain,
+a.month_day,
+a.totalcount
 
-        from
-        (
-        select
-        fact.domain,
-        DATE_TRUNC('month',DATE(PARSE_DATETIME(fact.date_p,'yyyyMMdd'))) as month_day,
-        max(fact.totalcount) as totalcount
+from
+(
+select
+fact.domain,
+DATE_TRUNC('month',DATE(PARSE_DATETIME(fact.date_p,'yyyyMMdd'))) as month_day,
+max(fact.totalcount) as totalcount
 
-        from auto_dmps.partner_cookie_stats fact
-        where DATE_TRUNC('day',PARSE_DATETIME(fact.date_p,'yyyyMMdd')) BETWEEN current_date - interval '365' day AND current_date
-        group by 1,2
-        having sum(fact.totalcount)>0
-        ) a
-        group by 1,2,3
-        )
+from auto_dmps.partner_cookie_stats fact
+where DATE_TRUNC('day',DATE(PARSE_DATETIME(fact.date_p,'yyyyMMdd'))) BETWEEN current_date - interval '365' day AND current_date
+group by 1,2
+having sum(fact.totalcount)>0
+) a
+group by 1,2,3
+)
 
 
 
-        select
-        b.domain,
-        b.max_date,
-        b.min_date,
-        x.totalcount as latest_month_max,
-        n.totalcount as earliest_month_max
+select
+b.domain,
+b.max_date,
+b.min_date,
+x.totalcount as latest_month_max,
+n.totalcount as earliest_month_max
 
-        from
-        (
-        select
-        date_sub.domain as domain,
-        max(date_sub.month_day) as max_date,
-        min(date_sub.month_day) as min_date
-        from total_counts date_sub
-        group by 1
-        ) b
-        left join total_counts x on b.domain = x.domain and b.max_date = x.month_day
-        left join total_counts n on b.domain = n.domain and b.min_date = n.month_day
+from
+(
+select
+date_sub.domain as domain,
+max(date_sub.month_day) as max_date,
+min(date_sub.month_day) as min_date
+from total_counts date_sub
+group by 1
+) b
+left join total_counts x on b.domain = x.domain and b.max_date = x.month_day
+left join total_counts n on b.domain = n.domain and b.min_date = n.month_day
 
       ;;
   }
