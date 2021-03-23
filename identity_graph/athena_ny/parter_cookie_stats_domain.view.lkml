@@ -67,8 +67,9 @@ group by 1,2,3,4
 
 
   dimension: month_day {
-    type: string
-    sql: ${TABLE}.month_day ;;
+    type: date
+    sql: DATE_PARSE(${TABLE}.firstseenat,'%Y%m%d') ;;
+    #sql: ${TABLE}.month_day ;;
     label: "Date"
   }
 
@@ -81,7 +82,7 @@ group by 1,2,3,4
 
   measure: latest_month_max {
     type: sum
-    sql: ${TABLE}.latest_month_max ;;
+    sql: ${TABLE}.latest_total_count ;;
     label: "Latest Total Count"
   }
 
