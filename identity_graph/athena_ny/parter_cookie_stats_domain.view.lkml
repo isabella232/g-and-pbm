@@ -72,15 +72,15 @@ group by 1,2,3,4
     label: "Date"
   }
 
-  dimension: total_count_ratio {
-    type: number
+  measure: total_count_ratio {
+    type: sum
     sql: ${TABLE}.total_count_ratio;;
     label: "Ratio of Latest Sync to Earliest Sync"
   }
 
 
-  dimension: latest_month_max {
-    type: number
+  measure: latest_month_max {
+    type: sum
     sql: ${TABLE}.latest_month_max ;;
     label: "Latest Total Count"
   }
