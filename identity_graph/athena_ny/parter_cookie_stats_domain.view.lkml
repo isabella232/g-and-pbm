@@ -79,7 +79,7 @@ group by 1,2,3,4
   }
 
 
-  measure: latest_month_max {
+  dimension: latest_month_max {
     type: number
     sql: ${TABLE}.latest_month_max ;;
     label: "Latest Total Count"
