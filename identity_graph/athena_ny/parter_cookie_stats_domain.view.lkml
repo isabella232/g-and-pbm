@@ -55,6 +55,7 @@ group by 1
 left join total_counts x on b.domain = x.domain and b.max_date = x.month_day
 left join total_counts n on b.domain = n.domain and b.min_date = n.month_day
 ) c on c.domain = d.domain
+where d.totalcount>0
 group by 1,2,3,4
       ;;
   }
