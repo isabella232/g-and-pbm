@@ -16,7 +16,7 @@ from
 (
 select
 fact.domain,
-DATE_TRUNC('month',DATE(PARSE_DATETIME(fact.date_p,'yyyyMMdd'))) as month_day,
+DATE_TRUNC('day',DATE(PARSE_DATETIME(fact.date_p,'yyyyMMdd'))) as month_day,
 max(fact.totalcount) as totalcount
 
 from auto_dmps.partner_cookie_stats fact
@@ -27,8 +27,15 @@ having sum(fact.totalcount)>0
 group by 1,2,3
 )
 
+select
+d.domain,
+d.month_day,
+cast(d.totalcount as decimal(18,5)) / nullif(c.earliest_month_max,0) as total_count_ratio,
+c.latest_month_max as latest_total_count
 
-
+from total_counts d
+left join
+(
 select
 b.domain,
 b.max_date,
@@ -47,7 +54,8 @@ group by 1
 ) b
 left join total_counts x on b.domain = x.domain and b.max_date = x.month_day
 left join total_counts n on b.domain = n.domain and b.min_date = n.month_day
-
+) c on c.domain = d.domain
+group by 1,2,3,4
       ;;
   }
 
@@ -58,30 +66,25 @@ left join total_counts n on b.domain = n.domain and b.min_date = n.month_day
   }
 
 
-  dimension: max_date {
+  dimension: month_day {
     type: string
-    sql: ${TABLE}.max_date ;;
-    label: "Latest Sync Month"
+    sql: ${TABLE}.month_day ;;
+    label: "Date"
   }
 
-  dimension: min_date {
-    type: string
-    sql: ${TABLE}.min_date;;
-    label: "Earliest Sync Month"
+  dimension: total_count_ratio {
+    type: number
+    sql: ${TABLE}.total_count_ratio;;
+    label: "Ratio of Latest Sync to Earliest Sync"
   }
 
 
   measure: latest_month_max {
-    type: sum
+    type: number
     sql: ${TABLE}.latest_month_max ;;
-    label: "Latest Month Total Count"
+    label: "Latest Total Count"
   }
 
-  measure: earliest_month_max {
-    type: sum
-    sql: ${TABLE}.earliest_month_max ;;
-    label: "Earliest Month Total Count"
-  }
 
 
 }
