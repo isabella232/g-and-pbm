@@ -29,7 +29,7 @@ group by 1,2,3
 
 select
 d.domain,
-d.month_day,
+DATE(d.month_day) as month_day,
 cast(d.totalcount as decimal(18,5)) / nullif(c.earliest_month_max,0) as total_count_ratio,
 c.latest_month_max as latest_total_count
 
