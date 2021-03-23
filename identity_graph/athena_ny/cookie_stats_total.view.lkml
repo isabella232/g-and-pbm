@@ -3,11 +3,10 @@ view: cookie_stats_total {
   derived_table:
   {
       sql:
-
       select
       'partner_cookie_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) /1000000000 as total_count
+      cast(sum(fact.totalcount) as decimal(18,5)) /1000000000 as total_count
 
 
       from auto_dmps.partner_cookie_stats fact
@@ -20,7 +19,7 @@ view: cookie_stats_total {
       select
       'maid_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) /1000000000 as total_count
+      cast(sum(fact.totalcount) as decimal(18,5)) /1000000000 as total_count
 
 
       from auto_dmps.maid_stats fact
@@ -32,7 +31,7 @@ view: cookie_stats_total {
       select
       'lidid_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) /1000000000 as total_count
+      cast(sum(fact.totalcount) as decimal(18,5)) /1000000000 as total_count
 
       from auto_dmps.lidid_stats fact
       group by 1,2
@@ -43,7 +42,7 @@ view: cookie_stats_total {
       select
       'fpc_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) /1000000000 as total_count
+      cast(sum(fact.totalcount) as decimal(18,5)) /1000000000 as total_count
 
 
       from auto_dmps.fpc_stats fact
@@ -55,7 +54,7 @@ view: cookie_stats_total {
       select
       'scraped_fpc_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) /1000000000 as total_count
+      cast(sum(fact.totalcount) as decimal(18,5)) /1000000000 as total_count
 
 
       from auto_dmps.scraped_fpc_stats fact
@@ -67,7 +66,7 @@ view: cookie_stats_total {
       select
       'li_domain_ulid_stats' as source,
       fact.date_p,
-      sum(fact.totalcount) /1000000000 as total_count
+      cast(sum(fact.totalcount) as decimal(18,5)) /1000000000 as total_count
 
 
       from auto_dmps.li_domain_ulid_stats fact
