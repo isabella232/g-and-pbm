@@ -68,7 +68,7 @@ group by 1,2,3,4
 
   dimension: month_day {
     type: date
-    sql: DATE_PARSE(${TABLE}.firstseenat,'%Y%m%d') ;;
+    sql: DATE_PARSE(${TABLE}.month_day,'%Y%m%d') ;;
     #sql: ${TABLE}.month_day ;;
     label: "Date"
   }
