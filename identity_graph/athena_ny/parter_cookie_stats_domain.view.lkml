@@ -16,11 +16,16 @@ from
 (
 select
 fact.domain,
-DATE(PARSE_DATETIME(cast(fact.date_p as varchar),'yyyymmdd')) as month_day,
+--DATE_TRUNC('day',DATE(PARSE_DATETIME(cast(fact.date_p as varchar),'yyyymmdd'))) as month_day,
+to_date(fact.date_p, 'yyyymmdd') as month_day,
 max(fact.totalcount) as totalcount
 
 from auto_dmps.partner_cookie_stats fact
-where DATE(PARSE_DATETIME(cast(fact.date_p as varchar),'yyyymmdd')) BETWEEN current_date - interval '365' day AND current_dategroup by 1,2
+--where DATE_TRUNC('day',DATE(PARSE_DATETIME(cast(fact.date_p as varchar),'yyyymmdd'))) BETWEEN current_date - interval '365' day AND current_date
+
+where to_date(fact.date_p, 'yyyymmdd') BETWEEN current_date - interval '365' day AND current_date
+
+group by 1,2
 having sum(fact.totalcount)>0
 ) a
 group by 1,2,3
@@ -28,7 +33,7 @@ group by 1,2,3
 
 select
 d.domain,
-DATE(d.month_day) as month_day,
+d.month_day as month_day,
 cast(d.totalcount as decimal(18,5)) / nullif(c.earliest_month_max,0) as total_count_ratio,
 c.latest_month_max as latest_total_count
 
@@ -56,6 +61,7 @@ left join total_counts n on b.domain = n.domain and b.min_date = n.month_day
 ) c on c.domain = d.domain
 where d.totalcount>0
 group by 1,2,3,4
+
       ;;
   }
 
