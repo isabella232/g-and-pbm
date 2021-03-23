@@ -16,12 +16,11 @@ from
 (
 select
 fact.domain,
-DATE_TRUNC('day',DATE(PARSE_DATETIME(fact.date_p,'yyyyMMdd'))) as month_day,
+DATE_TRUNC('day',DATE(PARSE_DATETIME(cast(fact.date_p as varchar),'yyyymmdd'))) as month_day,
 max(fact.totalcount) as totalcount
 
 from auto_dmps.partner_cookie_stats fact
-where DATE_TRUNC('day',DATE(PARSE_DATETIME(fact.date_p,'yyyyMMdd'))) BETWEEN current_date - interval '365' day AND current_date
-group by 1,2
+where DATE_TRUNC('day',DATE(PARSE_DATETIME(cast(fact.date_p as varchar),'yyyymmdd'))) BETWEEN current_date - interval '365' day AND current_dategroup by 1,2
 having sum(fact.totalcount)>0
 ) a
 group by 1,2,3
