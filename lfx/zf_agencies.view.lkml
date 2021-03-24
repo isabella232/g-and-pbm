@@ -265,6 +265,7 @@ view: zf_agencies {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    description: "Name of Media Group"
   }
 
   dimension: pds_user_id {
@@ -367,6 +368,7 @@ view: zf_agencies {
     sql: ${TABLE}.userver_id ;;
     label: "Media Group ID"
     value_format_name: id
+    description: "Media Group ID on the LiveIntent Platform"
   }
 
   dimension: version {
