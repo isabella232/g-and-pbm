@@ -3,9 +3,12 @@ connection: "athena_copenhagen"
 include: "*.view.lkml"                # include all views in the views/ folder in this project
 include: "/metadata/bidder_sync_names.view.lkml"
 
+# I am commenting out because it is only used in two dashboards in Mike's local folder
+
 explore: sellable_pairs_pii_count_info {
   label: "Connected LI HEMs (Overall)"
   description: "Uniques across the entire dataset"
+  hidden: yes
 }
 
 explore: sellable_pairs_aggregates_info {
@@ -19,6 +22,7 @@ explore: sellable_pairs_aggregates_info {
     relationship: many_to_one
     view_label: "C Identity Base Agg"
   }
+  hidden: yes
 }
 
 explore: sellable_pairs_pii_count_by_domain_info {
@@ -32,6 +36,7 @@ explore: sellable_pairs_pii_count_by_domain_info {
     relationship: many_to_one
     view_label: "C Identity Agg Partner Ids Domain"
   }
+  hidden: yes
 }
 
 explore: sellable_pairs_cookie_count_by_domain_info {
@@ -45,6 +50,7 @@ explore: sellable_pairs_cookie_count_by_domain_info {
     relationship: many_to_one
     view_label: "C Identity Agg Partner Ids Domain"
   }
+  hidden: yes
 }
 
 explore: sellable_identity_domain_relations_latest {
@@ -63,6 +69,7 @@ explore: sellable_identity_domain_relations_latest {
     sql_on: ${sellable_identity_domain_relations_latest.secondary_cdomain} = ${secondary.pub_or_app_id} ;;
     view_label: "Secondary Cookie Domain"
   }
+  hidden: yes
 }
 # # Select the views that should be a part of this model,
 # # and define the joins that connect them together.

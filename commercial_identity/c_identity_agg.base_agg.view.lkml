@@ -7,37 +7,48 @@ view: c_identity_base_agg {
   dimension: classification_type {
     type: string
     sql: ${TABLE}.algorithmclassification ;;
+    description: "Method through which pair was discovered.
+    LowAcc: [max, home],
+    HiAcc: [3m, acc, accx],
+    Deterministic: Directly observed by LI,
+    Sourced: Provided by third-party"
   }
 
   dimension: cluster_size {
     type: string
-    #sql: ${TABLE}.cluster_size ;;
-    # was this messed up when we moved over?
+    label: "Cookie Hash Rank"
     sql: CAST(${TABLE}.cookiehashrank AS VARCHAR) ;;
+    description: "Ranking of TPID after sorting.
+    When generating a sellable dataset, pairs are ranked according to the strength of the recency and classification of the connection.
+    The dataset is then cut down to a pre-determinied maximum CHR for each HEM. CHR is ranked in descending order, with \"1\" as the best connection."
   }
 
   dimension: cookiedomain {
     type: string
     sql: ${TABLE}.selector ;;
     label: "Cookie Domain ID"
+    description: "Third-party ID"
   }
 
   dimension: region {
     type: string
     sql: ${TABLE}.region ;;
     hidden: yes
+    # Is currently hidden because it only contains US vs. NONUS
   }
 
   dimension: is_us {
     type: yesno
     sql: ${region} = 'us' ;;
     label: "Is USA based"
+    description: "HEM is based within USA borders"
   }
 
   dimension_group: generation {
     type: time
     sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
     timeframes: [date,month,quarter,year]
+    description: "Run date"
   }
 
 # Recency Dimensions #
@@ -83,6 +94,7 @@ view: c_identity_base_agg {
     type: sum
     sql: ${TABLE}.count ;;
     value_format_name: decimal_0
+    description: "Total available HEM:TPID pairs"
   }
 
 }

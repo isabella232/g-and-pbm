@@ -6,12 +6,14 @@ view: c_identity_agg_partner_ids_domain {
     type: string
     sql: ${TABLE}.selector ;;
     label: "Cookie Domain ID"
+    description: "Third-party ID"
   }
 
   dimension: event_date {
     type: date
     sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
     label: "Generation Date"
+    description: "Run date"
   }
 
   measure: hems {
@@ -19,5 +21,6 @@ view: c_identity_agg_partner_ids_domain {
     sql: ${TABLE}.piicount ;;
     label: "Count HEMs"
     value_format_name: decimal_0
+    description: "Number of sellable HEMs with ≥1 connected ID"
   }
 }

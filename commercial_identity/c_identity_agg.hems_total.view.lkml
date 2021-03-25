@@ -6,6 +6,7 @@ view: c_identity_agg_hems_total {
     type: date
     sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
     label: "Generation Date"
+    description: "Run date"
   }
 
   measure: hems {
@@ -13,5 +14,6 @@ view: c_identity_agg_hems_total {
     label: "Count HEMs"
     sql: NULLIF(${TABLE}.piicount,0) ;;
     value_format_name: decimal_0
+    description: "Number of sellable HEMs with ≥1 connected third-party ID"
   }
 }
