@@ -1,6 +1,7 @@
 view: c_identity_base_agg {
   sql_table_name: auto_bidatapipelines.sellable_pairs_aggregates_info ;;
   suggestions: no
+  label: "Available Pairs"
 
 # Standard Dimensions #
 
@@ -95,6 +96,11 @@ view: c_identity_base_agg {
     sql: ${TABLE}.count ;;
     value_format_name: decimal_0
     description: "Total available HEM:TPID pairs"
+  }
+
+  measure: count {
+    type: count
+    description: "Simple row count, for use in data dictionary"
   }
 
 }

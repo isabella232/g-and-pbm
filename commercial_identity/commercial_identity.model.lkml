@@ -15,7 +15,7 @@ explore: c_identity_base_agg {
     sql_on: ${c_identity_base_agg.cookiedomain} = ${bidder_names_with_sellable_partner_link.pub_or_app_id} ;;
     type: left_outer
     relationship: many_to_one
-    view_label: "C Identity Base Agg"
+    view_label: "Bidder Names"
   }
 }
 
@@ -28,7 +28,7 @@ explore: c_identity_agg_partner_ids_total {
     sql_on: ${c_identity_agg_partner_ids_total.cookiedomain} = ${bidder_names_with_sellable_partner_link.pub_or_app_id} ;;
     type: left_outer
     relationship: many_to_one
-    view_label: "C Identity Agg Partner Ids Total"
+    view_label: "Bidder Names"
   }
 }
 
@@ -47,7 +47,7 @@ explore: c_identity_agg_partner_ids_domain {
     sql_on: ${c_identity_agg_partner_ids_domain.cookiedomain} = ${bidder_names_with_sellable_partner_link.pub_or_app_id} ;;
     type: left_outer
     relationship: many_to_one
-    view_label: "HEMs (by TPID)"
+    view_label: "Bidder Names"
   }
 }
 
