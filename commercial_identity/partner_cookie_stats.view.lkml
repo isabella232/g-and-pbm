@@ -83,9 +83,10 @@ view: partner_cookie_stats {
     hidden: yes
   }
 
-  dimension: request_type {
+  dimension: sync_request_type {
     type: string
     sql: ${TABLE}.req_type ;;
+    description: "Method in which the partner ID was synced to LI"
   }
 
   dimension: request_type_volume_dim {
@@ -118,11 +119,10 @@ view: partner_cookie_stats {
     description: "Existing cookies removed"
   }
 
-  measure: request_type_volume {
+  measure: total_syncs {
     type: sum
     sql: ${request_type_volume_dim} ;;
-    hidden: yes
-    # Again unclear what this is representing
+    description: "Number of times sync was intiated from partner to LI"
   }
 
 }
