@@ -6,6 +6,7 @@ view: c_identity_domain_relations_latest {
   }
 
   suggestions: no
+  label: "Overlaps between Partner Domains"
 
   dimension: connected_hem_maid_availability {
     type: string

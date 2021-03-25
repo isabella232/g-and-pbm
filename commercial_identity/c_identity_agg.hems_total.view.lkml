@@ -1,6 +1,7 @@
 view: c_identity_agg_hems_total {
   sql_table_name: auto_bidatapipelines.sellable_pairs_pii_count_info ;;
   suggestions: no
+  label: "Available HEMs (Overall)"
 
   dimension: event_date {
     type: date

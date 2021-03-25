@@ -40,7 +40,6 @@ explore: c_identity_agg_hems_total {
 explore: c_identity_agg_partner_ids_domain {
   label: "Available HEMs (by Third-Party Domain)"
   description: "Total sellable HEMs broken down by individual domain"
-  view_label: "HEMs (by TPID)"
 
   join: bidder_names_with_sellable_partner_link {
     fields: [bidder_names_with_sellable_partner_link.name]
@@ -91,10 +90,18 @@ explore: c_identity_domain_relations_latest {
   # This seems to be a less optimized version than c_identity_domain_relations. Is only used for two experimental views. To be removed.
 }
 
-explore: data_delivery_pair_stats {}
+explore: data_delivery_pair_stats {
+  label: "Customer Deliveries: Pair Stats"
+}
 
-explore: data_delivery_cluster_stats {}
+explore: data_delivery_cluster_stats {
+  label: "Customer Deliveries: Cluster Stats"
+}
 
-explore: data_delivery_liid_attribute_stats {}
+explore: data_delivery_liid_attribute_stats {
+  label: "Customer Deliveries: Attribute Stats"
+}
 
-explore: partner_cookie_stats {}
+explore: partner_cookie_stats {
+  label: "Partner ID Performance"
+}

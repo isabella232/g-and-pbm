@@ -1,6 +1,7 @@
 view: c_identity_agg_partner_ids_domain {
   sql_table_name: auto_bidatapipelines.sellable_pairs_pii_count_by_domain_info ;;
   suggestions: no
+  label: "Available HEMs (by Third-Party Domain)"
 
   dimension: cookiedomain {
     type: string

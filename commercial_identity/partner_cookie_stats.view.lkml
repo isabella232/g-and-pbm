@@ -17,33 +17,46 @@ view: partner_cookie_stats {
 
   dimension_group: date_p {
     type: time
+    label: "Run"
+    timeframes: [date, month, week, quarter, year]
     sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
+    description: "Date of report generation"
   }
 
   dimension: domain {
     type: string
     sql: ${TABLE}.domain ;;
+    label: "Cookie Domain ID"
+    description: "Third-party ID"
   }
 
-  dimension: first_seen_at {
-    type: date
+  dimension_group: first_seen {
+    type: time
+    description: "When the partner ID was first observed"
+    timeframes: [date, month, week, quarter, year]
     sql: DATE_PARSE(${TABLE}.firstseenat,'%Y%m%d');;
+
   }
 
-  dimension: lastbid {
-    type: number
-    value_format_name: id
-    sql: ${TABLE}.lastbid ;;
+  dimension_group: last_bid {
+    type: time
+    description: "When the last bid for the partner ID was seen on the LI exchange"
+    timeframes: [date, month, week, quarter, year]
+    sql: FROM_UNIXTIME(${TABLE}.lastbid) ;;
   }
 
-  dimension: last_seen_at {
-    type: date
+  dimension_group: last_seen {
+    type: time
+    description: "When the partner ID was last observed"
+    timeframes: [date, month, week, quarter, year]
     sql: DATE_PARSE(${TABLE}.lastseenat,'%Y%m%d');;
   }
 
   dimension: numbids {
     type: string
     sql: ${TABLE}.numbids ;;
+    hidden: yes
+    # It is unclear to me what this represents...? The number of bids recieved for the domain– but then why is it an array and what do the keys represent?
   }
 
   dimension: numdeleted {
@@ -86,6 +99,7 @@ view: partner_cookie_stats {
     sql: ${totalcount} ;;
     group_label: "Cookie Counts"
     group_item_label: "Total"
+    description: "All cookies observed"
   }
 
   measure: new_cookies {
@@ -93,6 +107,7 @@ view: partner_cookie_stats {
     sql: ${numnew} ;;
     group_label: "Cookie Counts"
     group_item_label: "New"
+    description: "New cookies added "
   }
 
   measure: deleted_cookies {
@@ -100,11 +115,14 @@ view: partner_cookie_stats {
     sql: ${numdeleted} ;;
     group_label: "Cookie Counts"
     group_item_label: "Deleted"
+    description: "Existing cookies removed"
   }
 
   measure: request_type_volume {
     type: sum
     sql: ${request_type_volume_dim} ;;
+    hidden: yes
+    # Again unclear what this is representing
   }
 
 }

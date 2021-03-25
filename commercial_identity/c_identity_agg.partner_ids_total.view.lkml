@@ -1,6 +1,7 @@
 view: c_identity_agg_partner_ids_total {
   sql_table_name: auto_bidatapipelines.sellable_pairs_cookie_count_by_domain_info ;;
   suggestions: no
+  label: "Available Partner IDs"
 
   dimension: primary_key {
     type: string

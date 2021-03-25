@@ -1,6 +1,7 @@
 view: c_identity_domain_relations {
   sql_table_name: auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info ;;
   suggestions: no
+  label: "Available HEMs (by Third-Party Domain Overlap)"
 
   dimension: connected_hem_maid_availability {
     type: string
