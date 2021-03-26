@@ -1,69 +1,8 @@
 view: parter_cookie_stats_domain
 {
-  derived_table:
-  {
-    sql:
-with total_counts as
-(
 
+  sql_table_name: auto_reports.cookie_progress ;;
 
-select
-a.domain,
-a.month_day,
-a.totalcount
-
-from
-(
-select
-fact.domain,
-DATE_TRUNC('day',DATE(PARSE_DATETIME(cast(fact.date_p as varchar),'yyyymmdd'))) as month_day,
---fact.date_p as month_day,
-max(fact.totalcount) as totalcount
-
-from auto_dmps.partner_cookie_stats fact
-where DATE_TRUNC('day',DATE(PARSE_DATETIME(cast(fact.date_p as varchar),'yyyymmdd'))) BETWEEN current_date - interval '365' day AND current_date
-
---where fact.date_p BETWEEN current_date - interval '365' day AND current_date
-
-group by 1,2
-having sum(fact.totalcount)>0
-) a
-group by 1,2,3
-)
-
-select
-d.domain,
-d.month_day as month_day,
-cast(d.totalcount as decimal(18,5)) / nullif(c.earliest_month_max,0) as total_count_ratio,
-c.latest_month_max as latest_total_count
-
-from total_counts d
-left join
-(
-select
-b.domain,
-b.max_date,
-b.min_date,
-x.totalcount as latest_month_max,
-n.totalcount as earliest_month_max
-
-from
-(
-select
-date_sub.domain as domain,
-max(date_sub.month_day) as max_date,
-min(date_sub.month_day) as min_date
-from total_counts date_sub
-group by 1
-) b
-left join total_counts x on b.domain = x.domain and b.max_date = x.month_day
-left join total_counts n on b.domain = n.domain and b.min_date = n.month_day
-) c on c.domain = d.domain
-where d.totalcount>0
-group by 1,2,3,4
-
-      ;;
-  }
 
   dimension: domain {
     type: string
