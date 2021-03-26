@@ -13,7 +13,7 @@ view: parter_cookie_stats_domain
 
   dimension: month_day {
     type: date
-    sql: DATE_PARSE(${TABLE}.month_day,'%Y%m%d') ;;
+    sql: ${TABLE}.month_day ;;
     #sql: ${TABLE}.month_day ;;
     label: "Date"
   }
