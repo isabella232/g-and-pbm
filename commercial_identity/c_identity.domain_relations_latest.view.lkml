@@ -1,9 +1,12 @@
 view: c_identity_domain_relations_latest {
   derived_table: {
-    sql: SELECT * FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info WHERE date_p IN (SELECT MAX(date_p) FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info);;
+    sql: SELECT *
+         FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info
+         WHERE date_p IN (SELECT MAX(date_p) FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info);;
   }
 
   suggestions: no
+  label: "Overlaps between Partner Domains"
 
   dimension: connected_hem_maid_availability {
     type: string

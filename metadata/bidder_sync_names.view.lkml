@@ -36,5 +36,6 @@ view: bidder_names_with_sellable_partner_link {
       url: "/dashboards-next/597?Partner+Domain+Name={{ value | url_encode }} "
     }
     label: "Cookie Domain Name"
+    description: "Name associated with third-party ID"
   }
 }
