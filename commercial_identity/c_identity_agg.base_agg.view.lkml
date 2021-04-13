@@ -53,7 +53,7 @@ view: c_identity_base_agg {
   }
 
   dimension: hashissellable {
-    type: string
+    type: yesno
     sql: ${TABLE}.hashissellable ;;
     label: "Sellable Hash"
     description: "Flag for Sellability of Hash"
