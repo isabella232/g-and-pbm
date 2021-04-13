@@ -1,5 +1,5 @@
 view: c_identity_base_agg {
-  sql_table_name: auto_bidatapipelines.sellable_pairs_aggregates_info ;;
+  sql_table_name: auto_sellable.unified_sellable_pairs_aggregates_info ;;
   suggestions: no
   label: "Available Pairs"
 
@@ -31,19 +31,19 @@ view: c_identity_base_agg {
     description: "Third-party ID"
   }
 
-  dimension: region {
-    type: string
-    sql: ${TABLE}.region ;;
-    hidden: yes
+  #dimension: region {
+  #  type: string
+  #  sql: ${TABLE}.region ;;
+  #  hidden: yes
     # Is currently hidden because it only contains US vs. NONUS
-  }
+  #}
 
-  dimension: is_us {
-    type: yesno
-    sql: ${region} = 'us' ;;
-    label: "Is USA based"
-    description: "HEM is based within USA borders"
-  }
+  #dimension: is_us {
+  #  type: yesno
+  #  sql: ${region} = 'us' ;;
+  #  label: "Is USA based"
+  #  description: "HEM is based within USA borders"
+  #}
 
   dimension_group: generation {
     type: time
@@ -52,42 +52,50 @@ view: c_identity_base_agg {
     description: "Run date"
   }
 
+  dimension: hashissellable {
+    type: string
+    sql: ${TABLE}.hashissellable ;;
+    label: "Sellable Hash"
+    description: "Flag for Sellability of Hash"
+  }
+
+
 # Recency Dimensions #
 
-  dimension: recency_deterministic {
-    type: number
-    sql: ${TABLE}.deterministic ;;
-    group_label: "Experimental Dimensions"
-    hidden: yes
-  }
+  #dimension: recency_deterministic {
+  #  type: number
+  #  sql: ${TABLE}.deterministic ;;
+  #  group_label: "Experimental Dimensions"
+  #  hidden: yes
+  #}
 
-  dimension: recency_deterministicandhiaccprobabilistic {
-    type: number
-    sql: ${TABLE}.deterministicandhiaccprobabilistic ;;
-    group_label: "Experimental Dimensions"
-    hidden: yes
-  }
+  #dimension: recency_deterministicandhiaccprobabilistic {
+  #  type: number
+  #  sql: ${TABLE}.deterministicandhiaccprobabilistic ;;
+  #  group_label: "Experimental Dimensions"
+  #  hidden: yes
+  #}
 
-  dimension: recency_hiaccprobabilistic {
-    type: number
-    sql: ${TABLE}.hiaccprobabilistic ;;
-    group_label: "Experimental Dimensions"
-    hidden: yes
-  }
+  #dimension: recency_hiaccprobabilistic {
+  #  type: number
+  #  sql: ${TABLE}.hiaccprobabilistic ;;
+  #  group_label: "Experimental Dimensions"
+  #  hidden: yes
+  #}
 
-  dimension: recency_probabilistic {
-    type: number
-    sql: ${TABLE}.probabilistic ;;
-    group_label: "Experimental Dimensions"
-    hidden: yes
-  }
+  #dimension: recency_probabilistic {
+  #  type: number
+  #  sql: ${TABLE}.probabilistic ;;
+  #  group_label: "Experimental Dimensions"
+  #  hidden: yes
+  #}
 
-  dimension: recency_total {
-    type: number
-    sql: ${TABLE}.total ;;
-    group_label: "Experimental Dimensions"
-    hidden: yes
-  }
+  #dimension: recency_total {
+  #  type: number
+  #  sql: ${TABLE}.total ;;
+  #  group_label: "Experimental Dimensions"
+  #  hidden: yes
+  #}
 
 # Measures #
 
