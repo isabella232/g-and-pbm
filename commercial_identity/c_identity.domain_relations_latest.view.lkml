@@ -59,7 +59,7 @@ view: c_identity_domain_relations_latest {
   }
 
   dimension: hashissellable {
-    type: string
+    type: yesno
     sql: ${TABLE}.hashissellable ;;
     label: "Sellable Hash"
     description: "Flag for Sellability of Hash"
