@@ -1,5 +1,5 @@
 view: c_identity_agg_partner_ids_domain {
-  sql_table_name: auto_bidatapipelines.sellable_pairs_pii_count_by_domain_info ;;
+  sql_table_name: auto_sellable.unified_sellable_pairs_pii_count_by_domain_info ;;
   suggestions: no
   label: "Available HEMs (by Third-Party Domain)"
 
@@ -23,5 +23,12 @@ view: c_identity_agg_partner_ids_domain {
     label: "Count HEMs"
     value_format_name: decimal_0
     description: "Number of sellable HEMs with ≥1 connected ID"
+  }
+
+  dimension: hashissellable {
+    type: yesno
+    sql: ${TABLE}.hashissellable ;;
+    label: "Sellable Hash"
+    description: "Flag for Sellability of Hash"
   }
 }
