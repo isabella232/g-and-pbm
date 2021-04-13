@@ -19,7 +19,7 @@ view: c_identity_agg_hems_total {
   }
 
   dimension: hashissellable {
-    type: string
+    type: yesno
     sql: ${TABLE}.hashissellable ;;
     label: "Sellable Hash"
     description: "Flag for Sellability of Hash"
