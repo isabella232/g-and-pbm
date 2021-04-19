@@ -14,7 +14,7 @@ view: partner_cookie_stats
         select *
 
         FROM auto_dmps.partner_cookie_stats as pc
-        JOIN dom ON pc.domain = CAST(dom.domain AS VARCHAR)
+        LEFT JOIN dom ON pc.domain = CAST(dom.domain AS VARCHAR)
 
 
 
