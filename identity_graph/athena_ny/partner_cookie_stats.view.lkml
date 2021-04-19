@@ -5,16 +5,17 @@ view: partner_cookie_stats
   derived_table: {
      sql:
 
-        WITH dom as (
+         WITH dom as
+         (
 
-         SELECT userver_id AS domain, name AS domainName FROM lfx.zf_campaigns
+         SELECT userver_id AS domain_a, name AS domainName FROM lfx.zf_campaigns
 
          )
 
         select *
 
         FROM auto_dmps.partner_cookie_stats as pc
-        LEFT JOIN dom ON pc.domain = CAST(dom.domain AS VARCHAR)
+        LEFT JOIN dom ON pc.domain = CAST(dom.domain_a AS VARCHAR)
 
 
 
