@@ -1,6 +1,27 @@
 view: partner_cookie_stats
 {
-  sql_table_name: auto_dmps.partner_cookie_stats ;;
+  #sql_table_name: auto_dmps.partner_cookie_stats ;;
+
+  derived_table: {
+     sql:
+
+        WITH dom as (
+
+         SELECT userver_id AS domain, name AS domainName FROM lfx.zf_campaigns
+
+         )
+
+        select *
+
+        FROM auto_dmps.partner_cookie_stats as pc
+        JOIN dom ON pc.domain = CAST(dom.domain AS VARCHAR)
+
+
+
+
+       ;;
+   }
+
 
   dimension: day_date {
     type: date
@@ -35,6 +56,13 @@ view: partner_cookie_stats
     sql: ${TABLE}.domain ;;
     label: "Domain"
   }
+
+  dimension: domainName {
+    type: string
+    sql: ${TABLE}.domainName ;;
+    label: "Domain Name"
+  }
+
 
   measure: totalcount {
     type: sum
