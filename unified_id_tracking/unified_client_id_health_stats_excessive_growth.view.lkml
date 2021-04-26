@@ -20,7 +20,7 @@ WHERE CAST(date_p AS integer) > (SELECT CAST(max(date_p) AS INTEGER)-7 FROM auto
 
   measure: growth1day {
     type: sum
-    sql: ${TABLE}.growth1day ;;
+    sql: ${TABLE}.growth ;;
   }
 
   measure: size {
