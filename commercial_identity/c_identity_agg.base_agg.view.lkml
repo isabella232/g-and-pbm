@@ -59,6 +59,13 @@ view: c_identity_base_agg {
     description: "Flag for Sellability of Hash"
   }
 
+  dimension: cookiehashrank {
+    type: number
+    sql: ${TABLE}.cookiehashrank ;;
+    label: "Cookie Hash Rank"
+    description: "Rank of the Cookie Hash"
+  }
+
 
 # Recency Dimensions #
 
