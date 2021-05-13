@@ -15,14 +15,14 @@ view: c_identity_base_agg {
     Sourced: Provided by third-party"
   }
 
-  dimension: cluster_size {
-    type: string
-    label: "Cookie Hash Rank"
-    sql: CAST(${TABLE}.cookiehashrank AS VARCHAR) ;;
-    description: "Ranking of TPID after sorting.
-    When generating a sellable dataset, pairs are ranked according to the strength of the recency and classification of the connection.
-    The dataset is then cut down to a pre-determinied maximum CHR for each HEM. CHR is ranked in descending order, with \"1\" as the best connection."
-  }
+  #dimension: cluster_size {
+  #  type: string
+  #  label: "Cookie Hash Rank"
+  #  sql: CAST(${TABLE}.cookiehashrank AS VARCHAR) ;;
+  #  description: "Ranking of TPID after sorting.
+  #  When generating a sellable dataset, pairs are ranked according to the strength of the recency and classification of the connection.
+  #  The dataset is then cut down to a pre-determinied maximum CHR for each HEM. CHR is ranked in descending order, with \"1\" as the best connection."
+  #}
 
   dimension: cookiedomain {
     type: string
@@ -63,7 +63,9 @@ view: c_identity_base_agg {
     type: number
     sql: ${TABLE}.cookiehashrank ;;
     label: "Cookie Hash Rank"
-    description: "Rank of the Cookie Hash"
+    description: "Ranking of TPID after sorting.
+    When generating a sellable dataset, pairs are ranked according to the strength of the recency and classification of the connection.
+    The dataset is then cut down to a pre-determinied maximum CHR for each HEM. CHR is ranked in descending order, with \"1\" as the best connection."
   }
 
 
