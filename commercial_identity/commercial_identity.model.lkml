@@ -102,6 +102,11 @@ explore: data_delivery_liid_attribute_stats {
   label: "Customer Deliveries: Attribute Stats"
 }
 
+explore: etl_tracker_airflow {
+
+  label: "Track Airflow ETL Jobs"
+}
+
 explore: partner_cookie_stats {
   label: "Partner ID Performance"
 }
