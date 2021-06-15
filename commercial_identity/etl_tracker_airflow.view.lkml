@@ -33,7 +33,8 @@ view: etl_tracker_airflow {
     type: time
     label: "Execution Date"
     timeframes: [date, month, week, quarter, year]
-    sql: DATE_PARSE(${TABLE}.execution_date,'%Y%m%d') ;;
+    sql: ${TABLE}.execution_date ;;
+    #sql: DATE_PARSE(${TABLE}.execution_date,'%Y%m%d') ;;
     description: "Date of report generation"
   }
 
