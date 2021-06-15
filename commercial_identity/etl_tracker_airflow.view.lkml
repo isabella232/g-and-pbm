@@ -1,10 +1,10 @@
 view: etl_tracker_airflow {
 
-  sql_table_name: lambda:athenajdbcairflowprod.public.task_instance ;;
+  #sql_table_name: lambda:athenajdbcairflowprod.public.task_instance ;;
 
- # derived_table: {
- #    sql: select * from "lambda:athenajdbcairflowprod".public.task_instance;;
-#  }
+  derived_table: {
+     sql: select * from "lambda:athenajdbcairflowprod".public.task_instance;;
+  }
 
 
 
