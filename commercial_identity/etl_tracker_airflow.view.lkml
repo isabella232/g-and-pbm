@@ -32,7 +32,7 @@ view: etl_tracker_airflow {
 
     {% if value == 'success' %}
 
-    <p style="color: black; background-color: darkgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    <p style="color: white; background-color: darkgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
     {% elsif value == 'running' %}
 
