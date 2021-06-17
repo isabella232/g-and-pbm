@@ -51,9 +51,28 @@ view: etl_tracker_airflow {
 
     <p style="color: black; background-color: lightpink; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
+    {% elsif value == 'up_for_retry' %}
+    <p style="color: black; background-color: yellow; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value == 'up_for_reschedule' %}
+    <p style="color: black; background-color: turquoise; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value == 'upstream_failed' %}
+    <p style="color: black; background-color: orange; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value == 'scheduled' %}
+    <p style="color: black; background-color: lightblue; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value == 'no_status ' %}
+    <p style="color: black; background-color: white; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value == 'removed  ' %}
+    <p style="color: white; background-color: black; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+
     {% else %}
 
-    <p style="color: black; background-color: orange; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    <p style="color: white; background-color: darkblue; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
     {% endif %}
     ;;
