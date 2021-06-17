@@ -32,11 +32,24 @@ view: etl_tracker_airflow {
 
     {% if value == 'success' %}
 
-    <p style="color: black; background-color: lightblue; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    <p style="color: black; background-color: darkgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value == 'running' %}
+
+    <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value == 'failed' %}
+
+    <p style="color: black; background-color: red; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value == 'queued' %}
+
+    <p style="color: black; background-color: lightbrown; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
 
     {% elsif value == 'skipped' %}
 
-    <p style="color: black; background-color: lightgreen; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    <p style="color: black; background-color: lightpink; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
     {% else %}
 
