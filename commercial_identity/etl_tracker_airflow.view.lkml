@@ -63,11 +63,14 @@ view: etl_tracker_airflow {
     {% elsif value == 'scheduled' %}
     <p style="color: black; background-color: lightblue; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
-    {% elsif value == 'no_status ' %}
+    {% elsif value == 'no_status' %}
     <p style="color: black; background-color: white; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
-    {% elsif value == 'removed  ' %}
+    {% elsif value == 'removed' %}
     <p style="color: white; background-color: black; font-size:100%; text-align:center">{{ rendered_value }}</p>
+
+    {% elsif value is NULL %}
+    <p style="color: white; background-color: darkblue; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
 
     {% else %}
