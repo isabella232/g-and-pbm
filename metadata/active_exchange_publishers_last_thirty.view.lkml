@@ -19,5 +19,6 @@ view: active_exchange_publishers_last_thirty {
     sql: ${TABLE}.impressions_last_30 ;;
     type: number
     label: "Total Impressions (Last 30 Days)"
+    description: "Exchange impressions, with no filtering except for date"
   }
 }

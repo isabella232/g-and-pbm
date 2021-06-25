@@ -8,7 +8,7 @@ include: "/metadata/active_exchange_publishers_last_thirty.view.lkml"
 include: "//liveintent/ownership_sf.view.lkml"
 
 explore: metadata_aggregate {
-  label: "Header Metadata"
+  label: "Cooker Aggregate"
   view_label: "Cooker Aggregate"
 
   join: zf_pubvertisers {
