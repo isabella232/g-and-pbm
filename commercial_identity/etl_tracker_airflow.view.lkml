@@ -53,7 +53,7 @@ view: etl_tracker_airflow {
 
     {% elsif value == 'skipped' %}
 
-    <p style="color: black; background-color: lightpink; font-size:100%; text-align:center">{{ rendered_value }}</p>
+    <p style="color: black; background-color: rgba(235, 221, 223,{{value}}); font-size:100%; text-align:center">{{ rendered_value }}</p>
 
     {% elsif value == 'up_for_retry' %}
     <p style="color: black; background-color: yellow; font-size:100%; text-align:center">{{ rendered_value }}</p>
