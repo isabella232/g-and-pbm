@@ -3,7 +3,11 @@ view: etl_tracker_airflow {
   #sql_table_name: lambda:athenajdbcairflowprod.public.task_instance ;;
 
   derived_table: {
-     sql: select * from "lambda:athenajdbcairflowprod".public.task_instance;;
+     sql:
+    select * from "lambda:athenajdbcairflowprod".public.task_instance
+    where execution_date < current_date
+
+    ;;
   }
 
 
@@ -69,7 +73,7 @@ view: etl_tracker_airflow {
     {% elsif value == 'removed' %}
     <p style="color: white; background-color: black; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
-    {% elsif value is NULL %}
+    {% elsif value == NULL %}
     <p style="color: white; background-color: darkblue; font-size:100%; text-align:center">{{ rendered_value }}</p>
 
 
