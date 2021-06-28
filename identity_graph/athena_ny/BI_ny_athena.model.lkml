@@ -68,3 +68,8 @@ explore: parter_cookie_stats_domain {
 
   hidden: no
 }
+
+explore: auto_logs_pixelconfig_emptypixel_total_interval15_7d  {
+
+  hidden:  no
+}
