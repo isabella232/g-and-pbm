@@ -5,7 +5,7 @@ view: etl_tracker_airflow {
   derived_table: {
      sql:
     select * from "lambda:athenajdbcairflowprod".public.task_instance
-    where execution_date < current_date
+    where DATE(execution_date) < current_date
 
     ;;
   }
