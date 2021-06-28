@@ -6,7 +6,7 @@ view: auto_logs_pixelconfig_emptypixel_total_interval15_7d
 
   dimension: day_date {
     type: date
-    sql: DATE_PARSE(${TABLE}.date_p,'%Y%m%d') ;;
+    sql: DATE_PARSE(${TABLE}.date,'%Y%m%d') ;;
     label: "Date"
   }
 
