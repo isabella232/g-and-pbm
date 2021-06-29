@@ -17,11 +17,25 @@ view: mgtemp_pixelconfig_redirectpixel_total_interval15_7d {
     label: "ts_trunc"
   }
 
-  dimension: publisherorappid {
+  dimension: source {
     type: string
-    sql: ${TABLE}.publisherorappid ;;
-    label: "Publisher or App ID"
+    sql: ${TABLE}.source ;;
+    label: "Source"
   }
+
+  dimension: host {
+    type: string
+    sql: ${TABLE}.host ;;
+    label: "Host"
+  }
+
+  dimension: path {
+    type: string
+    sql: ${TABLE}.path ;;
+    label: "Path"
+  }
+
+
 
   measure: publisherorappid_fires {
     type: sum
@@ -29,40 +43,10 @@ view: mgtemp_pixelconfig_redirectpixel_total_interval15_7d {
     label: "Publisher or App ID Fires"
   }
 
-  measure: uuid_fires {
+  measure: fires {
     type: sum
-    sql: ${TABLE}.uuid_fires ;;
-    label: "UUID Fires"
-  }
-
-  measure: lidid_fires {
-    type: sum
-    sql: ${TABLE}.lidid_fires ;;
-    label: "IIDID Fires"
-  }
-
-  measure: md5_fires {
-    type: sum
-    sql: ${TABLE}.md5_fires ;;
-    label: "MD5 Fires"
-  }
-
-  measure: sha1_fires {
-    type: sum
-    sql: ${TABLE}.sha1_fires ;;
-    label: "SHA1 Fires"
-  }
-
-  measure: sha2_fires {
-    type: sum
-    sql: ${TABLE}.sha2_fires ;;
-    label: "SHA2 Fires"
-  }
-
-  measure: bidderuuid_fires {
-    type: sum
-    sql: ${TABLE}.bidderuuid_fires ;;
-    label: "Bidder UUID Fires"
+    sql: ${TABLE}.fires ;;
+    label: "Fires"
   }
 
 
