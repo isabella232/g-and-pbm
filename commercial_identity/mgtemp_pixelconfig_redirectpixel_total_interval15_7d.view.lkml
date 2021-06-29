@@ -37,11 +37,7 @@ view: mgtemp_pixelconfig_redirectpixel_total_interval15_7d {
 
 
 
-  measure: publisherorappid_fires {
-    type: sum
-    sql: ${TABLE}.publisherorappid_fires ;;
-    label: "Publisher or App ID Fires"
-  }
+
 
   measure: fires {
     type: sum
