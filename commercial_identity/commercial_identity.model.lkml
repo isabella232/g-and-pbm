@@ -110,3 +110,7 @@ explore: etl_tracker_airflow {
 explore: partner_cookie_stats {
   label: "Partner ID Performance"
 }
+
+explore: mgtemp_pixelconfig_emptypixel_total_interval15_7d {
+  label: "Pixel Config Empty Pixel Total"
+}
