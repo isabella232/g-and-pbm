@@ -114,3 +114,9 @@ explore: partner_cookie_stats {
 explore: mgtemp_pixelconfig_emptypixel_total_interval15_7d {
   label: "Pixel Config Empty Pixel Total"
 }
+
+explore: mgtemp_pixelconfig_redirectpixel_total_interval15_7d {
+
+  label: "Pixel Config Redirect Pixel Total"
+
+}
