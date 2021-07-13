@@ -1,5 +1,6 @@
 view: c_identity_agg_hems_total {
-  sql_table_name: auto_sellable.unified_sellable_pairs_pii_count_info ;;
+  #sql_table_name: auto_sellable.unified_sellable_pairs_pii_count_info ;;
+  sql_table_name: auto_sellable.sellable_pairs_pii_count_info ;;
   suggestions: no
   label: "Available HEMs (Overall)"
 

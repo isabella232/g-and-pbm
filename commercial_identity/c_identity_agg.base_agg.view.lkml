@@ -1,5 +1,6 @@
 view: c_identity_base_agg {
-  sql_table_name: auto_sellable.unified_sellable_pairs_aggregates_info ;;
+  #sql_table_name: auto_sellable.unified_sellable_pairs_aggregates_info ;;
+  sql_table_name: auto_sellable.sellable_pairs_aggregates_info ;;
   suggestions: no
   label: "Available Pairs"
 
