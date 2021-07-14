@@ -1,5 +1,6 @@
 view: c_identity_agg_partner_ids_domain {
-  sql_table_name: auto_sellable.unified_sellable_pairs_pii_count_by_domain_info ;;
+  #sql_table_name: auto_sellable.unified_sellable_pairs_pii_count_by_domain_info ;;
+  sql_table_name: auto_sellable.sellable_pairs_pii_count_by_domain_info ;;
   suggestions: no
   label: "Available HEMs (by Third-Party Domain)"
 
