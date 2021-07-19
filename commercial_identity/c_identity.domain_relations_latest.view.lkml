@@ -3,7 +3,7 @@ view: c_identity_domain_relations_latest {
     sql: SELECT *
          --FROM auto_sellable.unified_sellable_pairs_hem_maid_pairs_info
          FROM auto_sellable.sellable_pairs_hem_maid_pairs_info
-        WHERE date_p IN (SELECT MAX(date_p) FROM auto_sellable.unified_sellable_pairs_hem_maid_pairs_info);;
+        WHERE date_p IN (SELECT MAX(date_p) FROM auto_sellable.sellable_pairs_hem_maid_pairs_info);;
   }
 
   suggestions: no
