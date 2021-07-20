@@ -120,3 +120,9 @@ explore: mgtemp_pixelconfig_redirectpixel_total_interval15_7d {
   label: "Pixel Config Redirect Pixel Total"
 
 }
+
+explore: sellable_email_hash_count_aggregates {
+
+  label: "Sellable Email Hash Count Aggregates"
+
+}
