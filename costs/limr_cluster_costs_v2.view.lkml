@@ -1,4 +1,4 @@
-view: limr_cluster_costs {
+view: limr_cluster_costs_v2 {
   derived_table: {
     sql: SELECT * FROM "metrics"."cost_center_cost" where cast(job_start_date as timestamp) > cast(current_date - interval '90' day as timestamp)
       ;;
