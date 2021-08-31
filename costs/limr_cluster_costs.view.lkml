@@ -1,32 +1,109 @@
 view: limr_cluster_costs {
   derived_table: {
-    sql: SELECT * FROM "metrics"."cost_center_cost" where cast(job_start_date as timestamp) > cast(current_date - interval '90' day as timestamp)
-      ;;
+    sql: SELECT usersubcostcenter,
+            usercostcenter,
+            sum(unblendedcost) cost,
+            CAST(min(usagestartdate) AS TIMESTAMP) startdate,
+            date_p
+          FROM auto_logs.billing_report
+          GROUP BY usersubcostcenter, usercostcenter, date_p;;
   }
 
-  suggestions: no
-
-  measure: count {
-    type: count
-    drill_fields: [detail*]
-  }
-
-  dimension: job_start_date {
+  dimension: limr_cluster {
     type: string
-    sql: ${TABLE}.job_start_date ;;
+    sql: ${TABLE}.usersubcostcenter ;;
+    primary_key: yes
   }
 
   dimension: cost_center {
     type: string
-    sql: ${TABLE}.cost_center ;;
+    sql: ${TABLE}.usercostcenter ;;
+    description: "User filled in cluster cost center"
   }
 
-  measure: cost {
-    type: sum
+  dimension: general_cost_center {
+    type: string
+    sql: CASE WHEN ${cost_center} IN (
+                'segment_processing',
+                'unified_aggregator',
+                'graph_processing',
+                'graph_processing_brother',
+                'recommender',
+                'post_processing',
+                'data-delivery',
+                'reporting_jobs') THEN ${cost_center}
+              ELSE 'Ad hoc' END ;;
+  }
+
+  dimension: cost {
+    type: number
     sql: ${TABLE}.cost ;;
+    value_format_name: usd
+    hidden: yes
   }
 
-  set: detail {
-    fields: [job_start_date, cost_center, cost]
+  dimension: report_month {
+    type: string
+    sql: ${TABLE}.date_p ;;
+    description: "Month of report data is derived from."
+  }
+
+  dimension_group: start {
+    type: time
+    timeframes: [raw,date,day_of_month,day_of_week,month,quarter,year,hour_of_day]
+    sql: ${TABLE}.startdate ;;
+    description: "Start timestamp of LIMR cluster ID"
+  }
+
+  measure: sum_cost {
+    type: sum
+    sql: ${cost} ;;
+    value_format_name: usd
+  }
+
+}
+
+view: limr_cluster_costs_job_resources {
+  extends: [limr_cluster_costs]
+
+  dimension: limr_cluster {
+    hidden: yes
+  }
+
+  measure: cost_mb {
+    label: "Cost (USD)"
+    type: number
+    sql: SUM(${cost}*${cluster_costs.pct_ttl_lcid_mb});;
+    value_format_name: usd
+    description: "Cost of item, weighted by MB seconds"
+  }
+
+  measure: sum_cost {
+    hidden: yes
+  }
+
+  dimension: report_month {
+    hidden: yes
+  }
+
+  dimension: cost_center {
+    group_label: "Cluster"
+    group_item_label: "Cost Center"
+
+  }
+
+  dimension: general_cost_center {
+    type: string
+    sql: CASE WHEN ${cost_center} IN (
+                'segment_processing',
+                'unified_aggregator',
+                'graph_processing',
+                'graph_processing_brother',
+                'recommender',
+                'post_processing',
+                'data-delivery',
+                'reporting_jobs') THEN ${cost_center}
+              ELSE ${cluster_costs.cluster_group}
+              END ;;
   }
 }

@@ -55,19 +55,19 @@ explore: spark_tasks {
   description: "CPU and Memory Usage for Spark"
 }
 
-explore: limr_cluster_costs {
-  label: "Limr Cluster Costs"
-  description: "Financial breakdown of LIMR clusters and jobs"
+explore: limr_cluster_costs_v2 {
+  label: "Limr Cluster Costs v2"
+  description: "Financial breakdown of limr clusters and jobs"
 }
 
 explore: cluster_costs {
   label: "LIMR Cluster Costs"
   description: "Financial breakdown of LIMR clusters and jobs"
   view_label: "LIMR Cluster Costs"
-    join: limr_cluster_costs_job_resources_bak {
+    join: limr_cluster_costs_job_resources {
       view_label: "LIMR Cluster Costs"
       relationship: many_to_one
-      sql_on: ${cluster_costs.lcid} = ${limr_cluster_costs_job_resources_bak.limr_cluster} ;;
+      sql_on: ${cluster_costs.lcid} = ${limr_cluster_costs_job_resources.limr_cluster} ;;
       type: left_outer
     }
   }
