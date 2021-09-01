@@ -1,4 +1,5 @@
-connection: "ny_athena"
+#connection: "ny_athena"
+connection: "nyc-prod"
 label: "NY Athena"
 
 include: "*.view.lkml"                       # include all views in this project
