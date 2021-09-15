@@ -108,6 +108,12 @@ view: job_resource_usage {
     group_item_label: "Name"
   }
 
+  dimension: delivery_partner {
+    description: "Delivery Partner Name"
+    type: string
+    sql: REGEXP_EXTRACT(${application_tags},'(.+)-([a-z]+)-(\d{8})',2);;
+  }
+
   measure: applications {
     description: "Count of application runs"
     label: "Runs"
