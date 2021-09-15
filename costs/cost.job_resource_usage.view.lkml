@@ -52,6 +52,15 @@ view: job_resource_usage {
     group_item_label: "Final Status"
   }
 
+  dimension: application_tags {
+    description: "Application Tag & Date"
+    label: "Application Tag"
+    type: string
+    sql: ${TABLE}.applicationtags ;;
+    group_label: "Application"
+    group_item_label: "Tag"
+  }
+
   dimension: application_type {
     description: "Spark or MapReduce"
     type: string
@@ -200,7 +209,7 @@ view: job_resource_usage {
     hidden: yes
     type: number
     sql: ${mb_seconds} ;;
-    drill_fields: [application_id,application_name,application_type,mb_seconds_app]
+    drill_fields: [application_id,application_name,application_tags,application_type,mb_seconds_app]
   }
 
   measure: vcore_seconds_jobs {
@@ -209,7 +218,7 @@ view: job_resource_usage {
     hidden: yes
     type: number
     sql: ${vcore_seconds} ;;
-    drill_fields: [application_id,application_name,application_type,vcore_seconds_app]
+    drill_fields: [application_id,application_name,application_tags,application_type,vcore_seconds_app]
   }
 
   measure: mb_seconds_app {
@@ -239,7 +248,7 @@ view: job_resource_usage {
   }
 
   set: app_drill {
-    fields: [application_id,application_name, application_type,mb_seconds,vcore_seconds]
+    fields: [application_id,application_name,application_tags,application_type,mb_seconds,vcore_seconds]
   }
 
 }
