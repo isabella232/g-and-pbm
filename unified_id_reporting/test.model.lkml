@@ -10,7 +10,7 @@ explore: partner_cookie_stats{
 
 # Un-hide and use this explore, or copy the joins into another explore, to get all the fully nested relationships from this view
 explore: lidid_info__20210906 {
-  hidden: yes
+
 
   join: lidid_info__20210906__basic_info__urls__value {
     view_label: "Lidid Info 20210906: Basicinfo Urls Value"
