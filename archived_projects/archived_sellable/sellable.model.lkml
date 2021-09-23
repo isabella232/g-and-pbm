@@ -13,7 +13,7 @@ datagroup: new_sellable_pair {
 }
 
 explore: total_liids_and_pairs_by_sellable_geo {
-  label: "[LOG] Total LIIDs and Pairs (Geo)"
+  label: "[LOG] Total LIIDs and Pairs (Geos)"
   description: "Do NOT use unless absolutely necessary"
   hidden: yes
 }
