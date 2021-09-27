@@ -74,3 +74,18 @@ explore: auto_logs_pixelconfig_emptypixel_total_interval15_7d  {
 
   hidden:  no
 }
+
+explore: cleaned_soft_click_log  {
+
+  hidden:  no
+}
+
+explore: cleanedliuserver_log  {
+
+  hidden:  no
+}
+
+explore: impression  {
+
+  hidden:  no
+}
