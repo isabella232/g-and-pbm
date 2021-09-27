@@ -20,7 +20,7 @@ include: "*.view.lkml"                # include all views in the views/ folder i
 #   }
 # }
 
-explore: bi_rs_20210924_looker_mpp{
-
+explore: looker_mpp{
+  from: bi_rs_20210924_looker_mpp
   hidden:  no
 }
