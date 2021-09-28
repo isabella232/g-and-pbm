@@ -63,7 +63,7 @@ view: cube_on_mapping_plus_user_agent_split {
   measure: count {
     type: sum
     sql: ${TABLE}.count ;;
-    value_format_name: decimal_0
+    value_format_name: decimal_4
     drill_fields: []
   }
 }
