@@ -416,4 +416,22 @@ view: sspcustom_exact {
     sql: ${TABLE}.template_id ;;
   }
 
+  set: basic_measures {
+    fields: [advertiser_spent_sum,
+            calculated_upa_sum,
+            clicks_sum,
+            conversions_sum,
+            decisions_sum,
+            impressions_sum,
+            noads_sum,
+            publisher_revenue_sum,
+            pvc_sum,
+            bid_price_average,
+            click_prob_avg,
+            conv_prob_avg,
+            bid_price_median,
+            click_prob_median,
+            conv_prob_median]
+  }
+
 }

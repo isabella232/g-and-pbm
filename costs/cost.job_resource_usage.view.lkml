@@ -5,7 +5,7 @@ view: job_resource_usage {
   dimension_group: run {
     description: "Date of log file"
     type: time
-    timeframes: [date,day_of_month,day_of_week,month,year]
+    timeframes: [date,day_of_month,day_of_week,month,quarter,year]
     sql: DATE_PARSE(CONCAT(${TABLE}.year_p,${TABLE}.month_p,${TABLE}.day_p),'%Y%m%d') ;;
   }
 
@@ -13,37 +13,60 @@ view: job_resource_usage {
     description: "Name of cluster"
     type: string
     sql: ${TABLE}.clustername ;;
+    group_label: "Cluster"
+    group_item_label: "Name"
   }
 
   dimension: cluster_group {
-    description: "Cluster name if daily job"
+    description: "Simplified cluster name if daily job"
     type: string
-    sql: COALESCE(REGEXP_EXTRACT(${cluster_name},'(.*)(?=-\d{8}$)',1),'Ad hoc') ;;
+    sql: COALESCE(REGEXP_EXTRACT(${cluster_name},'(.*)(?=-\d{8}($|-\d+$))',1),
+                  REGEXP_EXTRACT(${cluster_name},'^lss-production'),
+                  REGEXP_EXTRACT(${cluster_name},'^lss-dev'),
+                  'Ad hoc') ;;
+    group_label: "Cluster"
+    group_item_label: "Group Name"
   }
 
   dimension: cluster_group_date {
-    description: "Date of cluster group job"
+    description: "Date of cluster group job. LSS clusters currently have no date available."
     type: string
-    sql: REGEXP_EXTRACT(${cluster_name},'(\d{8}$)',1) ;;
+    sql: REGEXP_EXTRACT(${cluster_name},'(\d{8})($|-\d+$)',1) ;;
+    group_label: "Cluster"
+    group_item_label: "Group Date"
   }
 
   dimension: job_name {
-    description: "DWH job name"
+    description: "LI Application Name"
     type: string
     sql: ${TABLE}.lijobname ;;
+    label: "Application Group Name"
   }
 
   dimension: job_status {
-    description: "Final application status"
+    description: "Success, Failure, Killed"
     label: "Application Status"
     type: string
     sql: ${TABLE}.finalstatus ;;
+    group_label: "Application"
+    group_item_label: "Final Status"
+  }
+
+  dimension: application_tags {
+    description: "Application Tag & Date"
+    label: "Application Tag"
+    type: string
+    sql: ${TABLE}.applicationtags ;;
+    group_label: "Application"
+    group_item_label: "Tag"
   }
 
   dimension: application_type {
     description: "Spark or MapReduce"
     type: string
     sql: ${TABLE}.applicationtype ;;
+    group_label: "Application"
+    group_item_label: "Type"
   }
 
   dimension: application_id {
@@ -51,6 +74,15 @@ view: job_resource_usage {
     type: string
     sql: ${TABLE}.id ;;
     primary_key: yes
+    group_label: "Application"
+    group_item_label: "ID"
+  }
+
+  dimension: lcid {
+    description: "limr cluster id"
+    type: string
+    sql: ${TABLE}.lcid ;;
+    hidden: yes
   }
 
   dimension: join_id {
@@ -69,21 +101,33 @@ view: job_resource_usage {
   }
 
   dimension: application_name {
-    description: "Name of application"
+    description: "Raw name of application"
     type: string
     sql: ${TABLE}.name ;;
+    group_label: "Application"
+    group_item_label: "Name"
+  }
+
+  dimension: delivery_partner {
+    description: "Delivery Partner Name"
+    type: string
+    sql: REGEXP_EXTRACT(${application_tags},'(.+)-([a-z]+)-(\d{8})',2);;
   }
 
   measure: applications {
-    description: "Count of job applications"
+    description: "Count of application runs"
+    label: "Runs"
     type: count
+    group_label: "Count"
   }
 
   measure: jobs {
-    description: "Count of Jobs"
+    description: "Count of Applications"
+    label: "Applications"
     type: count_distinct
     sql: ${job_name} ;;
     drill_fields: [applications_by_job*]
+    group_label: "Count"
   }
 
   measure: clusters {
@@ -91,6 +135,7 @@ view: job_resource_usage {
     type: count_distinct
     sql: ${cluster_name} ;;
     drill_fields: [jobs_by_cluster_group*]
+    group_label: "Count"
   }
 
   measure: mb_seconds {
@@ -99,6 +144,7 @@ view: job_resource_usage {
     type: sum
     sql: ${TABLE}.memoryseconds ;;
     drill_fields: [cluster_group,mb_seconds_cg]
+    group_label: "Duration"
   }
 
   measure: vcore_seconds {
@@ -106,6 +152,7 @@ view: job_resource_usage {
     type: sum
     sql: ${TABLE}.vcoreseconds ;;
     drill_fields: [cluster_group,vcore_seconds_cg]
+    group_label: "Duration"
   }
 
   # Drill Measures #
@@ -168,7 +215,7 @@ view: job_resource_usage {
     hidden: yes
     type: number
     sql: ${mb_seconds} ;;
-    drill_fields: [application_id,application_name,application_type,mb_seconds_app]
+    drill_fields: [application_id,application_name,application_tags,application_type,mb_seconds_app]
   }
 
   measure: vcore_seconds_jobs {
@@ -177,7 +224,7 @@ view: job_resource_usage {
     hidden: yes
     type: number
     sql: ${vcore_seconds} ;;
-    drill_fields: [application_id,application_name,application_type,vcore_seconds_app]
+    drill_fields: [application_id,application_name,application_tags,application_type,vcore_seconds_app]
   }
 
   measure: mb_seconds_app {
@@ -207,7 +254,50 @@ view: job_resource_usage {
   }
 
   set: app_drill {
-    fields: [application_id,application_name, application_type,mb_seconds,vcore_seconds]
+    fields: [application_id,application_name,application_tags,application_type,mb_seconds,vcore_seconds]
+  }
+
+}
+
+view: cluster_costs {
+  extends: [job_resource_usage]
+  derived_table: {
+    sql: SELECT *,
+        SUM(memoryseconds) OVER (PARTITION BY lcid) ttl_mb_sec,
+        memoryseconds/CAST(SUM(memoryseconds) OVER (PARTITION BY lcid) AS REAL) pct_ttl_lcid_mb,
+        SUM(vcoreseconds) OVER (PARTITION BY lcid) ttl_vcore_sec,
+        vcoreseconds/CAST(SUM(vcoreseconds) OVER (PARTITION BY lcid) AS REAL) pct_ttl_lcid_vcore
+        FROM auto_logs.app_metrics ;;
+  }
+
+  dimension: pct_ttl_lcid_mb {
+    type: number
+    sql: ${TABLE}.pct_ttl_lcid_mb;;
+    value_format_name: percent_4
+    hidden: yes
+  }
+
+  dimension: pct_ttl_lcid_vcore {
+    type: number
+    sql: ${TABLE}.pct_ttl_lcid_vcore ;;
+    value_format_name: percent_4
+    hidden: yes
+  }
+
+  dimension_group: run {
+    description: "Items can have multiple run dates if duration is greater than a day. Start date works as alternative."
+  }
+
+  dimension: job_name {
+    hidden: yes
+  }
+
+  dimension: application_group_name {
+    type: string
+    sql: REGEXP_REPLACE(${job_name}, '-\d{8}$') ;;
+    description: "Simplified application name if daily job."
+    group_label: "Application"
+    group_item_label: "Group Name"
   }
 
 }

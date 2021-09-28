@@ -1,13 +1,14 @@
-view: sellable_pairs_hem_maid_pairs_info {
+view: sellable_identity_domain_relations_latest {
   derived_table: {
-    sql: SELECT *, CASE WHEN connectedhemmaidavailability = '' THEN 'None' ELSE connectedhemmaidavailability END connected_hem_maid_availability FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info WHERE date_p IN (SELECT MAX(date_p) FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info);;
+    sql: SELECT * FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info WHERE date_p IN (SELECT MAX(date_p) FROM auto_bidatapipelines.sellable_pairs_hem_maid_pairs_info);;
   }
 
   suggestions: no
 
   dimension: connected_hem_maid_availability {
     type: string
-    sql: ${TABLE}.connected_hem_maid_availability;;
+    sql: CASE WHEN ${TABLE}.connectedhemmaidavailability = '' THEN 'None'
+    ELSE ${TABLE}.connectedhemmaidavailability END;;
     label: "Hem Maid Availability"
   }
 
@@ -32,7 +33,7 @@ view: sellable_pairs_hem_maid_pairs_info {
 # Measures #
   measure: count_hems {
     type: sum
-    sql: ${TABLE}.connectedhems ;;
+    sql: ${TABLE}.connectedhems;;
     value_format_name: decimal_0
   }
 

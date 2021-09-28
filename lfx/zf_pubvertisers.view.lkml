@@ -1,5 +1,5 @@
 view: zf_pubvertisers {
-  sql_table_name: lfx.zf_pubvertisers ;;
+  sql_table_name: AwsDataCatalog.lfx.zf_pubvertisers ;;
   drill_fields: [id]
   suggestions: no
 
@@ -305,6 +305,8 @@ view: zf_pubvertisers {
   dimension: name {
     type: string
     sql: ${TABLE}.name ;;
+    label: "Publisher or Advertiser Name"
+    description: "Name associated with Publisher ID"
   }
 
   dimension: pds_user_id {
@@ -546,6 +548,8 @@ view: zf_pubvertisers {
   dimension: publisher_id {
     type: number
     sql: ${userver_id} ;;
+    value_format_name: id
+    description: "Publisher ID on the LiveIntent platform"
   }
 
   dimension: advertiser_id {
@@ -560,6 +564,14 @@ view: zf_pubvertisers {
 
   measure: count {
     type: count
+  }
+
+  measure: count_publishers {
+    type: count_distinct
+    sql: ${publisher_id} ;;
+    label: "Count (Publishers)"
+    drill_fields: [zf_agencies.userver_id, zf_agencies.name, publisher_id, name]
+    description: "Count of unique publisher IDs"
   }
 
   # ----- Sets of fields for drilling ------

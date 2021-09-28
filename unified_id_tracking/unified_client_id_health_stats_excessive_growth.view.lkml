@@ -1,5 +1,10 @@
 view: unified_client_id_health_stats_excessive_growth {
-  sql_table_name: auto_clientidentifiers.unified_client_id_health_stats_excessive_growth ;;
+  derived_table: {
+    sql: SELECT *
+FROM auto_clientidentifiers.unified_client_id_health_stats_excessive_growth
+WHERE CAST(date_p AS integer) > (SELECT CAST(max(date_p) AS INTEGER)-7 FROM auto_clientidentifiers.unified_client_id_health_stats_excessive_growth);;
+  }
+
   suggestions: no
 
   dimension_group: generation {
@@ -15,7 +20,7 @@ view: unified_client_id_health_stats_excessive_growth {
 
   measure: growth1day {
     type: sum
-    sql: ${TABLE}.growth1day ;;
+    sql: ${TABLE}.growth ;;
   }
 
   measure: size {

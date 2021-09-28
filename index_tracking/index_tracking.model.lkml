@@ -1,7 +1,11 @@
-connection: "athena_copenhagen"
+connection: "bigquery_log_data"
 
 include: "*.view.lkml"                # include all views in the views/ folder in this project
 
+datagroup: bigquery_idx_update  {
+  sql_trigger: SELECT MAX(_TABLE_SUFFIX)
+  FROM `elite-contact-671.auto_logs.idaas_idx_track_log__*`  ;;
+}
 explore: index_tracking {
 }
 

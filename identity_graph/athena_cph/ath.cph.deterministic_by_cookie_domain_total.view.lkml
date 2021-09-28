@@ -43,6 +43,7 @@ view: deterministic_by_cookie_domain_total {
         FROM auto_sellable.sellable_pair
         WHERE date_p='20190910'
         AND region_p = 'US'
+        AND hashIsSellable
 
         UNION
 
@@ -89,6 +90,7 @@ SELECT cookiedomain,
         FROM auto_sellable.sellable_pair
         WHERE date_p='20190910'
         AND region_p = 'US'
+        AND hashIsSellable
         GROUP BY 1
  ;;
   }
